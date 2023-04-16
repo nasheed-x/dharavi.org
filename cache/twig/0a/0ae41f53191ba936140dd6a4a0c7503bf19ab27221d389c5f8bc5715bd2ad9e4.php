@@ -106,6 +106,6 @@ class __TwigTemplate_d27b9354ec778e0ed3596cbd318d34abfd8201b0c523cf37fd1aa989cc1
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "modular/stats.html.twig", "/Users/nasheed-x/Downloads/dharavi.org/user/themes/hola/templates/modular/stats.html.twig");
+        return new Twig_Source("", "modular/stats.html.twig", "/Users/nasheed-x/Documents/GitHub/dharavi.org/user/themes/hola/templates/modular/stats.html.twig");
     }
 }
