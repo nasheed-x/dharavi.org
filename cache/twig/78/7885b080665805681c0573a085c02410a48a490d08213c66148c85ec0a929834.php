@@ -118,6 +118,6 @@ class __TwigTemplate_2e46c714b3c3bb5649a7d74e52839e17c8a8276aa249230714fd9074640
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "partials/footer.html.twig", "/Users/nasheed-x/Documents/GitHub/dharavi.org/user/themes/hola/templates/partials/footer.html.twig");
+        return new Twig_Source("", "partials/footer.html.twig", "/Users/shreyamanjrekar/Documents/GitHub/dharavi.org/user/themes/hola/templates/partials/footer.html.twig");
     }
 }
