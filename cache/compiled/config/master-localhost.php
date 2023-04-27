@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1682584154,
-    'checksum' => '10482eaa06b14a22ccc9aa71d0a527b7',
+    'timestamp' => 1682584849,
+    'checksum' => '56b9526cd7cbd765311e0f77b6a0df51',
     'files' => [
         'user/config' => [
             'media' => [
@@ -27,7 +27,7 @@ return [
             ],
             'themes/hola' => [
                 'file' => 'user/config/themes/hola.yaml',
-                'modified' => 1682584150
+                'modified' => 1682584847
             ]
         ],
         'system/config' => [
@@ -691,7 +691,7 @@ return [
                     ]
                 ],
                 'footer-text' => '© dharavi.org 2023',
-                'footer-design' => 'Maintained by <a href="https://www.urbz.net/">urbz</a>.',
+                'footer-design' => '<a href="https://www.urbz.net/">urbz.net</a>',
                 'footer-social' => [
                     0 => [
                         'socialIconClass' => 'fa fa-facebook-square',
@@ -719,7 +719,7 @@ return [
                         'socialIconLink' => '#0'
                     ]
                 ],
-                'footer-additional-text' => 'This project was supported by student from EfSI 2023.'
+                'footer-additional-text' => '<a href="https://www.nyuad.io/">Engineers for Social Impact 2023</a>'
             ]
         ]
     ]

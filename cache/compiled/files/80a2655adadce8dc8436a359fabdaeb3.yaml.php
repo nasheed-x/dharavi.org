@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/config/themes/hola.yaml',
-    'modified' => 1682584150,
+    'modified' => 1682584847,
     'data' => [
         'enabled' => true,
         'custom_logo' => [
@@ -14,7 +14,7 @@ return [
             ]
         ],
         'footer-text' => '© dharavi.org 2023',
-        'footer-design' => 'Maintained by <a href="https://www.urbz.net/">urbz</a>.',
+        'footer-design' => '<a href="https://www.urbz.net/">urbz.net</a>',
         'footer-social' => [
             0 => [
                 'socialIconClass' => 'fa fa-facebook-square',
@@ -42,6 +42,6 @@ return [
                 'socialIconLink' => '#0'
             ]
         ],
-        'footer-additional-text' => 'This project was supported by student from EfSI 2023.'
+        'footer-additional-text' => '<a href="https://www.nyuad.io/">Engineers for Social Impact 2023</a>'
     ]
 ];

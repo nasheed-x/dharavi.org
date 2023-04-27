@@ -23,7 +23,7 @@ class __TwigTemplate_2e46c714b3c3bb5649a7d74e52839e17c8a8276aa249230714fd9074640
             <div class=\"footer-logo\">
                 <a class=\"footer-site-logo\" href=\"";
         // line 6
-        echo ($context["base_url_relative"] ?? null);
+        echo ($context["home_url"] ?? null);
         echo "\">";
         $this->loadTemplate("partials/logo.html.twig", "partials/footer.html.twig", 6)->display($context);
         echo "</a>

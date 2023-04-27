@@ -5,7 +5,7 @@ custom_logo:
     type: image/png
     size: 5238
     path: user/themes/hola/images/logo/logo.png
-footer-text: '© Copyright Dharavi.org 2023'
+footer-text: '© Copyright Devlom 2022'
 footer-design: 'Design by <a href="https://www.styleshout.com/">styleshout</a>, GRAV conversion by <a href="https://devlom.com/">Devlom</a>'
 footer-social:
   -

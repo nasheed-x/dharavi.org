@@ -85,7 +85,7 @@ class __TwigTemplate_e494009aac6ae72b791ecb6de86e49d9af22fcc74c8a88b51593378dc33
                     echo " \">
                     <a href=\"";
                     // line 51
-                    echo ($context["base_url_relative"] ?? null);
+                    echo ($context["base_url_absolute"] ?? null);
                     echo "#";
                     echo $this->getAttribute($context["module"], "menu", array());
                     echo "\">

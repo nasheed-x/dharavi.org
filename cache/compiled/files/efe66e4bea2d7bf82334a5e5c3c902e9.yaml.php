@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => 'themes://hola/hola.yaml',
-    'modified' => 1682545260,
+    'modified' => 1682597458,
     'data' => [
         'enabled' => true,
         'custom_logo' => [
@@ -13,7 +13,7 @@ return [
                 'path' => 'user/themes/hola/images/logo/logo.png'
             ]
         ],
-        'footer-text' => '© Copyright Dharavi.org 2023',
+        'footer-text' => '© Copyright Devlom 2022',
         'footer-design' => 'Design by <a href="https://www.styleshout.com/">styleshout</a>, GRAV conversion by <a href="https://devlom.com/">Devlom</a>',
         'footer-social' => [
             0 => [

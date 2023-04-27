@@ -188,7 +188,7 @@ class __TwigTemplate_d0cbb38ce6392a8c63aff90e6c5be232be7fcdeb5db9cecc7044842da84
                 <div class=\"header-logo\">
                     <a class=\"footer-site-logo\" href=\"";
         // line 52
-        echo ($context["base_url_relative"] ?? null);
+        echo ($context["home_url"] ?? null);
         echo "\">
                         ";
         // line 53
