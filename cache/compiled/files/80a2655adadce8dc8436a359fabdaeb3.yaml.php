@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/config/themes/hola.yaml',
-    'modified' => 1682602844,
+    'modified' => 1682615661,
     'data' => [
         'enabled' => true,
         'custom_logo' => [

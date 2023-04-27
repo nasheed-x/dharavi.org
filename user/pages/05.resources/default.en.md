@@ -1,5 +1,5 @@
 ---
-title: 'Sample Page'
+title: 'Resources'
 media_order: devlom-logo.png
 visible: true
 ---

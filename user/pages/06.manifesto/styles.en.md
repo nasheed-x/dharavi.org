@@ -1,7 +1,7 @@
 ---
-title: Styles
+title: Manifesto
 media_order: sample-image.jpg
-menu: Styles
+menu: Manifesto
 visible: true
 button1Text: 'Latest Projects'
 button1Link: '#works'
