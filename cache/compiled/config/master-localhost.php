@@ -1,77 +1,77 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1682584849,
-    'checksum' => '56b9526cd7cbd765311e0f77b6a0df51',
+    'timestamp' => 1682612928,
+    'checksum' => '8489baa0199db29b9aaa7625247f0606',
     'files' => [
         'user/config' => [
             'media' => [
                 'file' => 'user/config/media.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'security' => [
                 'file' => 'user/config/security.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'site' => [
                 'file' => 'user/config/site.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'streams' => [
                 'file' => 'user/config/streams.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'system' => [
                 'file' => 'user/config/system.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'themes/hola' => [
                 'file' => 'user/config/themes/hola.yaml',
-                'modified' => 1682584847
+                'modified' => 1682612505
             ]
         ],
         'system/config' => [
             'media' => [
                 'file' => 'system/config/media.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'security' => [
                 'file' => 'system/config/security.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'site' => [
                 'file' => 'system/config/site.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'streams' => [
                 'file' => 'system/config/streams.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'system' => [
                 'file' => 'system/config/system.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ]
         ],
         'user/plugins' => [
             'plugins/pagination' => [
                 'file' => 'user/plugins/pagination/pagination.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'plugins/form' => [
                 'file' => 'user/plugins/form/form.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'plugins/problems' => [
                 'file' => 'user/plugins/problems/problems.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'plugins/error' => [
                 'file' => 'user/plugins/error/error.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'plugins/email' => [
                 'file' => 'user/plugins/email/email.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ]
         ]
     ],
@@ -692,33 +692,6 @@ return [
                 ],
                 'footer-text' => '© dharavi.org 2023',
                 'footer-design' => '<a href="https://www.urbz.net/">urbz.net</a>',
-                'footer-social' => [
-                    0 => [
-                        'socialIconClass' => 'fa fa-facebook-square',
-                        'socialIconText' => 'Facebook',
-                        'socialIconLink' => 'https://www.facebook.com/devlom'
-                    ],
-                    1 => [
-                        'socialIconClass' => 'fa fa-twitter',
-                        'socialIconText' => 'Twitter',
-                        'socialIconLink' => 'https://twitter.com/devlomthemes'
-                    ],
-                    2 => [
-                        'socialIconClass' => 'fa fa-instagram',
-                        'socialIconText' => 'Instagram',
-                        'socialIconLink' => '#0'
-                    ],
-                    3 => [
-                        'socialIconClass' => 'fa fa-behance',
-                        'socialIconText' => 'Behance',
-                        'socialIconLink' => '#0'
-                    ],
-                    4 => [
-                        'socialIconClass' => 'fa fa-pinterest',
-                        'socialIconText' => 'Pinterest',
-                        'socialIconLink' => '#0'
-                    ]
-                ],
                 'footer-additional-text' => '<a href="https://www.nyuad.io/">Engineers for Social Impact 2023</a>'
             ]
         ]

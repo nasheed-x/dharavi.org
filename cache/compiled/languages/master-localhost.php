@@ -1,135 +1,135 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledLanguages',
-    'timestamp' => 1681661130,
-    'checksum' => '9e64d98073e98af3ffd81cbc689a6636',
+    'timestamp' => 1682612928,
+    'checksum' => '66111a5748b533ac7d7001263d886d10',
     'files' => [
         'system/languages' => [
             'ar' => [
                 'file' => 'system/languages/ar.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'ca' => [
                 'file' => 'system/languages/ca.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'cs' => [
                 'file' => 'system/languages/cs.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'da' => [
                 'file' => 'system/languages/da.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'de' => [
                 'file' => 'system/languages/de.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'el' => [
                 'file' => 'system/languages/el.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'en' => [
                 'file' => 'system/languages/en.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'es' => [
                 'file' => 'system/languages/es.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'fi' => [
                 'file' => 'system/languages/fi.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'fr' => [
                 'file' => 'system/languages/fr.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'hr' => [
                 'file' => 'system/languages/hr.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'hu' => [
                 'file' => 'system/languages/hu.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'it' => [
                 'file' => 'system/languages/it.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'ja' => [
                 'file' => 'system/languages/ja.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'lt' => [
                 'file' => 'system/languages/lt.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'nb' => [
                 'file' => 'system/languages/nb.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'nl' => [
                 'file' => 'system/languages/nl.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'no' => [
                 'file' => 'system/languages/no.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'pl' => [
                 'file' => 'system/languages/pl.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'pt' => [
                 'file' => 'system/languages/pt.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'ro' => [
                 'file' => 'system/languages/ro.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'ru' => [
                 'file' => 'system/languages/ru.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'sk' => [
                 'file' => 'system/languages/sk.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'sv' => [
                 'file' => 'system/languages/sv.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'th' => [
                 'file' => 'system/languages/th.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'tr' => [
                 'file' => 'system/languages/tr.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'uk' => [
                 'file' => 'system/languages/uk.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'vi' => [
                 'file' => 'system/languages/vi.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ]
         ],
         'user/plugins' => [
             'plugins/form' => [
                 'file' => 'user/plugins/form/languages.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'plugins/error' => [
                 'file' => 'user/plugins/error/languages.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ],
             'plugins/email' => [
                 'file' => 'user/plugins/email/languages.yaml',
-                'modified' => 1681660958
+                'modified' => 1682527976
             ]
         ]
     ],
@@ -3002,7 +3002,7 @@ Path: `%2$s`
                 6 => 'Chủ Nhật'
             ]
         ],
-        'checksum' => '9e64d98073e98af3ffd81cbc689a6636',
-        'timestamp' => 1681661130
+        'checksum' => '66111a5748b533ac7d7001263d886d10',
+        'timestamp' => 1682612928
     ]
 ];
