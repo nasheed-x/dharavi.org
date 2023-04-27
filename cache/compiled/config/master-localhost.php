@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1681661004,
-    'checksum' => '29f5684ddbed534b15e7ff8a267b3a63',
+    'timestamp' => 1682584154,
+    'checksum' => '10482eaa06b14a22ccc9aa71d0a527b7',
     'files' => [
         'user/config' => [
             'media' => [
@@ -27,7 +27,7 @@ return [
             ],
             'themes/hola' => [
                 'file' => 'user/config/themes/hola.yaml',
-                'modified' => 1681660958
+                'modified' => 1682584150
             ]
         ],
         'system/config' => [
@@ -690,8 +690,8 @@ return [
                         'path' => 'user/themes/hola/images/logo/logo.png'
                     ]
                 ],
-                'footer-text' => '© Copyright Hola 2018',
-                'footer-design' => 'Design by <a href="https://www.styleshout.com/">styleshout</a>, GRAV conversion by <a href="https://devlom.com/">Devlom</a>',
+                'footer-text' => '© dharavi.org 2023',
+                'footer-design' => 'Maintained by <a href="https://www.urbz.net/">urbz</a>.',
                 'footer-social' => [
                     0 => [
                         'socialIconClass' => 'fa fa-facebook-square',
@@ -719,7 +719,7 @@ return [
                         'socialIconLink' => '#0'
                     ]
                 ],
-                'footer-additional-text' => 'Porting this template to GRAV was made possible with support of <a href="https://davidhagenauer.com/">davidhagenauer.com</a>.'
+                'footer-additional-text' => 'This project was supported by student from EfSI 2023.'
             ]
         ]
     ]

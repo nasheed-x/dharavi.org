@@ -19,7 +19,7 @@ feed:
     description: 'Blog news'
     limit: 0
 pagination: true
-visible: false
+visible: true
 
 ---
 

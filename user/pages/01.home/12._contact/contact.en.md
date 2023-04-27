@@ -3,7 +3,7 @@ title: 'Say Hello.'
 media_order: contact-bg.jpg
 smallTitle: Contact
 menu: contact
-visible: true
+visible: false
 background: contact-bg.jpg
 cache_enable: false
 opacity: '0.75'

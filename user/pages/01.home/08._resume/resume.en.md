@@ -2,7 +2,7 @@
 title: 'More of my credentials.'
 smallTitle: Resume
 menu: resume
-visible: true
+visible: false
 sectionBackground: grey-section
 timeline:
     -

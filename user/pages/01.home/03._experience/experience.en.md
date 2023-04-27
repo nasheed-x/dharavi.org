@@ -1,7 +1,7 @@
 ---
 title: 'My Work Experience'
 menu: experience
-visible: true
+visible: false
 experienceTimeline:
     -
         date: 'July 2015 - Present'

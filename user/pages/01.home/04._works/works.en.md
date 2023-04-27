@@ -2,7 +2,7 @@
 title: 'See My Latest Projects.'
 smallTitle: Portfolio
 menu: works
-visible: true
+visible: false
 sectionBackground: gray-section
 portfolio:
     -

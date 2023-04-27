@@ -3,12 +3,12 @@ title: 'Hello!'
 media_order: hero-bg.jpg
 menu: home
 redirect: home
-visible: true
+visible: false
 background: hero-bg.jpg
 bannerOpacity: '0.5'
-button1Text: 'Latest Projects'
-button1Link: '#works'
-button2Text: 'More About Me'
+button1Text: 'Latest Posts'
+button1Link: '/blog'
+button2Text: 'Who Are We?'
 button2Link: '#about'
 button3Text: 'Scroll Down'
 button3Link: '#about'

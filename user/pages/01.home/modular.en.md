@@ -1,11 +1,11 @@
 ---
-title: Hola
+title: dharavi.org
 content:
     items: '@self.modular'
 menu: Home
-visible: false
+visible: true
 admin:
     children_display_order: collection
-onpage_menu: false
+onpage_menu: true
 ---
 

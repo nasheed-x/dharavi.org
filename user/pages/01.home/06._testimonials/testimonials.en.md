@@ -2,7 +2,7 @@
 title: 'What People Say.'
 media_order: 'user-01.jpg,user-02.jpg,user-03.jpg,user-04.jpg,user-05.jpg,testimonial-bg.jpg,blog-03-bg.jpg'
 menu: testimonials
-visible: true
+visible: false
 sectionbackground: testimonial-bg.jpg
 backgroundOverlay: '0.85'
 testimonials:
