@@ -6,7 +6,7 @@ security.yaml
 /accounts/*
 !/accounts/.*
 /plugins/*
-/cache/*
+cache/*
 !/plugins/.*
 css-compiled
 *.sass-cache
@@ -64,3 +64,6 @@ tests/cache/*
 tests/error.log
 system/templates/testing/*
 /user/config/versions.yaml
+cache/compiled/blueprints/master-localhost.php
+cache/compiled/config/master-localhost.php
+cache/compiled/files/80a2655adadce8dc8436a359fabdaeb3.yaml.php
