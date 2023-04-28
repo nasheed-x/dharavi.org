@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/system/languages/el.yaml',
-    'modified' => 1681660958,
+    'modified' => 1682672702,
     'data' => [
         'MONTHS_OF_THE_YEAR' => [
             0 => 'Ιανουάριος',

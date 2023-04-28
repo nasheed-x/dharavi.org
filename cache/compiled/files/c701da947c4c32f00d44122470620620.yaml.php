@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/plugins/pagination/blueprints.yaml',
-    'modified' => 1681660958,
+    'modified' => 1682672702,
     'data' => [
         'name' => 'Pagination',
         'version' => '1.4.1',

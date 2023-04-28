@@ -301,6 +301,6 @@ class __TwigTemplate_e494009aac6ae72b791ecb6de86e49d9af22fcc74c8a88b51593378dc33
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "partials/navigation.html.twig", "/Users/shreyamanjrekar/Documents/GitHub/dharavi.org/user/themes/hola/templates/partials/navigation.html.twig");
+        return new Twig_Source("", "partials/navigation.html.twig", "/Users/nasheed-x/Documents/GitHub/dharavi.org/user/themes/hola/templates/partials/navigation.html.twig");
     }
 }

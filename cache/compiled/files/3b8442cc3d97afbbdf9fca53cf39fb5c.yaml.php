@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/system/config/security.yaml',
-    'modified' => 1681660958,
+    'modified' => 1682672702,
     'data' => [
         'xss_whitelist' => [
             0 => 'admin.super'
