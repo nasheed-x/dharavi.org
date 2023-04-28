@@ -1,11 +1,7 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledBlueprints',
-<<<<<<< Updated upstream
     'timestamp' => 1682624349,
-=======
-    'timestamp' => 1682607522,
->>>>>>> Stashed changes
     'checksum' => 'f05646832dece73da1b56738332dc926',
     'files' => [
         'system/blueprints/config' => [
