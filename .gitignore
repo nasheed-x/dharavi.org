@@ -27,7 +27,6 @@ vendor/*
 backup/*
 !backup/.*
 cache/*
-!cache/.*
 assets/*
 !assets/.*
 logs/*
