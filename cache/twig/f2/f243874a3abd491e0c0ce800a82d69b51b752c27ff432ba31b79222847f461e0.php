@@ -279,6 +279,6 @@ class __TwigTemplate_6754a5a54ab7533a70fa266327304183a395f50bef2e9c0b047e4513350
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "blog.html.twig", "/Users/nasheed-x/Documents/GitHub/dharavi.org/user/themes/hola/templates/blog.html.twig");
+        return new Twig_Source("", "blog.html.twig", "/Users/curtis/Documents/GitHub/dharavi.org/user/themes/hola/templates/blog.html.twig");
     }
 }

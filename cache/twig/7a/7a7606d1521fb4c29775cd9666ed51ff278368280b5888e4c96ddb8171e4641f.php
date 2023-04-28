@@ -159,6 +159,6 @@ $context["paginate"], "isDeltaBorder", array())) {
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "partials/pagination.html.twig", "/Users/nasheed-x/Documents/GitHub/dharavi.org/user/themes/hola/templates/partials/pagination.html.twig");
+        return new Twig_Source("", "partials/pagination.html.twig", "/Users/curtis/Documents/GitHub/dharavi.org/user/themes/hola/templates/partials/pagination.html.twig");
     }
 }
