@@ -1,15 +1,15 @@
 ---
 title: 'Hello!'
-media_order: dharavi-main.jpg
+media_order: hero-bg.jpg
 menu: home
 redirect: home
 visible: false
-background: dharavi-main.jpg
+background: hero-bg.jpg
 bannerOpacity: '0.5'
 button1Text: 'Latest Posts'
 button1Link: '/blog'
 button2Text: 'Who Are We?'
-button2Link: '/about'
+button2Link: '#about'
 button3Text: 'Scroll Down'
 button3Link: '#about'
 social:

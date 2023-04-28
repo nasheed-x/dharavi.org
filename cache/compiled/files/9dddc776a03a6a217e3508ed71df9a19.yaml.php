@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/themes/hola/languages.yaml',
-    'modified' => 1681660958,
+    'modified' => 1682672702,
     'data' => [
         'en' => [
             'TRANSLATION_TEST' => 'Hola!',
