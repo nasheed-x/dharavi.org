@@ -1,0 +1,11 @@
+state: enabled
+email: nasheed@nyu.edu
+fullname: admin
+title: admin
+access:
+  admin:
+    login: true
+    super: true
+  site:
+    login: true
+hashed_password: $2y$10$aeeh8A6yqGWEEfSquIVsJ.hBzw57D/BAjZbnwIjdjzyo4smJfxD2i

@@ -12,7 +12,7 @@ $ bin/gpm install email
 
 # Configuration
 
-By default, the plugin uses PHP Mail as the mail engine. 
+By default, the plugin uses PHP Mail as the mail engine.
 
 ```
 enabled: true
@@ -20,6 +20,11 @@ from:
 from_name:
 to:
 to_name:
+queue:
+  enabled: true
+  flush_frequency: '* * * * *'
+  flush_msg_limit: 10
+  flush_time_limit: 100
 mailer:
   engine: sendmail
   smtp:
@@ -28,6 +33,7 @@ mailer:
     encryption: none
     user: ''
     password: ''
+    auth_mode: ''
   sendmail:
     bin: '/usr/sbin/sendmail -bs'
 content_type: text/html
@@ -41,6 +47,8 @@ That's the easiest route. Or you can also alter the Plugin configuration by copy
 The first setting you'd likely change is your `Email from` / `Email to` names and emails.
 
 Also, you'd likely want to setup a SMTP server instead of using PHP Mail, as the latter is not 100% reliable and you might experience problems with emails.
+
+Valid values for `auth_mode` include `plain`, `login`, `cram-md5`, or `null`.
 
 > NOTE: `engine: mail` has been deprecated from the SwiftMail library that this plugin uses as it does not funtion at all.  Please use `smtp` if at all possibe, and `sendmail` if SMTP is not an option.
 
@@ -80,8 +88,8 @@ mailer:
   engine: smtp
   smtp:
     server: smtp.gmail.com
-    port: 465
-    encryption: ssl
+    port: 587
+    encryption: tls
     user: 'YOUR_GOOGLE_EMAIL_ADDRESS'
     password: 'YOUR_GOOGLE_PASSWORD'
 ```
@@ -154,6 +162,25 @@ mailer:
 
 It's that easy!
 
+#### ZOHO
+
+ZOHO is a popular solution for hosted email due to it's great 'FREE' tier.  It's paid options are also very reasonable and combined with the latest UI updates and outstanding security features, it's a solid email option.
+
+In order to get ZOHO working with Grav, you need to send email via a user account.  You can either use your users' password or generate an **App Password** via your ZOHO account (clicking on your avatar once logged in), then navigating to `Two Factor Authentication -> App Passwords -> Generate`. Just enter a unique app name (i.e. `Grav Website`).
+
+NOTE: The SMTP host required can be found in `Settings -> Mail - > Mail Accounts -> POP/IMAP -> SMTP`.  This will provide the SMTP server for this account (it may not be `imap.zoho.com` depending on what region you are in)
+
+```
+mailer:
+  engine: smtp
+  smtp:
+    server: smtp.zoho.com
+    port: 587
+    encryption: tls
+    user: 'ZOHO_EMAIL_ADDRESS'
+    password: 'ZOHO_EMAIL_PASSWORD'
+```
+
 #### Sendmail
 
 Although not as reliable as SMTP not providing as much debug information, sendmail is a simple option as long as your hosting provider is not blocking the default SMTP port `25`:
@@ -178,6 +205,18 @@ Solid SMTP options that even provide a FREE tier for low email volumes include:
 * Amazon SES (62k/month free) - https://aws.amazon.com/ses/
 
 If you are still unsure why should be using one in the first place, check out this article: https://zapier.com/learn/email-marketing/best-transactional-email-sending-services/
+
+## Email Queue
+
+For performance reasons, it's often desirable to queue emails and send them in batches, rather than forcing Grav to wait while an email is sent.  This is because email servers are sometimes slow and you might not want to wait for the whole email-sending process before continuing with Grav processing.
+
+To address this, you can enable the **Email Queue** and this will ensure all email's in Grav are actually sent to the queue, and not sent directly.  In order for the emails to be actually sent, you need to flush the queue.  By default this is handled by the **Grav Scheduler**, so you need to ensure you have that enabled and setup correctly or **your emails will not be sent!!!**.
+
+You can also manually flush the queue by using the provided CLI command:
+
+```
+$ bin/plugin email flush-queue
+```
 
 ## Testing with CLI Command
 
@@ -213,7 +252,7 @@ Add this code in your plugins:
 
         $sent = $this->grav['Email']->send($message);
 ```
- 
+
 # Emails sent with Forms
 
 When executing email actions during form processing, action parameters are inherited from the global configuration but may also be overridden on a per-action basis.
@@ -229,15 +268,79 @@ form:
     # Their values may be referenced in email actions via '{{ form.value.FIELDNAME|e }}'
 
   process:
-    - email:
-        subject: "[Custom form] {{ form.value.name|e }}"
+    email:
+      subject: "[Custom form] {{ form.value.name|e }}"
+      body: "{% include 'forms/data.txt.twig' %}"
+      from: sender@example.com
+      from_name: 'Custom sender name'
+      to: recipient@example.com
+      to_name: 'Custom recipient name'
+      content_type: 'text/plain'
+      process_markdown: true
+```
+
+## Multiple Emails
+
+You can send multiple emails by creating an array of emails under the `process: email:` option in the form:
+
+```
+title: Custom form
+
+form:
+  name: custom_form
+  fields:
+
+    # Any fields you'd like to add to the form:
+    # Their values may be referenced in email actions via '{{ form.value.FIELDNAME|e }}'
+
+  process:
+    email:
+      -
+        subject: "[Custom Email 1] {{ form.value.name|e }}"
         body: "{% include 'forms/data.txt.twig' %}"
-        from: sender@example.com
-        from_name: 'Custom sender name'
-        to: recipient@example.com
-        to_name: 'Custom recipient name'
-        content_type: 'text/plain'
-        process_markdown: true
+        from: {mail: "owner@mysite.com", name: "Site OWner"}
+        to: {mail: "recepient_1@example.com", name: "Recepient 1"}
+        template: "email/base.html.twig"
+      -
+        subject: "[Custom Email 2] {{ form.value.name|e }}"
+        body: "{% include 'forms/data.txt.twig' %}"
+        from: {mail: "owner@mysite.com", name: "Site OWner"}
+        to: {mail: "recepient_2@example.com", name: "Recepient 1"}
+        template: "email/base.html.twig"
+```
+
+## Templating Emails
+
+You can specify a Twig template for HTML rendering, else Grav will use the default one `email/base.html.twig` which is included in this plugin.  You can also specify a custom template that extends the base, where you can customize the `{% block content %}` and `{% block footer %}`.  For example:
+
+```twig
+{% extends 'email/base.html.twig' %}
+
+{% block content %}
+<p>
+    Greetings {{ form.value.name|e }},
+</p>
+
+<p>
+    We have received your request for help. Our team will get in touch with you within 3 Business Days.
+</p>
+
+<p>
+    Regards,
+</p>
+
+<p>
+    <b>My Company</b>
+    <br /><br />
+    E - <a href="mailto:help@mycompany.com">help@mycompany.com</a><br />
+    M - +1 555-123-4567<br />
+    W - <a href="https://mycompany.com">mycompany.com</a>
+</p>
+{% endblock %}
+
+{% block footer %}
+  <p style="text-align: center;">My Company - All Rights Reserved</p>
+{% endblock %}
 ```
 
 ## Sending Attachments
@@ -250,8 +353,7 @@ form:
   name: custom_form
   fields:
 
-    -
-      name: my-file
+    my-file:
       label: 'Add a file'
       type: file
       multiple: false
@@ -263,11 +365,11 @@ form:
         - text/plain
 
   process:
-    -
-      email:
-        body: '{% include "forms/data.html.twig" %}'
-        attachments:
-          - 'my-file'
+
+    email:
+      body: '{% include "forms/data.html.twig" %}'
+      attachments:
+        - 'my-file'
 ```
 
 ## Additional action parameters
@@ -306,6 +408,12 @@ to:
   name: Human-readable name
 ```
 
+or inline:
+
+```
+to: {mail: 'mail@example.com', name: 'Human-readable name'}
+```
+
 #### Multiple email addresses (with and without names)
 
 ```
@@ -320,6 +428,16 @@ to:
     mail+3@example.com
   -
     mail+4@example.com
+```
+
+or inline:
+
+```
+to:
+  - {mail: 'mail@example.com', name: 'Human-readable name'}
+  - {mail: 'mail+2@example.com', name: 'Another human-readable name'}
+  - mail+3@example.com
+  - mail+4@example.com
 ```
 
 ## Multi-part MIME messages
@@ -345,7 +463,7 @@ body:
 
 The first step in determining why emails are not sent is to enable debugging.  This can be done via the `user/config/email.yaml` file or via the plugin settings in the admin.  Just enable this and then try sending an email again.  Then inspect the `logs/email.log` file for potential problems.
 
-#### ISP Port 25 blocking 
+#### ISP Port 25 blocking
 
 By default, when sending via PHP or Sendmail the machine running the webserver will attempt to send mail using the SMTP protocol.  This uses port `25` which is often blocked by ISPs to protected against spamming.  You can determine if this port is blocked by running this command in your temrinal (mac/linux only):
 
@@ -362,12 +480,12 @@ If you get an exception when sending email but you cannot see what the error is,
 
 ```
 errors:
-  display: 1                                    
-  log: true 
+  display: 1
+  log: true
 ```
 
 ## Configuration Issues
 
-As explained above in the Configuration section, if you're using the default settings, set the Plugin configuration to use a SMTP server. It can be [Gmail](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server) or another SMTP server you have at your disposal. 
+As explained above in the Configuration section, if you're using the default settings, set the Plugin configuration to use a SMTP server. It can be [Gmail](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server) or another SMTP server you have at your disposal.
 
 This is the first thing to check. The reason is that PHP Mail, the default system used by the Plugin, is not 100% reliable and emails might not arrive.

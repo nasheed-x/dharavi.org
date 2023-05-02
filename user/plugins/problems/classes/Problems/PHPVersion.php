@@ -1,8 +1,13 @@
 <?php
+
 namespace Grav\Plugin\Problems;
 
 use Grav\Plugin\Problems\Base\Problem;
 
+/**
+ * Class PHPVersion
+ * @package Grav\Plugin\Problems
+ */
 class PHPVersion extends Problem
 {
     public function __construct()
@@ -15,12 +20,15 @@ class PHPVersion extends Problem
         $this->help = 'https://getgrav.org/blog/raising-php-requirements-2018';
     }
 
+    /**
+     * @return $this
+     */
     public function process()
     {
         $min_php_version = defined('GRAV_PHP_MIN') ? GRAV_PHP_MIN : '5.6.4';
-        $your_php_version = phpversion();
+        $your_php_version = PHP_VERSION;
 
-        $msg = "Your PHP <strong>%s</strong> is %s than the minimum of <strong>%s</strong> required";
+        $msg = 'Your PHP <strong>%s</strong> is %s than the minimum of <strong>%s</strong> required';
 
         // Check PHP version
         if (version_compare($your_php_version, $min_php_version, '<')) {

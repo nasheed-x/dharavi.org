@@ -1,3 +1,163 @@
+# v3.2.0
+## 03/28/2022
+
+1. [](#new)
+    * Require **Grav 1.7.32** and **Form 6.0.0**
+1. [](#improved)
+    * Added access email message object inside the twig template file
+2. [](#bugfix)
+    * Fixed twig not being initialized when building an email message
+
+# v3.1.5
+## 01/03/2022
+
+1. [](#improved)
+   * Updated to Swiftmailer `v6.3.0` with PHP 8.1 compatibility [#157](https://github.com/getgrav/grav-plugin-email/issues/157)
+
+# v3.1.4
+## 11/16/2021
+
+1. [](#improved)
+    * Added second parameter to `Email::send()` to get failed recipients
+
+# v3.1.3
+## 07/19/2021
+
+1. [](#improved)
+   * Pass page variable to processed forms [#141](https://github.com/getgrav/grav-plugin-email/pull/141)
+   * Email configuration available to templates [#152](https://github.com/getgrav/grav-plugin-email/pull/152)
+   * New Event after eMail was sent [#151](https://github.com/getgrav/grav-plugin-email/pull/151)
+
+# v3.1.2
+## 04/06/2021
+
+1. [](#new)
+    * Added new `onEmailMessage` event to make object available for editing [#150](https://github.com/getgrav/grav-plugin-email/pull/150)
+
+# v3.1.1
+## 01/31/2021
+
+1. [](#improved)
+    * Latest vendor updates including SwiftMailer `6.2.5`
+    * Updated CLI commands
+    * Minor code cleanup 
+
+# v3.1.0
+## 12/02/2020
+
+1. [](#improved)
+    * Added support for `auth_mode` in SMTP engine [#101](https://github.com/getgrav/grav-plugin-email/pull/101)
+    * Obfuscate the password shown in the CLI `test-email` command [#140](https://github.com/getgrav/grav-plugin-email/pull/140)
+
+# v3.0.10
+## 11/09/2020
+
+1. [](#improved)
+    * Tweaked default `base.html.twig` template to better support dark-mode clients
+    * Latest vendor updates
+1. [](#bugfix)
+    * Add missing support for `template:` in body array
+    * Added check to process markdown with `text/html` content type only
+
+# v3.0.9
+## 06/08/2020
+
+1. [](#improved)
+    * Disable password autocomplete in password field
+    * Don't save empty string in password field [#134](https://github.com/getgrav/grav-plugin-email/issues/134)
+
+# v3.0.8
+## 04/27/2020
+
+1. [](#improved)
+    * Updated vendor library files
+    * Use Grav's Parsedown class
+
+# v3.0.7
+## 03/05/2020
+
+1. [](#improved)
+    * Updated email validator library
+1. [](#bugfix)
+    * Fixed `Invalid resource theme://` on CLI command `test-email` on Grav 1.6.21 and later versions [#128](https://github.com/getgrav/grav-plugin-email/issues/128)
+
+# v3.0.6
+## 02/11/2020
+
+1. [](#improved)
+    * Updated email validator library
+
+# v3.0.5
+## 02/03/2020
+
+1. [](#bugfix)
+    * Fixed a date in changelog (no other changes)
+
+# v3.0.4
+## 01/17/2020
+
+1. [](#improved)
+    * Added ZOHO configuration example
+    * Updated SwiftMailer library for PHP 7.4 support
+
+# v3.0.3
+## 08/16/2019
+
+1. [](#new)
+    * Support an array of multiple emails in `email:` form process
+    * Allow form values in email templates 
+1. [](#improved)
+    * Added Twig blocks for `content` and `footer` in `email/base.html.twig` template
+    * Updated `README.md` to reflect working setup for GMail 
+
+# v3.0.2
+## 05/09/2019
+
+1. [](#new)
+    * Requires Form Plugin v3.0.3
+    * Added Russian translation [#113](https://github.com/getgrav/grav-plugin-email/pull/113)
+1. [](#bugfix)
+    * Better fix for missing attachments when sending an email using a form [form#333](https://github.com/getgrav/grav-plugin-form/issues/333)
+
+# v3.0.1
+## 04/15/2019
+
+1. [](#improved)
+    * Put a `try/catch` around email attachments and log any errors rather than hard fail
+1. [](#bugfix)
+    * Fixed missing attachments when sending an email using a form [form#333](https://github.com/getgrav/grav-plugin-form/issues/333)
+
+# v3.0.0
+## 04/11/2019
+
+1. [](#new)
+    * Added new `template:` to choose twig template option for email form processing
+    * Moved `buildMessage()` and `parseAddressValue()` to Email object and made public
+    * Refactored the `EmailUtils::sendEmail()` to take an array of params or the old param list
+    * Switched to SwiftMailer v.6.1.3 (requires PHP7/Grav 1.6)
+    * SwiftMailer 6.x compatibility fixes  
+    * Updated various translations 
+    * Added support for Email Queue with Scheduler support
+    * Code cleanup, composer update
+    * Added a new `clear-queue-failures` CLI command to flush out failed sends
+1. [](#improved)
+    * Added backlink for scheduler task
+    * Added support for `environment` option to `flushqueue` CLI command 
+    * Fixed mailtrap hostname in README.md
+    * Disable autocomplete on SMTP `user` and `password` fields
+    
+# v2.7.2
+## 01/25/2019
+
+1. [](#improved)
+    * Added default for `to` address
+    * Updated EN language [#99](https://github.com/getgrav/grav-plugin-email/pull/99)
+    * Updated UK language [#98](https://github.com/getgrav/grav-plugin-email/pull/98)
+    * Updated RU language [#100](https://github.com/getgrav/grav-plugin-email/pull/100)
+    * Updated to SwiftMailer v5.4.12
+1. [](#bugfix)
+    * Fixed `mailtrap` hostname    
+
 # v2.7.1
 ## 12/05/2017
 

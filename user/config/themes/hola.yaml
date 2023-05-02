@@ -7,6 +7,7 @@ custom_logo:
     path: user/themes/hola/images/logo/logo.png
 footer-text: '© dharavi.org 2023'
 footer-design: '<a href="https://www.urbz.net/">urbz.net</a>'
+footer-additional-text: '<a href="https://www.nyuad.io/">Engineers for Social Impact 2023</a>'
 # footer-social:
 #   -
 #     socialIconClass: 'fa fa-facebook-square'
@@ -28,4 +29,3 @@ footer-design: '<a href="https://www.urbz.net/">urbz.net</a>'
 #     socialIconClass: 'fa fa-pinterest'
 #     socialIconText: Pinterest
 #     socialIconLink: '#0'
-footer-additional-text: '<a href="https://www.nyuad.io/">Engineers for Social Impact 2023</a>'

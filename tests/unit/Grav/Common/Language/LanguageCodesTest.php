@@ -2,23 +2,26 @@
 
 use Grav\Common\Language\LanguageCodes;
 
-
 /**
  * Class ParsedownTest
  */
 class LanguageCodesTest extends \Codeception\TestCase\Test
 {
-    public function testRtl()
+    public function testRtl(): void
     {
-        $this->assertSame('ltr',
-            LanguageCodes::getOrientation('en'));
-        $this->assertSame('rtl',
-            LanguageCodes::getOrientation('ar'));
-        $this->assertSame('rtl',
-            LanguageCodes::getOrientation('he'));
-        $this->assertTrue(LanguageCodes::isRtl('ar'));
-        $this->assertFalse(LanguageCodes::isRtl('fr'));
-
+        self::assertSame(
+            'ltr',
+            LanguageCodes::getOrientation('en')
+        );
+        self::assertSame(
+            'rtl',
+            LanguageCodes::getOrientation('ar')
+        );
+        self::assertSame(
+            'rtl',
+            LanguageCodes::getOrientation('he')
+        );
+        self::assertTrue(LanguageCodes::isRtl('ar'));
+        self::assertFalse(LanguageCodes::isRtl('fr'));
     }
-
 }

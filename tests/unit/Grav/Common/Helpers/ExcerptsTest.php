@@ -3,10 +3,12 @@
 use Codeception\Util\Fixtures;
 use Grav\Common\Helpers\Excerpts;
 use Grav\Common\Grav;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Uri;
 use Grav\Common\Config\Config;
 use Grav\Common\Page\Pages;
 use Grav\Common\Language\Language;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 
 /**
  * Class ExcerptsTest
@@ -19,7 +21,7 @@ class ExcerptsTest extends \Codeception\TestCase\Test
     /** @var Grav $grav */
     protected $grav;
 
-    /** @var Page $page */
+    /** @var PageInterface $page */
     protected $page;
 
     /** @var Pages $pages */
@@ -36,7 +38,7 @@ class ExcerptsTest extends \Codeception\TestCase\Test
 
     protected $old_home;
 
-    protected function _before()
+    protected function _before(): void
     {
         $grav = Fixtures::get('grav');
         $this->grav = $grav();
@@ -64,22 +66,55 @@ class ExcerptsTest extends \Codeception\TestCase\Test
             'escape_markup'    => false,
             'special_chars'    => ['>' => 'gt', '<' => 'lt'],
         ];
-        $this->page = $this->pages->dispatch('/item2/item2-2');
+        $this->page = $this->pages->find('/item2/item2-2');
         $this->uri->initializeWithURL('http://testing.dev/item2/item2-2')->init();
     }
 
-    protected function _after()
+    protected function _after(): void
     {
         $this->config->set('system.home.alias', $this->old_home);
     }
 
 
-    public function testProcessImageHtml()
+    public function testProcessImageHtml(): void
     {
-        $this->assertRegexp('|<img alt="Sample Image" src="\/images\/.*-sample-image.jpe?g\" data-src="sample-image\.jpg\?cropZoom=300,300" \/>|',
-            Excerpts::processImageHtml('<img src="sample-image.jpg?cropZoom=300,300" alt="Sample Image" />', $this->page));
-        $this->assertRegexp('|<img alt="Sample Image" class="foo" src="\/images\/.*-sample-image.jpe?g\" data-src="sample-image\.jpg\?classes=foo" \/>|',
-            Excerpts::processImageHtml('<img src="sample-image.jpg?classes=foo" alt="Sample Image" />', $this->page));
+        self::assertRegexp(
+            '|<img alt="Sample Image" src="\/images\/.*-sample-image.jpe?g\" data-src="sample-image\.jpg\?cropZoom=300,300" \/>|',
+            Excerpts::processImageHtml('<img src="sample-image.jpg?cropZoom=300,300" alt="Sample Image" />', $this->page)
+        );
+        self::assertRegexp(
+            '|<img alt="Sample Image" class="foo" src="\/images\/.*-sample-image.jpe?g\" data-src="sample-image\.jpg\?classes=foo" \/>|',
+            Excerpts::processImageHtml('<img src="sample-image.jpg?classes=foo" alt="Sample Image" />', $this->page)
+        );
     }
 
+    public function testNoProcess(): void
+    {
+        self::assertStringStartsWith(
+            '<a href="https://play.google.com/store/apps/details?hl=de" id="org.jitsi.meet" target="_blank"',
+            Excerpts::processLinkHtml('<a href="https://play.google.com/store/apps/details?id=org.jitsi.meet&hl=de&target=_blank">regular process</a>')
+        );
+
+        self::assertStringStartsWith(
+            '<a href="https://play.google.com/store/apps/details?id=org.jitsi.meet&hl=de&target=_blank"',
+            Excerpts::processLinkHtml('<a href="https://play.google.com/store/apps/details?id=org.jitsi.meet&hl=de&target=_blank&noprocess">noprocess</a>')
+        );
+
+        self::assertStringStartsWith(
+            '<a href="https://play.google.com/store/apps/details?id=org.jitsi.meet&hl=de" target="_blank"',
+            Excerpts::processLinkHtml('<a href="https://play.google.com/store/apps/details?id=org.jitsi.meet&hl=de&target=_blank&noprocess=id">noprocess=id</a>')
+        );
+    }
+
+    public function testTarget(): void
+    {
+        self::assertStringStartsWith(
+            '<a href="https://play.google.com/store/apps/details" target="_blank"',
+            Excerpts::processLinkHtml('<a href="https://play.google.com/store/apps/details?target=_blank">only target</a>')
+        );
+        self::assertStringStartsWith(
+            '<a href="https://meet.weikamp.biz/Support" rel="nofollow" target="_blank"',
+            Excerpts::processLinkHtml('<a href="https://meet.weikamp.biz/Support?rel=nofollow&target=_blank">target and rel</a>')
+        );
+    }
 }
