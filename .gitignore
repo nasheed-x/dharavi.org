@@ -20,3 +20,8 @@ cache/*
 user/data/*
 !user/data/.gitkeep 
 
+images/*
+!images/.gitkeep 
+
+assets/*
+!assets/.gitkeep 
