@@ -6,7 +6,6 @@ security.yaml
 /accounts/*
 !/accounts/.*
 /plugins/*
-/cache/*
 !/plugins/.*
 css-compiled
 *.sass-cache
@@ -15,53 +14,9 @@ css-compiled
 security.yaml
 themes/hola
 
-# Composer
-.composer
-vendor/*
-!*/vendor/*
-
-# Sass
-.sass-cache
-
-# Grav Specific
-backup/*
-!backup/.*
 cache/*
-!cache/.*
-assets/*
-!assets/.*
-logs/*
-!logs/.*
-images/*
-!images/.*
-user/accounts/*
-!user/accounts/.*
+!cache/.gitkeep 
+
 user/data/*
-!user/data/.*
-user/plugins/*
-!user/plugins/.*
-user/themes/*
-!user/themes/.*
-user/**/config/security.yaml
+!user/data/.gitkeep 
 
-# Environments
-.env
-.gravenv
-
-# OS Generated
-.DS_Store*
-ehthumbs.db
-Icon?
-Thumbs.db
-*.swp
-
-# phpstorm
-.idea/*
-
-# testing stuff
-tests/_output/*
-tests/_support/_generated/*
-tests/cache/*
-tests/error.log
-system/templates/testing/*
-/user/config/versions.yaml
