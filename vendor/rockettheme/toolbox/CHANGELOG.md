@@ -1,3 +1,153 @@
+# v1.6.3
+## 02/19/2023
+
+1. [](#bugfix)
+   * Fixed a bug in ReadOnlyStream that throws deprecated warning PHP 8.2
+
+# v1.6.2
+## 06/14/2022
+
+1. [](#bugfix)
+    * Removed support for Symfony 5 Event Dispatcher due to compatibility issues [#32](https://github.com/rockettheme/toolbox/issues/32)
+
+# v1.6.1
+## 02/08/2022
+
+1. [](#new)
+    * Added support for Symfony 5 YAML and Event Dispatcher
+1. [](#bugfix)
+    * Fixed PHP 5.6 and 7.0 compatibility
+
+# v1.6.0
+## 12/15/2021
+
+1. [](#new)
+    * Added **PHP 8.1** support
+    * If you use `ArrayTraits\Seriazable`, make sure you do not override the methods (use PHP 8 methods instead)
+
+# v1.5.11
+## 10/25/2021
+
+1. [](#new)
+    * Updated phpstan to v1.0
+1. [](#improved)
+    * Added `parent@: true` option for blueprints to include rules for parent fields
+1. [](#bugfix)
+    * Fixed deprecated warnings in PHP 8.1
+
+# v1.5.10
+## 09/29/2021
+
+1. [](#improved)
+    * Improved `UniformResourceLocator` to support `file://` scheme
+1. [](#bugfix)
+    * Fixed blueprint merge where second blueprint has non-array field definition
+    * Fixed implicit cast from null to string in `UniformResourceLocator`
+
+# v1.5.9
+## 04/14/2021
+
+1. [](#bugfix)
+    * Fixed regression in default field type settings
+
+# v1.5.8
+## 04/12/2021
+
+1. [](#bugfix)
+    * Fixed default field type settings not being merged recursively causing default validation rules to get missing
+
+# v1.5.7
+## 02/17/2021
+
+1. [](#new)
+   * Pass new phpstan level 8 tests
+1. [](#bugfix)
+   * Fixed `Trying to access array offset on value of type int` in `BlueprintSchema::getFieldKey()`
+
+# v1.5.6
+## 12/03/2020
+
+1. [](#bugfix)
+    * Fixed incompatible `File` class
+
+# v1.5.5
+## 12/01/2020
+
+1. [](#bugfix)
+    * Fixed a PHP8 issue in YAML library
+
+# v1.5.4
+## 11/27/2020
+
+1. [](#new)
+    * Added PHP 8.0 support
+1. [](#bugfix)
+    * Fixed `UniformResourceLocator::addPath()` with PHP 8
+
+# v1.5.3
+## 11/23/2020
+
+1. [](#bugfix)
+    * Fixed `UniformResourceLocator::addPath()` not working properly if override is a stream
+
+# v1.5.2
+## 05/18/2020
+
+1. [](#improved)
+    * Support symlinks when saving `File` (#30, thanks @schliflo)
+
+# v1.5.1
+## 03/19/2020
+
+1. [](#bugfix)
+    * Fixed static method call from Blueprints
+
+# v1.5.0
+## 02/03/2020
+
+1. [](#new)
+    * Updated minimum requirement to PHP 5.6.0
+    * Deprecated Event classes in favor of PSR-14
+    * PHP 7.4 compatibility: implemented required `Stream::stream_set_option()` method (#28, thanks @lcharette)
+    * Pass phpstan level 8 tests
+    * Added new `UniformResourceLocator::getResource()` method to simplify code where filename is always required
+    * Added support for `replace-name@` in blueprints (#24, thanks @drzraf)
+    * Calling `File::instance()` with empty filename is now deprecated
+1. [](#bugfix)
+    * Fixed `new UniformResourceItarator()` not throwing exception when path is non-existing
+    * Fixed missing frontmatter if markdown file had UTF-8 BOM (#14, thanks @A----)
+    * Fixed many other edge cases
+
+# v1.4.6
+## 03/20/2019
+
+1. [](#bugfix)
+    * Fixed `File::writable()` returning true if an existing file is read-only with the folder being writable
+    * Fixed `File::save()` silently ignoring failures with read only streams
+    * Regression: Fixed file saving when temporary file cannot be created to the current folder / stream
+
+# v1.4.5
+## 02/28/2019
+
+1. [](#bugfix)
+    * Regression: Fixed undefined variable in `BlueprintSchema`
+
+# v1.4.4
+## 02/28/2019
+
+1. [](#bugfix)
+    * Regression: Fixed issue with directory creation when saving non-existing file
+
+# v1.4.3
+## 02/26/2019
+
+1. [](#improved)
+    * Minor code optimizations
+    * Improved `File::save()` to use a temporary file if file isn't locked
+1. [](#bugfix)
+    * Fixed `Obtaining write lock failed on file...`
+    * Fixed `mkdir(...)` race condition
+
 # v1.4.2
 ## 08/08/2018
 

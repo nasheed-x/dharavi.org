@@ -4,7 +4,6 @@ use Codeception\Util\Fixtures;
 use Grav\Common\Grav;
 use Grav\Console\Gpm\DirectInstallCommand;
 
-
 /**
  * Class DirectInstallCommandTest
  */
@@ -17,12 +16,11 @@ class DirectInstallCommandTest extends \Codeception\TestCase\Test
     protected $directInstall;
 
 
-    protected function _before()
+    protected function _before(): void
     {
         $this->grav = Fixtures::get('grav');
         $this->directInstallCommand = new DirectInstallCommand();
     }
-
 }
 
 /**

@@ -1,57 +1,86 @@
 <?php
+
 namespace Grav\Plugin\Form;
 
+use ArrayAccess;
+use Grav\Common\Config\Config;
 use Grav\Common\Data\Data;
 use Grav\Common\Data\Blueprint;
 use Grav\Common\Data\ValidationException;
 use Grav\Common\Filesystem\Folder;
+use Grav\Common\Form\FormFlash;
 use Grav\Common\Grav;
 use Grav\Common\Inflector;
-use Grav\Common\Iterator;
-use Grav\Common\Page\Page;
+use Grav\Common\Language\Language;
+use Grav\Common\Page\Interfaces\PageInterface;
+use Grav\Common\Page\Pages;
+use Grav\Common\Security;
+use Grav\Common\Uri;
 use Grav\Common\Utils;
+use Grav\Framework\Filesystem\Filesystem;
+use Grav\Framework\Form\FormFlashFile;
+use Grav\Framework\Form\Interfaces\FormInterface;
+use Grav\Framework\Form\Traits\FormTrait;
+use Grav\Framework\Route\Route;
+use RocketTheme\Toolbox\ArrayTraits\NestedArrayAccessWithGetters;
 use RocketTheme\Toolbox\Event\Event;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
+use RuntimeException;
+use stdClass;
+use function is_array;
+use function is_int;
+use function is_string;
+use function json_encode;
 
-class Form extends Iterator implements \Serializable
+/**
+ * Class Form
+ * @package Grav\Plugin\Form
+ *
+ * @property string $id
+ * @property string $uniqueid
+ * @property string $name
+ * @property string $noncename
+ * @property string $nonceaction
+ * @property string $action
+ * @property Data $data
+ * @property array $files
+ * @property Data $value
+ * @property array $errors
+ * @property array $fields
+ * @property Blueprint $blueprint
+ * @property PageInterface $page
+ */
+class Form implements FormInterface, ArrayAccess
 {
-    const BYTES_TO_MB = 1048576;
+    use NestedArrayAccessWithGetters {
+        NestedArrayAccessWithGetters::get as private traitGet;
+        NestedArrayAccessWithGetters::set as private traitSet;
+    }
+    use FormTrait {
+        FormTrait::reset as private traitReset;
+        FormTrait::doSerialize as private doTraitSerialize;
+        FormTrait::doUnserialize as private doTraitUnserialize;
+    }
 
-    /**
-     * @var string
-     */
+    /** @var int */
+    public const BYTES_TO_MB = 1048576;
+
+    /** @var string */
     public $message;
-
-    /**
-     * @var int
-     */
+    /** @var int */
     public $response_code;
-
-    /**
-     * @var string
-     */
+    /** @var string */
     public $status = 'success';
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $header_data = [];
-
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $rules = [];
-
-    /**
-     * Data values of the form (values to be stored)
-     *
-     * @var Data $data
-     */
-    protected $data;
 
     /**
      * Form header items
      *
-     * @var Data $items
+     * @var array $items
      */
     protected $items = [];
 
@@ -63,45 +92,52 @@ class Form extends Iterator implements \Serializable
     protected $values;
 
     /**
-     * The form page object
+     * The form page route
      *
-     * @var Page $page
+     * @var string $page
      */
     protected $page;
-
 
     /**
      * Create form for the given page.
      *
-     * @param Page $page
+     * @param PageInterface $page
      * @param string|int|null $name
-     * @param null $form
+     * @param array|null $form
      */
-    public function __construct(Page $page, $name = null, $form = null)
+    public function __construct(PageInterface $page, $name = null, $form = null)
     {
-        parent::__construct();
+        $this->nestedSeparator = '/';
 
-        $this->page = $page->route();
-
+        $slug = $page->slug();
         $header = $page->header();
-        $this->rules = isset($header->rules) ? $header->rules : [];
-        $this->header_data = isset($header->data) ? $header->data : [];
+        $this->rules = $header->rules ?? [];
+        $this->header_data = $header->data ?? [];
 
         if ($form) {
             // If form is given, use it.
             $this->items = $form;
-        } elseif ($name && isset($header->forms[$name])) {
-            // If form with that name was found, use that.
-             $this->items = $header->forms[$name];
-        } elseif (isset($header->form)) {
-            // For backwards compatibility.
-            $this->items = $header->form;
-        } elseif (!empty($header->forms)) {
-            // Pick up the first form.
-            $form = reset($header->forms);
-            $name = key($header->forms);
-            $this->items = $form;
+        } else {
+            // Otherwise get all forms in the page.
+            $forms = $page->getForms();
+            if ($name) {
+                // If form with given name was found, use that.
+                $this->items = $forms[$name] ?? [];
+            } else {
+                // Otherwise pick up the first form.
+                $this->items = reset($forms) ?: [];
+                $name = key($forms);
+            }
         }
+
+        // If we're on a modular page, find the real page.
+        while ($page && $page->modularTwig()) {
+            $header = $page->header();
+            $header->never_cache_twig = true;
+            $page = $page->parent();
+        }
+
+        $this->page = $page ? $page->route() : '/';
 
         // Add form specific rules.
         if (!empty($this->items['rules']) && is_array($this->items['rules'])) {
@@ -112,184 +148,315 @@ class Form extends Iterator implements \Serializable
         if ($name && !is_int($name)) {
             $this->items['name'] = $name;
         } elseif (empty($this->items['name'])) {
-            $this->items['name'] = $page->slug();
+            $this->items['name'] = $slug;
         }
 
         // Set form id if not set.
         if (empty($this->items['id'])) {
-            $inflector = new Inflector();
-            $this->items['id'] = $inflector->hyphenize($this->items['name']);
+            $this->items['id'] = Inflector::hyphenize($this->items['name']);
         }
 
-        // Reset and initialize the form
-        $this->reset();
+        if (empty($this->items['nonce']['name'])) {
+            $this->items['nonce']['name'] = 'form-nonce';
+        }
+
+        if (empty($this->items['nonce']['action'])) {
+            $this->items['nonce']['action'] = 'form';
+        }
+
+        if (Utils::isPositive($this->items['disabled'] ?? false)) {
+            $this->disable();
+        }
+
+        // Initialize form properties.
+        $this->name = $this->items['name'];
+        $this->setId($this->items['id']);
+
+        $uniqueid = $this->items['uniqueid'] ?? null;
+        if (null === $uniqueid && !empty($this->items['remember_state'])) {
+            $this->set('remember_redirect', true);
+        }
+        $this->setUniqueId($uniqueid ?? strtolower(Utils::generateRandomString($this->items['uniqueid_len'] ?? 20)));
+
+        $this->initialize();
     }
 
     /**
-     * Custom serializer for this complex object
+     * @return $this
+     */
+    public function initialize()
+    {
+        // Reset and initialize the form
+        $this->errors = [];
+        $this->submitted = false;
+        $this->unsetFlash();
+
+        // Remember form state.
+        $flash = $this->getFlash();
+        if ($flash->exists()) {
+            $data = $flash->getData() ?? $this->header_data;
+        } else {
+            $data = $this->header_data;
+        }
+
+        // Remember data and files.
+        $this->setAllData($data);
+        $this->setAllFiles($flash);
+        $this->values = new Data();
+
+        // Fire event
+        $grav = Grav::instance();
+        $grav->fireEvent('onFormInitialized', new Event(['form' => $this]));
+
+        return $this;
+    }
+
+    /**
+     * @param FormFlash $flash
+     * @return void
+     */
+    protected function setAllFiles(FormFlash $flash)
+    {
+        if (!$flash->exists()) {
+            return;
+        }
+
+        /** @var Uri $url */
+        $url = Grav::instance()['uri'];
+        $fields = $flash->getFilesByFields(true);
+        foreach ($fields as $field => $files) {
+            if (strpos($field, '/') !== false) {
+                continue;
+            }
+
+            $list = [];
+            /**
+             * @var string $filename
+             * @var FormFlashFile $file
+             */
+            foreach ($files as $filename => $file) {
+                $original = $fields["{$field}/original"][$filename] ?? $file;
+                $basename = basename($filename);
+                if ($file) {
+                    $imagePath = $original->getTmpFile();
+                    $thumbPath = $file->getTmpFile();
+                    $list[$basename] = [
+                        'name' => $file->getClientFilename(),
+                        'type' => $file->getClientMediaType(),
+                        'size' => $file->getSize(),
+                        'image_url' => $url->rootUrl() . '/' . Folder::getRelativePath($imagePath) . '?' . filemtime($imagePath),
+                        'thumb_url' => $url->rootUrl() . '/' . Folder::getRelativePath($thumbPath) . '?' . filemtime($thumbPath),
+                        'cropData' => $original->getMetaData()['crop'] ?? []
+                    ];
+                }
+            }
+
+            $this->setData($field, $list);
+        }
+    }
+
+    /**
+     * Reset form.
+     *
+     * @return void
+     */
+    public function reset(): void
+    {
+        $this->traitReset();
+
+        // Reset and initialize the form
+        $this->blueprint = null;
+        $this->setAllData($this->header_data);
+        $this->values = new Data();
+
+        // Reset unique id (allow multiple form submits)
+        $uniqueid = $this->items['uniqueid'] ?? null;
+        $this->set('remember_redirect', null === $uniqueid && !empty($this->items['remember_state']));
+        $this->setUniqueId($uniqueid ?? strtolower(Utils::generateRandomString($this->items['uniqueid_len'] ?? 20)));
+
+        // Fire event
+        $grav = Grav::instance();
+        $grav->fireEvent('onFormInitialized', new Event(['form' => $this]));
+    }
+
+    /**
+     * @param string $name
+     * @param mixed|null $default
+     * @param string|null $separator
+     * @return mixed
+     */
+    public function get($name, $default = null, $separator = null)
+    {
+        switch (strtolower($name)) {
+            case 'id':
+            case 'uniqueid':
+            case 'name':
+            case 'noncename':
+            case 'nonceaction':
+            case 'action':
+            case 'data':
+            case 'files':
+            case 'errors';
+            case 'fields':
+            case 'blueprint':
+            case 'page':
+                $method = 'get' . $name;
+                return $this->{$method}();
+        }
+
+        return $this->traitGet($name, $default, $separator);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return $this->items['action'] ?? $this->page;
+    }
+
+    /**
+     * @param string $message
+     * @param string $type
+     * @todo Type not used
+     */
+    public function setMessage($message, $type = 'error')
+    {
+        $this->setError($message);
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $value
+     * @param string|null $separator
+     * @return Form
+     */
+    public function set($name, $value, $separator = null)
+    {
+        switch (strtolower($name)) {
+            case 'id':
+            case 'uniqueid':
+                $method = 'set' . $name;
+                return $this->{$method}();
+        }
+
+        return $this->traitSet($name, $value, $separator);
+    }
+
+    /**
+     * Get the nonce value for a form
      *
      * @return string
      */
-    public function serialize()
+    public function getNonce(): string
     {
-        $data = [
-            'items' => $this->items,
-            'message' => $this->message,
-            'status' => $this->status,
-            'header_data' => $this->header_data,
-            'rules' => $this->rules,
-            'data' => $this->data->toArray(),
-            'values' => $this->values->toArray(),
-            'page' => $this->page
-        ];
-        return serialize($data);
+        return Utils::getNonce($this->getNonceAction());
     }
 
     /**
-     * Custom unserializer for this complex object
-     *
-     * @param string $data
+     * @inheritdoc
      */
-    public function unserialize($data)
+    public function getNonceName(): string
     {
-        $data = unserialize($data);
+        return $this->items['nonce']['name'];
+    }
 
-        $this->items = $data['items'];
-        $this->message = $data['message'];
-        $this->status = $data['status'];
-        $this->header_data = $data['header_data'];
-        $this->rules = $data['rules'];
+    /**
+     * @inheritdoc
+     */
+    public function getNonceAction(): string
+    {
+        return $this->items['nonce']['action'];
+    }
 
-        $name = $this->items['name'];
-        $items = $this->items;
-        $rules = $this->rules;
+    /**
+     * @inheritdoc
+     */
+    public function getValue(string $name)
+    {
+        return $this->values->get($name);
+    }
 
-        $blueprint  = function () use ($name, $items, $rules) {
-            $blueprint = new Blueprint($name, ['form' => $items, 'rules' => $rules]);
-            return $blueprint->load()->init();
-        };
+    /**
+     * @return Data
+     */
+    public function getValues(): Data
+    {
+        return $this->values;
+    }
 
-        $this->data = new Data($data['data'], $blueprint);
-        $this->values = new Data($data['values']);
-        $this->page = $data['page'];
+    /**
+     * @inheritdoc
+     */
+    public function getFields(): array
+    {
+        return $this->getBlueprint()->fields();
+    }
+
+    /**
+     * Return page object for the form.
+     *
+     * Can be called only after onPageInitialize event has fired.
+     *
+     * @return PageInterface
+     * @throws \LogicException
+     */
+    public function getPage(): PageInterface
+    {
+        /** @var Pages $pages */
+        $pages = Grav::instance()['pages'];
+        $page = $pages->find($this->page);
+        if (null === $page) {
+            throw new \LogicException('Form::getPage() method was called too early!');
+        }
+
+        return $page;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getBlueprint(): Blueprint
+    {
+        if (null === $this->blueprint) {
+            // Fix naming for fields (supports nested fields now!)
+            if (isset($this->items['fields'])) {
+                $this->items['fields'] = $this->processFields($this->items['fields']);
+            }
+
+            $blueprint = new Blueprint($this->name, ['form' => $this->items, 'rules' => $this->rules]);
+            $blueprint->load()->init();
+
+            $this->blueprint = $blueprint;
+        }
+
+        return $this->blueprint;
     }
 
     /**
      * Allow overriding of fields.
      *
      * @param array $fields
+     * @return void
      */
     public function setFields(array $fields = [])
     {
-        // Make sure blueprints are updated, otherwise validation may fail.
-        $blueprint = $this->data->blueprints();
-        $blueprint->set('form/fields', $fields);
-        $blueprint->undef('form/field');
+        $this->items['fields'] = $fields;
+        unset($this->items['field']);
 
-        $this->fields = $fields;
-    }
+        // Reset blueprint.
+        $this->blueprint = null;
 
-    /**
-     * Get the name of this form.
-     *
-     * @return String
-     */
-    public function name()
-    {
-        return $this->items['name'];
-    }
-
-    /**
-     * Reset data.
-     */
-    public function reset()
-    {
-        $name = $this->items['name'];
-        $grav = Grav::instance();
-
-        // Fix naming for fields (supports nested fields now!)
-        if (isset($this->items['fields'])) {
-            $this->items['fields'] = $this->processFields($this->items['fields']);
-        }
-
-        $items = $this->items;
-        $rules = $this->rules;
-
-        $blueprint = function() use ($name, $items, $rules) {
-            $blueprint = new Blueprint($name, ['form' => $items, 'rules' => $rules]);
-            return $blueprint->load()->init();
-        };
-
-        $this->data = new Data($this->header_data, $blueprint);
-        $this->values = new Data();
-        $this->fields = $this->fields(true);
-
-        // Fire event
-        $grav->fireEvent('onFormInitialized', new Event(['form' => $this]));
-    }
-
-    protected function processFields($fields)
-    {
-        $types = Grav::instance()['plugins']->formFieldTypes;
-
-        $return = array();
-        foreach ($fields as $key => $value) {
-            // default to text if not set
-            if (!isset($value['type'])) {
-                $value['type'] = 'text';
-            }
-
-            // manually merging the field types
-            if ($types !== null && array_key_exists($value['type'], $types)) {
-                $value += $types[$value['type']];
-            }
-
-            // Fix numeric indexes
-            if (is_numeric($key) && isset($value['name'])) {
-                $key = $value['name'];
-            }
-            if (isset($value['fields']) && is_array($value['fields'])) {
-                $value['fields'] = $this->processFields($value['fields']);
-            }
-            $return[$key] = $value;
-        }
-        return $return;
-    }
-
-    public function fields($reset = false)
-    {
-
-        if ($reset || null === $this->fields) {
-            $blueprint = $this->data->blueprints();
-
-            if (method_exists($blueprint, 'load')) {
-                // init the form to process directives
-                $blueprint->load()->init();
-
-                // fields set to processed blueprint fields
-                $this->fields = $blueprint->fields();
-            }
-        }
-
-        return $this->fields;
-    }
-
-    /**
-     * Return page object for the form.
-     *
-     * @return Page
-     */
-    public function page()
-    {
-        return Grav::instance()['pages']->dispatch($this->page);
+        // Update data to contain the new blueprints.
+        $this->setAllData($this->data->toArray());
     }
 
     /**
      * Get value of given variable (or all values).
      * First look in the $data array, fallback to the $values array
      *
-     * @param string $name
-     *
+     * @param string|null $name
+     * @param bool $fallback
      * @return mixed
      */
     public function value($name = null, $fallback = false)
@@ -298,21 +465,34 @@ class Form extends Iterator implements \Serializable
             return $this->data;
         }
 
-        if ($this->data->get($name)) {
-            return $this->data->get($name);
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
         }
 
         if ($fallback) {
-            return $this->values->get($name);
+            return $this->values[$name];
         }
 
         return null;
     }
 
     /**
+     * Get value of given variable (or all values).
+     *
+     * @param string|null $name
+     * @return mixed
+     */
+    public function data($name = null)
+    {
+        return $this->value($name);
+    }
+
+    /**
      * Set value of given variable in the values array
      *
-     * @param string $name
+     * @param string|null $name
+     * @param mixed $value
+     * @return void
      */
     public function setValue($name = null, $value = '')
     {
@@ -324,40 +504,10 @@ class Form extends Iterator implements \Serializable
     }
 
     /**
-     * Get a value from the form
-     *
-     * @param $name
-     * @return mixed
-     */
-    public function getValue($name)
-    {
-        return $this->values->get($name);
-    }
-
-    /**
-     * @return Data
-     */
-    public function getValues()
-    {
-        return $this->values;
-    }
-
-    /**
-     * Get all data
-     *
-     * @return Data
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
      * Set value of given variable in the data array
      *
-     * @param string $name
+     * @param string|null $name
      * @param string $value
-     *
      * @return bool
      */
     public function setData($name = null, $value = '')
@@ -371,9 +521,17 @@ class Form extends Iterator implements \Serializable
         return true;
     }
 
-    public function setAllData($array)
+    /**
+     * @param array $array
+     * @return void
+     */
+    public function setAllData($array): void
     {
-        $this->data = new Data($array);
+        $callable = function () {
+            return $this->getBlueprint();
+        };
+
+        $this->data = new Data($array, $callable);
     }
 
     /**
@@ -385,60 +543,84 @@ class Form extends Iterator implements \Serializable
     public function uploadFiles()
     {
         $grav = Grav::instance();
-        $config = $grav['config'];
-        $session = $grav['session'];
+
+        /** @var Uri $uri */
         $uri = $grav['uri'];
+
         $url = $uri->url;
         $post = $uri->post();
 
-        $settings = $this->data->blueprints()->schema()->getProperty($post['name']);
+        $name = $post['name'] ?? null;
+        $task = $post['task'] ?? null;
+
+        /** @var Language $language */
+        $language = $grav['language'];
+
+        /** @var Config $config */
+        $config = $grav['config'];
+
+        $settings = $this->getBlueprint()->schema()->getProperty($name);
         $settings = (object) array_merge(
             ['destination' => $config->get('plugins.form.files.destination', 'self@'),
-             'avoid_overwriting' => $config->get('plugins.form.files.avoid_overwriting', false),
-             'random_name' => $config->get('plugins.form.files.random_name', false),
-             'accept' => $config->get('plugins.form.files.accept', ['image/*']),
-             'limit' => $config->get('plugins.form.files.limit', 10),
-             'filesize' => $this->getMaxFilesize(),
+                'avoid_overwriting' => $config->get('plugins.form.files.avoid_overwriting', false),
+                'random_name' => $config->get('plugins.form.files.random_name', false),
+                'accept' => $config->get('plugins.form.files.accept', ['image/*']),
+                'limit' => $config->get('plugins.form.files.limit', 10),
+                'filesize' => static::getMaxFilesize(),
             ],
             (array) $settings,
-            ['name' => $post['name']]
+            ['name' => $name]
         );
         // Allow plugins to adapt settings for a given post name
         // Useful if schema retrieval is not an option, e.g. dynamically created forms
         $grav->fireEvent('onFormUploadSettings', new Event(['settings' => &$settings, 'post' => $post]));
-        
-        $upload = $this->normalizeFiles($_FILES['data'], $settings->name);
+
+        $upload = json_decode(json_encode($this->normalizeFiles($_FILES['data'], $settings->name)), true);
+        $filename = $post['filename'] ?? $upload['file']['name'];
+        $field = $upload['field'];
 
         // Handle errors and breaks without proceeding further
-        if ($upload->file->error != UPLOAD_ERR_OK) {
+        if ($upload['file']['error'] !== UPLOAD_ERR_OK) {
             // json_response
             return [
                 'status' => 'error',
-                'message' => sprintf($grav['language']->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_UPLOAD', null, true), $upload->file->name, $this->upload_errors[$upload->file->error])
+                'message' => sprintf(
+                    $language->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_UPLOAD', null, true),
+                    $filename,
+                    $this->getFileUploadError($upload['file']['error'], $language)
+                )
             ];
         }
 
         // Handle bad filenames.
-        $filename = $upload->file->name;
-        if (strtr($filename, "\t\n\r\0\x0b", '_____') !== $filename || rtrim($filename, ". ") !== $filename || preg_match('|\.php|', $filename)) {
-            $this->admin->json_response = [
+        if (!Utils::checkFilename($filename)) {
+            return [
                 'status'  => 'error',
-                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
+                'message' => sprintf($language->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
                     $filename, 'Bad filename')
             ];
+        }
 
-            return false;
+        if (!isset($settings->destination)) {
+            return [
+                'status'  => 'error',
+                'message' => $language->translate('PLUGIN_FORM.DESTINATION_NOT_SPECIFIED', null)
+            ];
         }
 
         // Remove the error object to avoid storing it
-        unset($upload->file->error);
+        unset($upload['file']['error']);
 
 
         // Handle Accepted file types
         // Accept can only be mime types (image/png | image/*) or file extensions (.pdf|.jpg)
         $accepted = false;
         $errors = [];
-        foreach ((array) $settings->accept as $type) {
+
+        // Do not trust mimetype sent by the browser
+        $mime = Utils::getMimeByFilename($filename);
+
+        foreach ((array)$settings->accept as $type) {
             // Force acceptance of any file when star notation
             if ($type === '*') {
                 $accepted = true;
@@ -446,15 +628,24 @@ class Form extends Iterator implements \Serializable
             }
 
             $isMime = strstr($type, '/');
-            $find = str_replace('*', '.*', $type);
+            $find   = str_replace(['.', '*', '+'], ['\.', '.*', '\+'], $type);
 
-            $match = preg_match('#'. $find .'$#', $isMime ? $upload->file->type : $upload->file->name);
-            if (!$match) {
-                $message = $isMime ? 'The MIME type "' . $upload->file->type . '"' : 'The File Extension';
-                $errors[] = $message . ' for the file "' . $upload->file->name . '" is not an accepted.';
-                $accepted |= false;
+            if ($isMime) {
+                $match = preg_match('#' . $find . '$#', $mime);
+                if (!$match) {
+                    $errors[] = sprintf($language->translate('PLUGIN_FORM.INVALID_MIME_TYPE', null, true), $mime, $filename);
+                } else {
+                    $accepted = true;
+                    break;
+                }
             } else {
-                $accepted |= true;
+                $match = preg_match('#' . $find . '$#', $filename);
+                if (!$match) {
+                    $errors[] = sprintf($language->translate('PLUGIN_FORM.INVALID_FILE_EXTENSION', null, true), $filename);
+                } else {
+                    $accepted = true;
+                    break;
+                }
             }
         }
 
@@ -469,88 +660,77 @@ class Form extends Iterator implements \Serializable
 
         // Handle file size limits
         $settings->filesize *= self::BYTES_TO_MB; // 1024 * 1024 [MB in Bytes]
-        if ($settings->filesize > 0 && $upload->file->size > $settings->filesize) {
+        if ($settings->filesize > 0 && $upload['file']['size'] > $settings->filesize) {
             // json_response
             return [
                 'status'  => 'error',
-                'message' => $grav['language']->translate('PLUGIN_FORM.EXCEEDED_GRAV_FILESIZE_LIMIT')
+                'message' => $language->translate('PLUGIN_FORM.EXCEEDED_GRAV_FILESIZE_LIMIT')
             ];
-        }
-
-
-        // we need to move the file at this stage or else
-        // it won't be available upon save later on
-        // since php removes it from the upload location
-        $tmp_dir = $grav['locator']->findResource('tmp://', true, true);
-        $tmp_file = $upload->file->tmp_name;
-        $tmp = $tmp_dir . '/uploaded-files/' . basename($tmp_file);
-
-        Folder::create(dirname($tmp));
-        if (!move_uploaded_file($tmp_file, $tmp)) {
-            // json_response
-            return [
-                'status' => 'error',
-                'message' => sprintf($grav['language']->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '', $tmp)
-            ];
-        }
-
-        $upload->file->tmp_name = $tmp;
-
-        // Retrieve the current session of the uploaded files for the field
-        // and initialize it if it doesn't exist
-        $sessionField = base64_encode($url);
-        $flash = $session->getFlashObject('files-upload');
-        if (!$flash) {
-            $flash = [];
-        }
-        if (!isset($flash[$sessionField])) {
-            $flash[$sessionField] = [];
-        }
-        if (!isset($flash[$sessionField][$upload->field])) {
-            $flash[$sessionField][$upload->field] = [];
-        }
-
-        // Set destination
-        $destination = Folder::getRelativePath(rtrim($settings->destination, '/'));
-        $destination = $this->getPagePathFromToken($destination);
-
-        // Create destination if needed
-        if (!is_dir($destination)) {
-            Folder::mkdir($destination);
         }
 
         // Generate random name if required
         if ($settings->random_name) {
-            $extension = pathinfo($upload->file->name)['extension'];
-            $upload->file->name = Utils::generateRandomString(15) . '.' . $extension;
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+            $filename = Utils::generateRandomString(15) . '.' . $extension;
+        }
+
+        // Look up for destination
+        /** @var UniformResourceLocator $locator */
+        $locator = $grav['locator'];
+        $destination = $settings->destination;
+        if (!$locator->isStream($destination)) {
+            $destination = $this->getPagePathFromToken(Folder::getRelativePath(rtrim($settings->destination, '/')));
         }
 
         // Handle conflicting name if needed
         if ($settings->avoid_overwriting) {
-            if (file_exists($destination . '/' . $upload->file->name)) {
-                $upload->file->name = date('YmdHis') . '-' . $upload->file->name;
+            if (file_exists($destination . '/' . $filename)) {
+                $filename = date('YmdHis') . '-' . $filename;
             }
         }
 
         // Prepare object for later save
-        $path = $destination . '/' . $upload->file->name;
-        $upload->file->path = $path;
-        // $upload->file->route = $page ? $path : null;
+        $path = $destination . '/' . $filename;
+        $upload['file']['name'] = $filename;
+        $upload['file']['path'] = $path;
 
-        // Prepare data to be saved later
-        $flash[$sessionField][$upload->field][$path] = (array) $upload->file;
+        // Special Sanitization for SVG
+        if (method_exists('Grav\Common\Security', 'sanitizeSVG') && Utils::contains($mime, 'svg', false)) {
+            Security::sanitizeSVG($upload['file']['tmp_name']);
+        }
 
-        // Finally store the new uploaded file in the field session
-        $session->setFlashObject('files-upload', $flash);
+        // We need to store the file into flash object or it will not be available upon save later on.
+        $flash = $this->getFlash();
+        $flash->setUrl($url)->setUser($grav['user'] ?? null);
 
+        if ($task === 'cropupload') {
+            $crop = $post['crop'];
+            if (is_string($crop)) {
+                $crop = json_decode($crop, true);
+            }
+            $success = $flash->cropFile($field, $filename, $upload, $crop);
+        } else {
+            $success = $flash->uploadFile($field, $filename, $upload);
+        }
+
+        if (!$success) {
+            // json_response
+            return [
+                'status' => 'error',
+                'message' => sprintf($language->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '', $flash->getTmpDir())
+            ];
+        }
+
+        $flash->save();
 
         // json_response
         $json_response = [
             'status' => 'success',
-            'session' => \json_encode([
+            'session' => json_encode([
                 'sessionField' => base64_encode($url),
-                'path' => $upload->file->path,
-                'field' => $settings->name
+                'path' => $path,
+                'field' => $settings->name,
+                'uniqueid' => $this->uniqueid
             ])
         ];
 
@@ -561,80 +741,119 @@ class Form extends Iterator implements \Serializable
     }
 
     /**
-     * Removes a file from the flash object session, before it gets saved
+     * Return an error message for a PHP file upload error code
+     * https://www.php.net/manual/en/features.file-upload.errors.php
      *
-     * @return bool True if the action was performed.
+     * @param int $error PHP file upload error code
+     * @param Language|null $language
+     * @return string File upload error message
      */
-    public function filesSessionRemove()
+    public function getFileUploadError(int $error, Language $language = null): string
     {
-        $grav = Grav::instance();
-        $session = $grav['session'];
-        $uri = $grav['uri'];
-        $post = $uri->post();
+        if (!$language) {
+            $grav = Grav::instance();
 
-        // Retrieve the current session of the uploaded files for the field
-        // and initialize it if it doesn't exist
-        $sessionField = base64_encode($grav['uri']->url(true));
-        $request      = \json_decode($post['session']);
-
-        // Ensure the URI requested matches the current one, otherwise fail
-        if ($request->sessionField !== $sessionField) {
-            return false;
+            /** @var Language $language */
+            $language = $grav['language'];
         }
 
-        // Retrieve the flash object and remove the requested file from it
-        $flash    = $session->getFlashObject('files-upload');
-        $endpoint = $flash[$request->sessionField][$request->field][$request->path];
+        switch ($error) {
+            case UPLOAD_ERR_OK:
+                $item = 'FILEUPLOAD_ERR_OK';
+                break;
+            case UPLOAD_ERR_INI_SIZE:
+                $item = 'FILEUPLOAD_ERR_INI_SIZE';
+                break;
+            case UPLOAD_ERR_FORM_SIZE:
+                $item = 'FILEUPLOAD_ERR_FORM_SIZE';
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $item = 'FILEUPLOAD_ERR_PARTIAL';
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                $item = 'FILEUPLOAD_ERR_NO_FILE';
+                break;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $item = 'FILEUPLOAD_ERR_NO_TMP_DIR';
+                break;
+            case UPLOAD_ERR_CANT_WRITE:
+                $item = 'FILEUPLOAD_ERR_CANT_WRITE';
+                break;
+            case UPLOAD_ERR_EXTENSION:
+                $item = 'FILEUPLOAD_ERR_EXTENSION';
+                break;
+            default:
+                $item = 'FILEUPLOAD_ERR_UNKNOWN';
+        }
+        return $language->translate('PLUGIN_FORM.'.$item);
+    }
 
-        if (isset($endpoint)) {
-            if (file_exists($endpoint['tmp_name'])) {
-                unlink($endpoint['tmp_name']);
+    /**
+     * Removes a file from the flash object session, before it gets saved.
+     *
+     * @return void
+     */
+    public function filesSessionRemove(): void
+    {
+        $callable = function (): array {
+            $field = $this->values->get('name');
+            $filename = $this->values->get('filename');
+
+            if (!isset($field, $filename)) {
+                throw new RuntimeException('Bad Request: name and/or filename are missing', 400);
             }
 
-            unset($endpoint);
-        }
+            $this->removeFlashUpload($filename, $field);
 
-        // Walk backward to cleanup any empty field that's left
-        // Field
-        if (isset($flash[$request->sessionField][$request->field][$request->path])) {
-            unset($flash[$request->sessionField][$request->field][$request->path]);
-        }
+            return ['status' => 'success'];
+        };
 
-        // Field
-        if (isset($flash[$request->sessionField][$request->field]) && empty($flash[$request->sessionField][$request->field])) {
-            unset($flash[$request->sessionField][$request->field]);
-        }
+        $this->sendJsonResponse($callable);
+    }
 
-        // Session Field
-        if (isset($flash[$request->sessionField]) && empty($flash[$request->sessionField])) {
-            unset($flash[$request->sessionField]);
-        }
+    /**
+     * @return void
+     */
+    public function storeState()
+    {
+        $callable = function (): array {
+            $this->updateFlashData($this->values->get('data') ?? []);
 
+            return ['status' => 'success'];
+        };
 
-        // If there's anything left to restore in the flash object, do so
-        if (count($flash)) {
-            $session->setFlashObject('files-upload', $flash);
-        }
+        $this->sendJsonResponse($callable);
+    }
 
-        // json_response
-        $json_response = ['status' => 'success'];
+    /**
+     * @return void
+     */
+    public function clearState(): void
+    {
+        $callable = function (): array {
+            $this->getFlash()->delete();
 
-        // Return JSON
-        header('Content-Type: application/json');
-        echo json_encode($json_response);
-        exit;
+            return ['status' => 'success'];
+        };
+
+        $this->sendJsonResponse($callable);
     }
 
     /**
      * Handle form processing on POST action.
+     *
+     * @return void
      */
     public function post()
     {
         $grav = Grav::instance();
-        $session = $grav['session'];
+
+        /** @var Uri $uri */
         $uri = $grav['uri'];
-        $url = $uri->url;
+
+        // Get POST data and decode JSON fields into arrays
         $post = $uri->post();
+        $post['data'] = $this->decodeData($post['data'] ?? []);
 
         if ($post) {
             $this->values = new Data((array)$post);
@@ -645,21 +864,19 @@ class Form extends Iterator implements \Serializable
                 $data = $this->values->toArray();
             }
 
-
             if (!$this->values->get('form-nonce') || !Utils::verifyNonce($this->values->get('form-nonce'), 'form')) {
                 $this->status = 'error';
                 $event = new Event(['form' => $this,
-                                    'message' => $grav['language']->translate('PLUGIN_FORM.NONCE_NOT_VALIDATED')
+                    'message' => $grav['language']->translate('PLUGIN_FORM.NONCE_NOT_VALIDATED')
                 ]);
                 $grav->fireEvent('onFormValidationError', $event);
 
                 return;
             }
 
-
             $i = 0;
             foreach ($this->items['fields'] as $key => $field) {
-                $name = isset($field['name']) ? $field['name'] : $key;
+                $name = $field['name'] ?? $key;
                 if (!isset($field['name'])) {
                     if (isset($data[$i])) { //Handle input@ false fields
                         $data[$name] = $data[$i];
@@ -690,7 +907,7 @@ class Form extends Iterator implements \Serializable
             if ($event->isPropagationStopped()) {
                 return;
             }
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $this->status = 'error';
             $event = new Event(['form' => $this, 'message' => $e->getMessage(), 'messages' => []]);
             $grav->fireEvent('onFormValidationError', $event);
@@ -699,93 +916,279 @@ class Form extends Iterator implements \Serializable
             }
         }
 
-        // Process previously uploaded files for the current URI
-        // and finally store them. Everything else will get discarded
-        $queue = $session->getFlashObject('files-upload');
-        $queue = $queue[base64_encode($url)];
-        if (is_array($queue)) {
-            // Allow plugins to implement additional / alternative logic
-            // Add post to event data
-            $grav->fireEvent('onFormStoreUploads', new Event(['queue' => &$queue, 'form' => $this, 'post' => $post]));
-            
-            foreach ($queue as $key => $files) {
-                foreach ($files as $destination => $file) {
-                    if (!rename($file['tmp_name'], $destination)) {
-                        throw new \RuntimeException(sprintf($grav['language']->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '"' . $file['tmp_name'] . '"', $destination));
-                    }
+        $redirect = $redirect_code = null;
+        $process = $this->items['process'] ?? [];
+        $legacyUploads = !isset($process['upload']) || $process['upload'] !== false;
 
-                    unset($files[$destination]['tmp_name']);
-                }
-
-                $this->data->merge([$key => $files]);
-            }
+        if ($legacyUploads) {
+            $this->legacyUploads();
         }
 
-        $process = isset($this->items['process']) ? $this->items['process'] : [];
         if (is_array($process)) {
-            $event = null;
             foreach ($process as $action => $data) {
                 if (is_numeric($action)) {
-                    $action = \key($data);
+                    $action = key($data);
                     $data = $data[$action];
                 }
 
-                $previousEvent = $event;
-                $event = new Event(['form' => $this, 'action' => $action, 'params' => $data]);
+                // do not execute action, if deactivated
+                if (false === $data) {
+                    continue;
+                }
 
-                if ($previousEvent) {
-                    if (!$previousEvent->isPropagationStopped()) {
-                        $grav->fireEvent('onFormProcessed', $event);
-                    } else {
-                        break;
-                    }
-                } else {
-                    $grav->fireEvent('onFormProcessed', $event);
+                $event = new Event(['form' => $this, 'action' => $action, 'params' => $data]);
+                $grav->fireEvent('onFormProcessed', $event);
+
+                if ($event['redirect']) {
+                    $redirect = $event['redirect'];
+                    $redirect_code = $event['redirect_code'];
+                }
+                if ($event->isPropagationStopped()) {
+                    break;
                 }
             }
         }
-    }
 
-    public function getPagePathFromToken($path)
-    {
-        return Utils::getPagePathFromToken($path, $this->page());
-    }
-
-    /**
-     * Internal method to normalize the $_FILES array
-     *
-     * @param array  $data $_FILES starting point data
-     * @param string $key
-     * @return object a new Object with a normalized list of files
-     */
-    protected function normalizeFiles($data, $key = '')
-    {
-        $files = new \stdClass();
-        $files->field = $key;
-        $files->file = new \stdClass();
-
-        foreach ($data as $fieldName => $fieldValue) {
-            // Since Files Upload are always happening via Ajax
-            // we are not interested in handling `multiple="true"`
-            // because they are always handled one at a time.
-            // For this reason we normalize the value to string,
-            // in case it is arriving as an array.
-            $value = (array) Utils::getDotNotation($fieldValue, $key);
-            $files->file->{$fieldName} = array_shift($value);
+        if ($legacyUploads) {
+            $this->copyFiles();
         }
 
-        return $files;
+        $this->getFlash()->delete();
+
+        if ($redirect) {
+            $grav->redirect($redirect, $redirect_code);
+        }
     }
 
     /**
-     * Get the nonce for a form
+     * @return string
+     * @deprecated 3.0 Use $form->getName() instead
+     */
+    public function name(): string
+    {
+        return $this->getName();
+    }
+
+    /**
+     * @return array
+     * @deprecated 3.0 Use $form->getFields() instead
+     */
+    public function fields(): array
+    {
+        return $this->getFields();
+    }
+
+    /**
+     * @return PageInterface
+     * @deprecated 3.0 Use $form->getPage() instead
+     */
+    public function page(): PageInterface
+    {
+        return $this->getPage();
+    }
+
+    /**
+     * Backwards compatibility
      *
+     * @return void
+     * @deprecated 3.0 Calling $form->filter() is not needed anymore (does nothing)
+     */
+    public function filter(): void
+    {
+    }
+
+    /**
+     * Store form uploads to the final location.
+     *
+     * @return void
+     */
+    public function copyFiles()
+    {
+        // Get flash object in order to save the files.
+        $flash = $this->getFlash();
+        $fields = $flash->getFilesByFields();
+
+        foreach ($fields as $key => $uploads) {
+            /** @var FormFlashFile $upload */
+            foreach ($uploads as $upload) {
+                if (null === $upload || $upload->isMoved()) {
+                    continue;
+                }
+
+                $destination = $upload->getDestination();
+
+                $filesystem = Filesystem::getInstance();
+                $folder = $filesystem->dirname($destination);
+
+                if (!is_dir($folder) && !@mkdir($folder, 0777, true) && !is_dir($folder)) {
+                    $grav = Grav::instance();
+                    throw new RuntimeException(sprintf($grav['language']->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '"' . $upload->getClientFilename() . '"', $destination));
+                }
+
+                try {
+                    $upload->moveTo($destination);
+                } catch (RuntimeException $e) {
+                    $grav = Grav::instance();
+                    throw new RuntimeException(sprintf($grav['language']->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '"' . $upload->getClientFilename() . '"', $destination));
+                }
+            }
+        }
+
+        $flash->clearFiles();
+    }
+
+    /**
+     * @return void
+     */
+    public function legacyUploads()
+    {
+        // Get flash object in order to save the files.
+        $flash = $this->getFlash();
+        $queue = $verify = $flash->getLegacyFiles();
+
+        if (!$queue) {
+            return;
+        }
+
+        $grav = Grav::instance();
+
+        /** @var Uri $uri */
+        $uri = $grav['uri'];
+
+        // Get POST data and decode JSON fields into arrays
+        $post = $uri->post();
+        $post['data'] = $this->decodeData($post['data'] ?? []);
+
+        // Allow plugins to implement additional / alternative logic
+        $grav->fireEvent('onFormStoreUploads', new Event(['form' => $this, 'queue' => &$queue, 'post' => $post]));
+
+        $modified = $queue !== $verify;
+
+        if (!$modified) {
+            // Fill file fields just like before.
+            foreach ($queue as $key => $files) {
+                foreach ($files as $destination => $file) {
+                    unset($files[$destination]['tmp_name']);
+                }
+
+                $this->setImageField($key, $files);
+            }
+        } else {
+            user_error('Event onFormStoreUploads is deprecated.', E_USER_DEPRECATED);
+
+            if (is_array($queue)) {
+                foreach ($queue as $key => $files) {
+                    foreach ($files as $destination => $file) {
+                        $filesystem = Filesystem::getInstance();
+                        $folder = $filesystem->dirname($destination);
+
+                        if (!is_dir($folder) && !@mkdir($folder, 0777, true) && !is_dir($folder)) {
+                            $grav = Grav::instance();
+                            throw new RuntimeException(sprintf($grav['language']->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '"' . $file['tmp_name'] . '"', $destination));
+                        }
+
+                        if (!rename($file['tmp_name'], $destination)) {
+                            $grav = Grav::instance();
+                            throw new RuntimeException(sprintf($grav['language']->translate('PLUGIN_FORM.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '"' . $file['tmp_name'] . '"', $destination));
+                        }
+
+                        if (file_exists($file['tmp_name'] . '.yaml')) {
+                            unlink($file['tmp_name'] . '.yaml');
+                        }
+
+                        unset($files[$destination]['tmp_name']);
+                    }
+
+                    $this->setImageField($key, $files);
+                }
+            }
+
+            $flash->clearFiles();
+        }
+    }
+
+    /**
+     * @param string $path
      * @return string
      */
-    public static function getNonce()
+    public function getPagePathFromToken($path)
     {
-        $action = 'form-plugin';
-        return Utils::getNonce($action);
+        return Utils::getPagePathFromToken($path, $this->getPage());
+    }
+
+    /**
+     * @return Route|null
+     */
+    public function getFileUploadAjaxRoute(): ?Route
+    {
+        $route = Uri::getCurrentRoute()->withExtension('json')->withGravParam('task', 'file-upload');
+
+        return $route;
+    }
+
+    /**
+     * @param string|null $field
+     * @param string|null $filename
+     * @return Route|null
+     */
+    public function getFileDeleteAjaxRoute($field = null, $filename = null): ?Route
+    {
+        $route = Uri::getCurrentRoute()->withExtension('json')->withGravParam('task', 'file-remove');
+
+        return $route;
+    }
+
+    /**
+     * @param int|null $code
+     * @return int|mixed
+     */
+    public function responseCode($code = null)
+    {
+        if ($code) {
+            $this->response_code = $code;
+        }
+        return $this->response_code;
+    }
+
+    /**
+     * @return array
+     */
+    public function doSerialize()
+    {
+        return $this->doTraitSerialize() + [
+                'items' => $this->items,
+                'message' => $this->message,
+                'status' => $this->status,
+                'header_data' => $this->header_data,
+                'rules' => $this->rules,
+                'values' => $this->values->toArray(),
+                'page' => $this->page
+            ];
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function doUnserialize(array $data)
+    {
+        $this->items = $data['items'];
+        $this->message = $data['message'];
+        $this->status = $data['status'];
+        $this->header_data = $data['header_data'];
+        $this->rules = $data['rules'];
+        $this->values = new Data($data['values']);
+        $this->page = $data['page'];
+
+        // Backwards compatibility.
+        $defaults = [
+            'name' => $this->items['name'],
+            'id' => $this->items['id'],
+            'uniqueid' => $this->items['uniqueid'] ?? null,
+            'data' => []
+        ];
+
+        $this->doTraitUnserialize($data + $defaults);
     }
 
     /**
@@ -798,24 +1201,222 @@ class Form extends Iterator implements \Serializable
     {
         $config = Grav::instance()['config'];
 
-        $filesize_mb = (int)($config->get('plugins.form.files.filesize', 0) * static::BYTES_TO_MB);
-        $system_filesize = $config->get('system.media.upload_limit', 0);
-        if ($filesize_mb > $system_filesize || $filesize_mb === 0) {
-            $filesize_mb = $system_filesize;
+        $system_filesize = 0;
+        $form_filesize = $config->get('plugins.form.files.filesize', 0);
+        $upload_limit = (int) Utils::getUploadLimit();
+
+        if ($upload_limit > 0) {
+            $system_filesize = intval($upload_limit / static::BYTES_TO_MB);
+        }
+
+        if ($form_filesize > $system_filesize || $form_filesize == 0) {
+            $form_filesize = $system_filesize;
         }
 
         if ($mbytes) {
-            return $filesize_mb;
+            return $form_filesize * static::BYTES_TO_MB;
         }
 
-        return $filesize_mb  / static::BYTES_TO_MB;
+        return $form_filesize;
     }
 
-    public function responseCode($code = null)
+    /**
+     * @param callable $callable
+     * @return void
+     */
+    protected function sendJsonResponse(callable $callable)
     {
-        if ($code) {
-            $this->response_code = $code;
+        $grav = Grav::instance();
+
+        /** @var Uri $uri */
+        $uri  = $grav['uri'];
+
+        // Get POST data and decode JSON fields into arrays
+        $post = $uri->post();
+        $post['data'] = $this->decodeData($post['data'] ?? []);
+
+        if (empty($post['form-nonce']) || !Utils::verifyNonce($post['form-nonce'], 'form')) {
+            throw new RuntimeException('Bad Request: Nonce is missing or invalid', 400);
         }
-        return $this->response_code;
+
+        $this->values = new Data($post);
+
+        $json_response = $callable($post);
+
+        // Return JSON
+        header('Content-Type: application/json');
+        echo json_encode($json_response);
+        exit;
+    }
+
+    /**
+     * Remove uploaded file from flash object.
+     *
+     * @param string $filename
+     * @param string|null $field
+     * @return void
+     */
+    protected function removeFlashUpload(string $filename, string $field = null)
+    {
+        $flash = $this->getFlash();
+        $flash->removeFile($filename, $field);
+        $flash->save();
+    }
+
+    /**
+     * Store updated data into flash object.
+     *
+     * @param array $data
+     * @return void
+     */
+    protected function updateFlashData(array $data)
+    {
+        // Store updated data into flash.
+        $flash = $this->getFlash();
+
+        // Check special case where there are no changes made to the form.
+        if (!$flash->exists() && $data === $this->header_data) {
+            return;
+        }
+
+        $this->setAllData($flash->getData() ?? []);
+
+        $this->data->merge($data);
+
+        $flash->setData($this->data->toArray());
+        $flash->save();
+    }
+
+    /**
+     * @param array $data
+     * @param array $files
+     * @return void
+     */
+    protected function doSubmit(array $data, array $files)
+    {
+        return;
+    }
+
+    /**
+     * @param array $fields
+     * @return array
+     */
+    protected function processFields($fields)
+    {
+        $types = Grav::instance()['plugins']->formFieldTypes;
+
+        $return = [];
+        foreach ($fields as $key => $value) {
+            // Default to text if not set
+            if (!isset($value['type'])) {
+                $value['type'] = 'text';
+            }
+
+            // Manually merging the field types
+            if ($types !== null && array_key_exists($value['type'], $types)) {
+                $value += $types[$value['type']];
+            }
+
+            // Fix numeric indexes
+            if (is_numeric($key) && isset($value['name'])) {
+                $key = $value['name'];
+            }
+
+            // Recursively process children
+            if (isset($value['fields']) && is_array($value['fields'])) {
+                $value['fields'] = $this->processFields($value['fields']);
+            }
+
+            $return[$key] = $value;
+        }
+
+        return $return;
+    }
+
+    /**
+     * @param string $key
+     * @param array $files
+     * @return void
+     */
+    protected function setImageField($key, $files)
+    {
+        $field = $this->data->blueprints()->schema()->get($key);
+
+        if (isset($field['type']) && !empty($field['array'])) {
+            $this->data->set($key, $files);
+        }
+    }
+
+    /**
+     * Decode data
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function decodeData($data)
+    {
+        if (!is_array($data)) {
+            return [];
+        }
+
+        // Decode JSON encoded fields and merge them to data.
+        if (isset($data['_json'])) {
+            $data = array_replace_recursive($data, $this->jsonDecode($data['_json']));
+            unset($data['_json']);
+        }
+
+        $data = $this->cleanDataKeys($data);
+
+        return $data;
+    }
+
+    /**
+     * Decode [] in the data keys
+     *
+     * @param array $source
+     * @return array
+     */
+    protected function cleanDataKeys($source = [])
+    {
+        $out = [];
+
+        if (is_array($source)) {
+            foreach ($source as $key => $value) {
+                $key = str_replace(['%5B', '%5D'], ['[', ']'], $key);
+                if (is_array($value)) {
+                    $out[$key] = $this->cleanDataKeys($value);
+                } else {
+                    $out[$key] = $value;
+                }
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * Internal method to normalize the $_FILES array
+     *
+     * @param array  $data $_FILES starting point data
+     * @param string $key
+     * @return object a new Object with a normalized list of files
+     */
+    protected function normalizeFiles($data, $key = '')
+    {
+        $files = new stdClass();
+        $files->field = $key;
+        $files->file = new stdClass();
+
+        foreach ($data as $fieldName => $fieldValue) {
+            // Since Files Upload are always happening via Ajax
+            // we are not interested in handling `multiple="true"`
+            // because they are always handled one at a time.
+            // For this reason we normalize the value to string,
+            // in case it is arriving as an array.
+            $value = (array) Utils::getDotNotation($fieldValue, $key);
+            $files->file->{$fieldName} = array_shift($value);
+        }
+
+        return $files;
     }
 }

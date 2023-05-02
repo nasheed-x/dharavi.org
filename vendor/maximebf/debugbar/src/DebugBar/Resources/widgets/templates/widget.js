@@ -18,7 +18,7 @@
             this.$list = new  PhpDebugBar.Widgets.ListWidget({ itemRenderer: function(li, tpl) {
                 $('<span />').addClass(csscls('name')).text(tpl.name).appendTo(li);
 
-                if (typeof tpl.xdebug_link !== 'undefined') {
+                if (typeof tpl.xdebug_link !== 'undefined' && tpl.xdebug_link !== null) {
                     if (tpl.xdebug_link.ajax) {
                         $('<a title="' + tpl.xdebug_link.url + '"></a>').on('click', function () {
                             $.ajax(tpl.xdebug_link.url);
@@ -38,6 +38,9 @@
                 }
                 if (typeof(tpl.type) != 'undefined' && tpl.type) {
                     $('<span title="Type" />').addClass(csscls('type')).text(tpl.type).appendTo(li);
+                }
+                if (typeof(tpl.editorLink) != 'undefined' && tpl.editorLink) {
+                    $('<a href="'+ tpl.editorLink +'" />').addClass(csscls('editor-link')).text('file').appendTo(li);
                 }
                 if (tpl.params && !$.isEmptyObject(tpl.params)) {
                     var table = $('<table><tr><th colspan="2">Params</th></tr></table>').addClass(csscls('params')).appendTo(li);

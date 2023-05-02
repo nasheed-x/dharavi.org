@@ -1,3 +1,547 @@
+# v7.1.2
+## 01/08/2023
+
+1. [](#bugfix)
+   * Fixes issue with multiplication type BasicCaptcha Math Captcha [#587](https://github.com/getgrav/grav-plugin-form/issues/587)
+
+# v7.1.1
+## 11/29/2022
+
+1. [](#bugfix)
+   * Fix missing blueprint entries for Turnstile configuration [#583](https://github.com/getgrav/grav-plugin-form/issues/583)
+
+# v7.1.0
+## 11/16/2022
+
+1. [](#new)
+   * Added Cloudflare's `turnstile` captcha integration [documentation](https://learn.getgrav.org/17/forms/forms/fields-available#turnstile-field-cloudflare)
+
+# v7.0.2
+## 10/05/2022
+
+1. [](#bugfix)
+   * Fix for modular form definitions at root-level (useful for storing shared forms)
+
+# v7.0.1
+## 09/20/2022
+
+1. [](#improved)
+   * Provided some basic CSS styling for new captcha field
+
+# v7.0.0
+## 09/20/2022
+
+1. [](#new)
+   * Added a new custom `basic-captcha` option with **character** and **math** puzzles.  No 3rd-part service required.
+
+# v6.0.4
+## 08/08/2022
+
+1. [](#improved)
+    * Added `attributes` to field [#573](https://github.com/getgrav/grav-plugin-form/pull/573)
+
+# v6.0.3
+## 05/05/2022
+
+1. [](#bugfix)
+    * Regression: Fixed broken `addForm()` method
+
+# v6.0.2
+## 05/02/2022
+
+1. [](#bugfix)
+    * Fixed `forms({ route: '/forms/_myform' })` not finding form from non-routable pages (second try)
+
+# v6.0.1
+## 04/25/2022
+
+1. [](#improved)
+    * Improved `prepare_form_field()` twig method to include `plain_name`
+1. [](#bugfix)
+    * Fixed `columns` and `column` fields with `.dotted` variables inside to ignore columns and column names
+    * Fixed `forms({ route: '/forms/_myform' })` not finding forms from non-routable pages
+
+# v6.0.0
+## 03/28/2022
+
+1. [](#improved)
+    * Added log warning when trying to access form by non-unique name
+    * Optimized form caching by not initializing the forms in `onPageProcessed` event anymore
+    * **BACKWARD COMPATIBILITY**: As form initialization has been delayed, logic relaying on `onPageProcessed` with forms may not work anymore
+1. [](#bugfix)
+    * Fixed select field where option is iterable (#558)
+    * Fixed `FormPlugin::getForm()` to properly search the current page first
+    * Fixed `FormPlugin::getForm()` to ignore fallback if the page was given as parameter
+    * Fixed dynamic forms to work with cache turned on
+    * Fix nested `toggleable`: originalValue now checks with `??` instead of `is defined`
+
+# v5.1.7
+## 03/14/2022
+
+1. [](#new)
+    * Added `access` support for buttons
+2. [](#bugfix)
+   * Fixed tabs in the frontend to ensure JS is loaded
+   
+# v5.1.6
+## 02/07/2022
+
+1. [](#bugfix)
+    * Fixed Select field when using OptGroups, not allowing key/values [#541](https://github.com/getgrav/grav-plugin-form/issues/541)
+    * Support for translatable OptGroup labels in Select field [#540](https://github.com/getgrav/grav-plugin-form/issues/540)
+
+# v5.1.5
+## 01/24/2022
+
+1. [](#bugfix)
+    * Fixed case in selectize field where custom new entries would not be stored in non `multiple` lists
+
+# v5.1.4
+## 11/16/2021
+
+1. [](#bugfix)
+    * Fixed buttons no longer rendered [#537](https://github.com/getgrav/grav-plugin-form/issues/537) 
+    * Allow `select` field to customize `autocomplete` attribute
+
+# v5.1.3
+## 10/26/2021
+
+1. [](#new)
+    * Require **Grav 1.7.24**
+    * Added support to disable a form, making it readonly
+    * Added `|value_and_label` Twig filter to convert options to value/label pairs
+1. [](#improved)
+    * Improved Twig function `include_form_field()` to allow the second parameter to be an array of layouts
+
+# v5.1.2
+## 09/29/2021
+
+1. [](#improved)
+    * Improved support for Twig 2/3
+
+# v5.1.1
+## 09/14/2021
+
+1. [](#new)
+    * Require **Grav 1.7.21**
+1. [](#bugfix)
+    * Fixed accidental admin plugin requirement for YAML filter in the form
+    * Fixed `GravForm.config` JS to have correct `current_url` and `current_params` settings
+    * Fixed custom file upload and remove routes
+    * Fixed bug where uploading file has no effect [#349](https://github.com/getgrav/grav-plugin-form/issues/349)
+    * Fixed field with numeric field name in `prepare_form_fields()` [#530](https://github.com/getgrav/grav-plugin-form/issues/530)
+
+# v5.1.0
+## 08/31/2021
+
+1. [](#new)
+    * Require **Grav 1.7.19**
+    * Added support for custom form layouts
+    * Added Twig function `prepare_form_fields()` and `prepare_form_field()` to prepare form fields and field array
+    * Added Twig function `include_form_field()` to get all include paths for the field type
+    * Make `nonce` to a customizable field
+1. [](#bugfix)
+    * Fixed bad cookie value for remembering the position of nested tabs
+
+# v5.0.3
+## 06/15/2021
+
+1. [](#improved)
+   * Removed the windows `\r\n` line breaks + extraneous escaping in `data.txt.twig`
+   * Use `base64_encode` filter rather than function
+
+# v5.0.2
+## 04/23/2021
+
+1. [](#improved)
+   * Better message for invalid nonce [#513](https://github.com/getgrav/grav-plugin-form/issues/513)
+   * Better error if `Form::getPage()` gets called too early [#518](https://github.com/getgrav/grav-plugin-form/issues/518)
+   * Added support for custom Toggle id
+
+# v5.0.1
+## 03/17/2021
+
+1. [](#improved)
+   * Updated `de` language [#510](https://github.com/getgrav/grav-plugin-form/pull/510)
+   * Better field type definitions for avatar and file fields
+1. [](#bugfix)
+   * Fixed toggle highlight when there's no value
+   * Fixed wrong selected values in `select` field with integer and boolean values
+   * Fixed changelog display [#502](https://github.com/getgrav/grav-plugin-form/pull/502)
+
+# v5.0.0
+## 02/17/2021
+
+1. [](#new)
+   * Requires **Grav 1.7.0**
+   * Allow admins to temporarily disable form process actions by setting the value to `false` [#481](https://github.com/getgrav/grav-plugin-form/pull/481)
+1. [](#improved)
+   * Add `id` attribute to hidden field [#495](https://github.com/getgrav/grav-plugin-form/pull/495)
+   * Escape text as YAML in multi-line textarea [#464](https://github.com/getgrav/grav-plugin-form/pull/464)
+1. [](#bugfix)
+   * Fixed reCaptcha v3 incompatibility with multiple forms on the same page sharing different actions [#416](https://github.com/getgrav/grav-plugin-form/issues/416)
+   * Toggle fields do not save `false` if they are `toggleable` [#497](https://github.com/getgrav/grav-plugin-form/issues/497)
+   * Data template fixes [#494](https://github.com/getgrav/grav-plugin-form/pull/494)
+   * Fix deprecated Twig method
+
+# v4.3.1
+## 01/31/2021
+
+1. [](#improved)
+   * Updated deprecated `Twig_SimpleFunction` code
+   * Added Lithuanian translation [#485](https://github.com/getgrav/grav-plugin-form/pull/485)
+1. [](#bugfix)
+   * Fixed state of the checkbox if no value is provided
+   * Fixed evaluating default value in `hidden` field (thanks @NicoHood)
+   * Fixed default value to come from the `Form` in overridable field (thanks @NicoHood)
+   * Fix for disabling `client_side_validation` [#482](https://github.com/getgrav/grav-plugin-form/pull/482)
+   * Fix for translations in `select` field in data template [#475](https://github.com/getgrav/grav-plugin-form/pull/475)
+   * PHPDoc fixes 
+
+# v4.3.0
+## 12/14/2020
+
+1. [](#new)
+    * Added a new ‘condition’ attribute for tab for logic to process if it should display or not
+1. [](#improved)
+    * Added priority to form translations/config
+1. [](#bugfix)
+    * Fix admin access check [#463](https://github.com/getgrav/grav-plugin-form/pull/463)
+
+# v4.2.0
+## 12/02/2020
+
+1. [](#improved)
+    * Added support for arbitrary `attributes` on `form`, `textarea` and `checkbox` and `buttons`. [#447](https://github.com/getgrav/grav-plugin-form/issues/447) [#448](https://github.com/getgrav/grav-plugin-form/issues/448)
+    * Better support for array field key/value when either key or value are left empty
+    * Allow data-* form parameters to be used as <form> attributes. [#336](https://github.com/getgrav/grav-plugin-form/pull/336) 
+    * Allow action param when including form partial [#410](https://github.com/getgrav/grav-plugin-form/pull/410)  
+    * Also support validate min/max for textarea [#455](https://github.com/getgrav/grav-plugin-form/pull/455)  
+    * Translate form labels also in text file [#444](https://github.com/getgrav/grav-plugin-form/pull/448)
+1. [](#bugfix)
+    * Fixed KeepAlive issue where too large of a session value would fire the keep alive immediately
+    * Fixed stringable objects breaking the inputs
+    * Remove unused route variable from `file` field
+    * Fix condition for required attribute in toggle field [#451](https://github.com/getgrav/grav-plugin-form/pull/451)
+    * Fix form data template when select field is set to multiple [#452](https://github.com/getgrav/grav-plugin-form/pull/452)  
+    * Fix has-errors for select and other fields [#454](https://github.com/getgrav/grav-plugin-form/pull/454)
+    * Fix #453 section title level [#459](https://github.com/getgrav/grav-plugin-form/pull/459)
+
+# v4.1.2
+## 10/07/2020
+
+1. [](#bugfix)
+    * Added some missing class attributes
+
+# v4.1.1
+## 09/01/2020
+
+1. [](#bugfix)
+    * Key field should not escape the value
+
+# v4.1.0
+## 07/29/2020
+
+1. [](#new)
+    * Support JSON based form submissions
+1. [](#improved)
+    * Improved handling of error messages with more details + translation [#428](https://github.com/getgrav/grav-plugin-form/pull/428) [#429](https://github.com/getgrav/grav-plugin-form/pull/429)
+    * Various improvements for nested form data in  `data.html.twig` and `data.txt.twig`
+    * Use `|length` rather than `|count` twig filter
+    * Various language updates
+1. [](#bugfix)
+    * Disabled the EXIF library for Dropzone for fixing the orientation as it was getting applied twice [#1923](https://github.com/getgrav/grav-plugin-admin/issues/1923)
+    * Forked Dropzone fo fix issue with Resize + EXIF orientation [#1923](https://github.com/getgrav/grav-plugin-admin/issues/1923)
+
+# v4.0.10
+## 06/08/2020
+
+1. [](#improved)
+    * Updated languages
+1. [](#bugfix)
+    * Fixed redirect causing empty form on homepage forms with no action set
+
+# v4.0.9
+## 06/03/2020
+
+1. [](#bugfix)
+    * Fixed bad `id` attribute on `checkbox` field [#421](https://github.com/getgrav/grav-plugin-form/issues/421)
+    * Show the `description` span even for an empty description [#313](https://github.com/getgrav/grav-plugin-form/pull/313)
+
+# v4.0.8
+## 04/30/2020
+
+1. [](#bugfix)
+    * Fixed issue with `force_bool` in `toggle` field to be more robust
+
+# v4.0.7
+## 04/27/2020
+
+1. [](#new)
+    * Added ability to hide form fields in `data.html.twig` and `data.txt.twig` with `field.store: false`
+1. [](#improved)
+    * Updated node dependencies
+    * Added new `force_bool: true|false` option to `toggle` field to cast strings for use in BC situations
+1. [](#bugfix)
+    * Fix markdown links in changelog [#415](https://github.com/getgrav/grav-plugin-form/pull/415)
+
+# v4.0.6
+## 03/19/2020
+
+1. [](#new)
+    * CHANGE: Form labels are now displayed in `raw` format so you can use HTML in them
+    * Added support for `name` attribute on buttons [#411](https://github.com/getgrav/grav-plugin-form/issues/411)
+1. [](#improved)
+    * Added support for `classes` option in `avatar` field
+    * Recompiled JS with latest NPM libraries
+1. [](#bugfix)
+    * Fixed password field outputting the contents to HTML (will now always be empty when loading the page)
+    * Escape default output in `formdata.html.twig` [#384](https://github.com/getgrav/grav-plugin-form/issues/384)
+    * Better JS rendering of captcha field scripts for VueJS template compatibility
+
+# v4.0.5
+## 03/05/2020
+
+1. [](#bugfix)
+    * Fixed form actions that post to page anchors should not have current base_url added (e.g. `#contact-us`)
+    * Fixed toggleable buttons no longer holding false state [#406](https://github.com/getgrav/grav-plugin-form/issues/406)
+
+# v4.0.4
+## 02/25/2020
+
+1. [](#bugfix)
+    * Fix for `enctype` in multipart forms [#408](https://github.com/getgrav/grav-plugin-form/issues/408)
+
+# v4.0.3
+## 02/11/2020
+
+1. [](#new)
+    * Pass phpstan level 1 tests
+
+# v4.0.2
+## 02/03/2020
+
+1. [](#improved)
+    * Allow checkbox field to have custom value, default to 1
+1. [](#bugfix)
+    * Fixed `toggle` field not working with `toggleable: true`
+    * Fixed fatal error when form type is disabled
+
+# v4.0.1
+## 01/02/2020
+
+1. [](#improved)
+    * Improve Grav 1.7 support by not using deprecated `$page->modular()` call
+    * Use form scope if it is defined
+1. [](#bugfix)
+    * Fixed bad HTML in select, radio, key, toggle, checkbox ad textarea when using tabindex attribute
+    * Fixed bad looking `tabs` field with a single tab in admin
+
+# v4.0.0
+## 11/06/2019
+
+1. [](#new)
+    * Added `tabindex` to global attributes of default field
+    * Add ability to Sanitize SVGs on upload (Grav 1.7+ required)
+1. [](#improved)
+    * Deprecate `select_optgroup` as `select` can handle optgroups now
+    * Added missing tabindex checks
+    * Refactored field inheritance to make things more reliable
+    * Removed jQuery dependency for the reCaptcha field and VanillaJS-ified it instead
+    * Removed a stray `dump()` command
+    * Refactored the base `templates/forms/default` twig templates to make things more extensible
+    * Added a new `templates/forms/layouts` set of twit templates to allow for easier customization
+1. [](#bugfix)
+    * Fixed `Badly encoded JSON data` warning when uploading files [grav#2663](https://github.com/getgrav/grav/issues/2663)
+    * Fixed a number of escaping issues [#368](https://github.com/getgrav/grav-plugin-form/issues/368)
+
+# v3.0.9
+## 09/19/2019
+
+1. [](#improved)
+    * Removed jQuery dependency for the reCaptcha field and VanillaJS-ified it instead
+    * Updated to ReCaptcha library version `1.2.3`
+1. [](#bugfix)
+    * Fixed `Badly encoded JSON data` warning when uploading files [grav#2663](https://github.com/getgrav/grav/issues/2663)
+
+# v3.0.8
+## 08/14/2019
+
+1. [](#improved)
+    * Change form save action location to `user-data://` stream [#353](https://github.com/getgrav/grav-plugin-form/issues/353)
+    * Updated `eu`, `fr` and `pl` language
+    * Make `Form::initialize()` chainable
+    * Added `folder` option to `save:` action with fallback
+1. [](#bugfix)
+    * Fixed Submit & Redirect not working as expected [#355](https://github.com/getgrav/grav-plugin-form/issues/355)
+    * Fixed oversensitive refresh prevention [#354](https://github.com/getgrav/grav-plugin-form/issues/354)
+    * Fixed issue with Form JS when pipeline is enabled [grav#2592](https://github.com/getgrav/grav/issues/2592)
+    * Fixed `accept` for SVG in file field [#364](https://github.com/getgrav/grav-plugin-form/pull/364)
+    * Fixed issue with plugin not returning expected form [#309](https://github.com/getgrav/grav-plugin-form/pull/309)
+    * Fixed form message not showing up after reset process
+    * Fixed form fields inside a single tab not using value from the form object if it is available
+    * Fixed file form field failing resolution checks in certain circumstances
+
+# v3.0.7
+## 07/01/2019
+
+1. [](#bugfix)
+    * Fixed file upload when `$grav['user']` is not set [#352](https://github.com/getgrav/grav-plugin-form/issues/352)
+    * Fixed label markdown being escaped [#356](https://github.com/getgrav/grav-plugin-form/pull/356)
+
+# v3.0.6
+## 06/24/2019
+
+1. [](#bugfix)
+    * Fixed regression breaking forms external to the page in some sites
+    * Fixed regression with form action in sub-path folders
+
+# v3.0.5
+## 06/21/2019
+
+1. [](#new)
+    * Added support for form state saving with dynamic unique id appended to the URL
+1. [](#improved)
+    * Avoid creating form state if there is no data to be saved
+1. [](#bugfix)
+    * Fixed missing check for maximum allowed files in `files` field
+    * Fixed unique form ids getting cached, they should change on every page reload
+
+# v3.0.4
+## 06/14/2019
+
+1. [](#improved)
+    * Captcha field: fail silently and display error in console if site_key was not defined
+    * Support inline-errors, prepend, append in `textarea`
+1. [](#bugfix)
+    * Use less-strict comparison when checking version 3 [#344](https://github.com/getgrav/grav-plugin-form/issues/344)
+
+# v3.0.3
+## 05/09/2019
+
+1. [](#new)
+    * Added Text `field.copy-to-clipboard` which can be used by admin plugin
+1. [](#bugfix)
+    * Fixed Flex route issue in list page
+    * Fix flex-height of signature field
+    * Fix for broken `field.recaptcha_site_key` [#344](https://github.com/getgrav/grav-plugin-form/issues/344)
+    * Fix for checkbox data lang string [#343](https://github.com/getgrav/grav-plugin-form/issues/343)
+    * Fix for duplicate inline error messages [#337](https://github.com/getgrav/grav-plugin-form/issues/337)
+    * Fixed bad folder permissions when creating folder for file uploads
+
+# v3.0.2
+## 04/22/2019
+
+1. [](#new)
+    * Support for Google Recaptcha theme (light/dark) doesn't work in v3 yet.
+1. [](#improved)
+    * Visual upgrade for form field descriptions [#335](https://github.com/getgrav/grav-plugin-form/pull/335)
+1. [](#bugfix)
+    * Fixed issue with `recaptcha_not_validated` property not being used
+
+# v3.0.1
+## 04/15/2019
+
+1. [](#new)
+    * Added support for form task in blueprint
+1. [](#bugfix)
+    * Fix url field output in list view
+
+# v3.0.0
+## 04/11/2019
+
+1. [](#new)
+    * Allow streams in `file` field widget [#119](https://github.com/getgrav/grav-plugin-form/issues/119)
+    * Use new unified `|t` translate filter in all fields
+    * Google reCAPTCHA v3 support added
+    * Google reCAPTCHA v2 Invisible support added
+    * Added mutliple forms with reCAPTCHA support
+    * Form no longer extends `Grav\Common\Iterator` (may have some backward compatibility issues with plugins, likely not)
+    * Form now uses `NestedArrayAccessWithGetters` (with '/' separator) and `FormTrait` traits
+    * Added `view`, `key`, `ignore`, `section`, `toggle`, `tabs` and `tab` form fields
+    * Added support for `toggleable` inputs, which can be disabled/enabled by user
+    * Added `$grav['forms']` to allow plugins to better use forms [#307](https://github.com/getgrav/grav-plugin-form/pull/307)
+    * Added support for custom form types
+    * Forms can now remember their state after page reload with YAML `datasets: store-state: true` set in the fields
+    * Added `clear-state` AJAX task
+    * Added task to clear form flash
+    * Added support for file-upload and file-remove tasks
+    * Added ability to set a custom `clear_redirect_url` on a form
+    * Added `Form::setMessage()` method
+    * Added new form field templates for edit list table
+    * Requires Grav 1.6.0-beta.7 (and optionally Admin 1.9.0-beta.7)
+    * Backwards incompatibility: Do not allow static `Form::getNonce()` call, only `$form->getNonce()` works now
+    * Backwards incompatibility: All form field twig files are required to extend `field.html.twig` to work properly
+    * Allow using custom nonce field/action by setting `nonce.name` and `nonce.action` inside the form YAML
+    * Added `html: true` support for form buttons (will not escape the button value)
+    * Added `toggle`, `tabs` and `tab` form fields
+    * Added support for toggleable inputs, which can be disabled/enabled by user
+    * Added proper support for hiding form fields in blueprints by using dynamic property like `security@: admin.foobar` to any field
+1. [](#improved)
+    * Make fields `formname`, `uniqueid` and `honeypot` non-inputs in form validation
+    * Update all Form classes to rely on `PageInterface` instead of `Page` class
+    * Removed `media.upload_limit` references
+    * Added field type `hidden` to `ip` and `timestamp` actions
+    * Improved the `hidden` field logic to support `value` or `default` set
+    * Set the message globally on `messages` object when using a redirect in form
+    * Improved logic for finding the current form
+    * Added support for data-sets in `textarea` and `select` fields
+    * Simplify `shouldProcessForm()` logic
+    * Do not cache flat forms list, regenerate it instead
+    * Fixed some inconsistencies on how blueprints are handled
+    * Improved uploads handling, added new `upload: true|false` process
+    * Make `Form` implement `FormInterface`
+    * Added `field.size` in `array`, `select`, and `textarea`
+    * Enable forms in admin plugin
+    * Removed submit of unchecked fields in frontend
+    * Make sure that the images in the file field are not cached in browser
+    * Updated code to use PHP 7.1 features
+    * Added some extra blocks to `file` field to make it more extensible
+    * Added `field.classes` to form field to allow customization
+    * Used Google reCAPTCHA API all token validation
+    * Better filename and mime type handling
+    * Now using the new core Grav language prefix
+    * Make all form fields to extend `field.html.twig`
+1. [](#bugfix)
+    * Fixed old way to access form name
+    * Fixed minor bugs
+    * Fixed null date/time in list view
+    * Fixed forms not being cached properly
+    * Fixed issue with `selectize`, automatically selecting an unintended value
+    * Throw exception if you try to `add` to a file and don't provide `filename` [#324](https://github.com/getgrav/grav-plugin-form/issues/324)
+    * Fixed file field saving with nested name
+    * Fixed file saving if destination folder does not exist
+    * Fixed FormFlash object not getting deleted on form post
+    * Regression: Fixed ignored form action [#318](https://github.com/getgrav/grav-plugin-form/issues/318)
+    * Regression: Fixed modular form submit not triggering the action sometimes
+    * Fixed modular form submits without defined `action: /path` inside the form
+    * Fixed form processing in nested modular pages
+    * Fixed container fields breaking values from the child fields
+    * Fixed form fields not accepting object values
+    * Fixed some form fields having no value for nested field sets
+    * Fixed double escaping of `file` type input JSON value
+    * Fixed double locking of file when calling processor save
+    * Fixed some missing backwards compatibility
+    * Fixed some issues with flashed form
+    * Fixed Twig 2 compatibility issue
+    * Fixed files uploading before captcha check
+    * Fixed files uploading before data has been stored
+    * Fixed some issues with reCAPTCHA v3
+    * Fixed error responses when file actions fail in the form
+    * Pass unique_id when uploading files if available
+
+# v2.16.4
+## 12/14/2018
+
+1. [](#improved)
+    * Better handling of invalid file names during upload
+    * Better MIME type checking of files during file upload
+    * Do not rely on jQuery for merging languages from form fields [#290](https://github.com/getgrav/grav-plugin-form/issues/290) [#291](https://github.com/getgrav/grav-plugin-form/issues/291)
+2. [](#bugfix)
+    * Remove jQuery dependency in form.html.twig (#290)
+3. [](#new)
+    * Added Object.assign-polyfill (#291)
+
 # v2.16.3
 ## 09/21/2018
 
@@ -6,7 +550,7 @@
     * Various JS tweaks and enhancements
 1. [](#bugfix)
     * Fixed issue where `select` set up as `multiple` and with `selectize: create: true` would not properly merge newly created values on rendering.
- 
+
 # v2.16.2
 ## 08/23/2018
 
@@ -35,7 +579,7 @@
 ## 06/20/2018
 
 1. [](#improved)
-    * Including EXIF JS library in the modules dependencies to fix orientation when uploading images 
+    * Including EXIF JS library in the modules dependencies to fix orientation when uploading images
 1. [](#bugfix)
    * Fix HTML data template for checkboxes fields where 'use' property is "keys" [#258](https://github.com/getgrav/grav-plugin-form/pull/258)
 
@@ -51,7 +595,7 @@
 
 1. [](#bugfix)
     * Fixed regression with select field, causing issues with filepicker field [grav-plugin-admin#1441](https://github.com/getgrav/grav-plugin-admin/issues/1441)
-    
+
 # v2.14.0
 ## 05/11/2018
 
@@ -86,11 +630,11 @@
     * Added event `onFormPrepareValidation` to allow some pre-processing before form validation
     * Added new `postfix` and `dateraw` options to "Save" action
 1. [](#improved)
-    * Added support for `nest_id` boolean flag to `fieldset` field to nest sub-fields with name of fieldset  
-    * Added classes attribute to `spacer` field 
+    * Added support for `nest_id` boolean flag to `fieldset` field to nest sub-fields with name of fieldset
+    * Added classes attribute to `spacer` field
 1. [](#bugfix)
     * Fixed `Form::setFields()` causing validation to fail on added and removed fields
-    
+
 # v2.13.1
 ## 03/21/2018
 
@@ -99,7 +643,7 @@
     * Use `visibility:hidden` rather than `display:none` for honeypot field [#235](https://github.com/getgrav/grav-plugin-form/pull/235)
     * Added support for markdown in checkbox field [#233](https://github.com/getgrav/grav-plugin-form/pull/233)
     * Added option to control `inline_css: true|false` for fields such as honeypot
-    * Added class and CSS for honeypot field    
+    * Added class and CSS for honeypot field
 
 # v2.13.0
 ## 03/09/2018
@@ -114,7 +658,7 @@
 1. [](#bugfix)
     * Fixed an issue where unlimited size `0` was not being set properly in File field
     * `field.description` now translated and displays properly
-    
+
 # v2.12.0
 ## 02/22/2018
 
@@ -122,10 +666,10 @@
     * Added toggle to enable/disable client-side HTML5 validation
     * Added toggle to enable/disable inline-error messages
 1. [](#improved)
-    * Reformatted `form.php` plugin class for better readability  
+    * Reformatted `form.php` plugin class for better readability
 1. [](#bugfix)
     * Fixed an issue with in-content Twig forms not working because forms were not initialized yet
-  
+
 
 # v2.11.5
 ## 02/16/2018
@@ -144,7 +688,7 @@
     * Added support for `switch` to be treated as checkbox
 1. [](#bugfix)
     * Fixed missing form submit in dynamically created pages
-    
+
 # v2.11.3
 ## 01/31/2018
 
@@ -211,7 +755,7 @@
     * Improved Polish translation
 1. [](#bugfix)
     * Added missing `@input: false` attributes to some non-display fields [#189](https://github.com/getgrav/grav-plugin-form/issues/189)
-    
+
 # v2.9.1
 ## 09/14/2017
 
@@ -235,7 +779,7 @@
     * Only add Twig form variable if not already set
     * Fixed issue with multiple forms on a page failing on Captcha client-side validation [#182](https://github.com/getgrav/grav-plugin-form/issues/182)
     * Fixed issue with Ajax forms return full form HTML on error [#163](https://github.com/getgrav/grav-plugin-form/issues/163)
-    
+
 # v2.8.2
 ## 08/18/2017
 
@@ -246,7 +790,7 @@
 ## 08/15/2017
 
 1. [](#improved)
-    * Added extra class support to the default field for more flexible styling 
+    * Added extra class support to the default field for more flexible styling
 
 # v2.8.0
 ## 07/16/2017

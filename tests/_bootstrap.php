@@ -7,10 +7,14 @@ use Grav\Common\Grav;
 
 ini_set('error_log', __DIR__ . '/error.log');
 
-$grav = function() {
+$grav = function () {
     Grav::resetInstance();
     $grav = Grav::instance();
     $grav['config']->init();
+
+    // This must be set first before the other init
+    $grav['config']->set('system.languages.supported', ['en', 'fr', 'vi']);
+    $grav['config']->set('system.languages.default_lang', 'en');
 
     foreach (array_keys($grav['setup']->getStreams()) as $stream) {
         @stream_wrapper_unregister($stream);
@@ -29,7 +33,3 @@ $grav = function() {
 };
 
 Fixtures::add('grav', $grav);
-
-$fake = Factory::create();
-Fixtures::add('fake', $fake);
-

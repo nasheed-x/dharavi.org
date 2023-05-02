@@ -1,3 +1,47 @@
+# v2.1.1
+## 04/14/2021
+
+1. [](#bugfix)
+    * Fixed a check for loading problem classes [#32](https://github.com/getgrav/grav-plugin-problems/issues/32)
+    * Regression: folders check fails in Windows [#31](https://github.com/getgrav/grav-plugin-problems/issues/31)
+
+# v2.1.0
+## 04/13/2021
+
+1. [](#new)
+    * Requires **Grav 1.7.11**
+    * Support running Grav outside webroot [#29](https://github.com/getgrav/grav-plugin-problems/pull/29)
+    * Added check whether `user/accounts` is writable [#25](https://github.com/getgrav/grav-plugin-problems/issues/25)
+    * Not all folders need to be writable, reflect that [#30](https://github.com/getgrav/grav-plugin-problems/pull/30)
+    * Added check whether JSON extension is installed
+1. [](#improved)
+    * Updated plugin code to the latest standards
+1. [](#bugfix)
+    * Fixed `onFatalException` being handled/rendered when in CLI and in Admin
+
+# v2.0.3
+## 05/09/2019
+
+1. [](#new)
+    * Code cleanup
+    * Pass `phpstan` tests
+    * Added `ru` and `uk` translations [#23](https://github.com/getgrav/grav-plugin-problems/pull/23)
+
+# v2.0.2
+## 12/16/2018
+
+1. [](#bugfix)
+    * Fixed an issue with checker not being initialized on Fatal Error
+
+# v2.0.1
+## 12/07/2018
+
+1. [](#new)
+    * Added support for admin reporting available in Grav 1.6
+1. [](#bugfix)
+    * Fixed issue with twig auto-escaping
+    * Fixed problems plugin potentially breaking CLI command if plugins get initialized
+
 # v2.0.0
 ## 09/30/2018
 
