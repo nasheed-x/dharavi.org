@@ -25,6 +25,7 @@ images/*
 
 assets/*
 !assets/.gitkeep 
+!assets/admin-preset.css
 
 tmp/*
 !tmp/.gitkeep 
