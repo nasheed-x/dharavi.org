@@ -25,3 +25,9 @@ images/*
 
 assets/*
 !assets/.gitkeep 
+
+tmp/*
+!tmp/.gitkeep 
+
+backup/*
+!backup/.gitkeep 

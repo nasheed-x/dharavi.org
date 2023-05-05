@@ -1,0 +1,14 @@
+{% for mk in mks %}
+    L.marker([{{ mk.lat|raw }},{{ mk.lng|raw }}], {
+        icon: L.ExtraMarkers.icon({
+          markerColor: '{{ mk.mcol|raw }}',
+          iconColor: '{{ mk.icol|raw }}'
+          {% if mk.spin %}, spin: '{{ mk.spin|raw }}'{% endif %}
+          {% if mk.text %}, number: "{{ mk.text|raw }}", icon: 'fa-number'
+          {% elseif mk.icon %}, icon: '{{ mk.icon|raw }}'
+          {% endif %}
+          })
+          {% if mk.title %}, title: "{{ mk.title|raw }}"{% endif %}
+          {% if mk.drag %}, draggable: {{ mk.drag|raw }}{% endif %}
+        }).addTo(map);
+{% endfor %}
