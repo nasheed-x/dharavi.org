@@ -1,10 +1,10 @@
 name: _body_only
-timestamp: 1683559087
+timestamp: 1477304780
 version: 7
 preset:
   image: 'gantry-admin://images/layouts/body-only.png'
   name: _body_only
-  timestamp: 1683559026
+  timestamp: 1475608598
 positions: {  }
 sections:
   mainbar: Mainbar

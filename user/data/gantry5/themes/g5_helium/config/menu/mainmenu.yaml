@@ -1,0 +1,23 @@
+title: 'Helium Theme'
+description: 'Sample menu for Helium theme.'
+items:
+  styles:
+    type: separator
+    dropdown: standard
+    dropdown_dir: center
+    dropdown_hide: '1'
+    width: 35rem
+    columns:
+      - 100
+    title: Styles
+  styles/__particle-2IjaB:
+    type: particle
+    particle: custom
+    title: 'Custom HTML'
+    options:
+      particle:
+        enabled: '1'
+        html: "<div class=\"g-grid g-preset-thumbnails center\">\n    <div class=\"g-block\">\n        <div class=\"g-content\">\n            <a href=\"?presets=preset1\">\n                <img src=\"gantry-media://styles/preset1.png\" alt=\"Preset 1\">\n                <br />\n                <span>Preset 1</span>\n            </a>\n        </div>\n    </div>\n    <div class=\"g-block\">\n        <div class=\"g-content\">\n            <a href=\"?presets=preset2\">\n                <img src=\"gantry-media://styles/preset2.png\" alt=\"Preset 2\">\n                <br />\n                <span>Preset 2</span>\n            </a>\n        </div>\n    </div>\n    <div class=\"g-block\">\n        <div class=\"g-content\">\n            <a href=\"?presets=preset3\">\n                <img src=\"gantry-media://styles/preset3.png\" alt=\"Preset 3\">\n                <br />\n                <span>Preset 3</span>\n            </a>\n        </div>\n    </div>\n    <div class=\"g-block\">\n        <div class=\"g-content\">\n            <a href=\"?presets=preset4\">\n                <img src=\"gantry-media://styles/preset4.png\" alt=\"Preset 4\">\n                <br />\n                <span>Preset 4</span>\n            </a>\n        </div>\n    </div>\n    <div class=\"g-block\">\n        <div class=\"g-content\">\n            <a href=\"?presets=preset5\">\n                <img src=\"gantry-media://styles/preset5.png\" alt=\"Preset 5\">\n                <br />\n                <span>Preset 5</span>\n            </a>\n        </div>\n    </div>\n    <div class=\"g-block\">\n        <div class=\"g-content\">\n            <a href=\"?presets=preset6\">\n                <img src=\"gantry-media://styles/preset6.png\" alt=\"Preset 6\">\n                <br />\n                <span>Preset 6</span>\n            </a>\n        </div>\n    </div>    \n</div>"
+      block:
+        extra: {  }
+

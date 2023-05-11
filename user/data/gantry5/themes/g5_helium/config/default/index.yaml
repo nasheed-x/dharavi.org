@@ -1,12 +1,11 @@
 name: default
-timestamp: 1683559041
+timestamp: 1477304780
 version: 7
 preset:
   image: 'gantry-admin://images/layouts/default.png'
   name: default
-  timestamp: 1683559026
+  timestamp: 1475608600
 positions:
-  aside: Aside
   sidebar: Sidebar
 sections:
   navigation: Navigation
@@ -17,14 +16,11 @@ sections:
   testimonials: Testimonials
   expanded: Expanded
   header: Header
-  aside: Aside
-  sidebar: Sidebar
   mainbar: Mainbar
+  sidebar: Sidebar
   footer: Footer
   offcanvas: Offcanvas
 particles:
-  messages:
-    system-messages-7972: 'System Messages'
   logo:
     logo-9608: 'Logo / Image'
     logo-9571: 'Logo / Image'
@@ -32,11 +28,10 @@ particles:
     menu-6409: Menu
   social:
     social-3171: Social
-  position:
-    position-position-4734: Aside
-    position-position-3949: Sidebar
   content:
     system-content-1587: 'Page Content'
+  position:
+    position-position-3949: Sidebar
   copyright:
     copyright-1736: Copyright
   horizontalmenu:

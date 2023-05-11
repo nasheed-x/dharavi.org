@@ -3,3 +3,9 @@ cache/*
 
 logs/*
 !logs/.gitkeep 
+
+tmp/*
+!tmp/.gitkeep 
+
+backup/*
+!backup/.gitkeep 

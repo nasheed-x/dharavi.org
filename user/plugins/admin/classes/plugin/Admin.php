@@ -102,6 +102,9 @@ class Admin
     /** @var array */
     public $languages_enabled = [];
     /** @var Uri $uri */
+
+    /** @var array */
+    public $routes = [];
     protected $uri;
     /** @var array */
     protected $pages = [];
@@ -1435,15 +1438,17 @@ class Admin
      */
     public function lastBackup()
     {
-        $file    = JsonFile::instance($this->grav['locator']->findResource('log://backup.log'));
-        $content = $file->content();
-        if (empty($content)) {
+        $backup_file = $this->grav['locator']->findResource('log://backup.log');
+
+        if (!file_exists($backup_file)) {
             return [
                 'days'        => '&infin;',
                 'chart_fill'  => 100,
                 'chart_empty' => 0
             ];
         }
+        $file    = JsonFile::instance($backup_file);
+        $content = $file->content();
 
         $backup = new \DateTime();
         $backup->setTimestamp($content['time']);

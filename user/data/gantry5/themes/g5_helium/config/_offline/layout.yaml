@@ -2,11 +2,9 @@ version: 2
 preset:
   image: 'gantry-admin://images/layouts/default.png'
   name: _offline
-  timestamp: 1683559026
+  timestamp: 1475608599
 layout:
   /navigation/:
-    -
-      - system-messages-9719
     -
       - 'logo-9608 15'
       - 'spacer-6015 65'

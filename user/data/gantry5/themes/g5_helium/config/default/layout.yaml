@@ -2,11 +2,9 @@ version: 2
 preset:
   image: 'gantry-admin://images/layouts/default.png'
   name: default
-  timestamp: 1683559026
+  timestamp: 1475608600
 layout:
   /navigation/:
-    -
-      - system-messages-7972
     -
       - 'logo-9608 15'
       - 'menu-6409 65'
@@ -21,11 +19,7 @@ layout:
   /container-main/:
     -
       -
-        'aside 25':
-          -
-            - position-position-4734
-      -
-        'mainbar 50':
+        'mainbar 75':
           -
             - system-content-1587
       -
@@ -75,21 +69,12 @@ structure:
     type: section
     attributes:
       boxed: ''
-  aside:
-    attributes:
-      class: ''
-    block:
-      fixed: '1'
   mainbar:
     type: section
     subtype: main
   sidebar:
     type: section
     subtype: aside
-    attributes:
-      class: ''
-    block:
-      fixed: '1'
   container-main:
     attributes:
       boxed: ''
@@ -105,10 +90,6 @@ content:
   social-3171:
     block:
       class: g-social-header
-  position-position-4734:
-    title: Aside
-    attributes:
-      key: aside
   position-position-3949:
     title: Sidebar
     attributes:
