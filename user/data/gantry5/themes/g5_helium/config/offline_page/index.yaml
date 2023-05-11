@@ -1,5 +1,5 @@
-name: '27'
-timestamp: 1481293834
+name: offline_page
+timestamp: 1683818651
 version: 7
 preset:
   image: 'gantry-admin://images/layouts/default.png'
@@ -20,6 +20,10 @@ sections:
   footer: Footer
   offcanvas: Offcanvas
 particles:
+  custom:
+    custom-8642: 'Custom HTML'
+  content:
+    system-content-1587: 'Page Content'
   logo:
     logo-4683: 'Logo / Image'
     logo-2829: 'Logo / Image'
@@ -27,10 +31,6 @@ particles:
     menu-4016: Menu
   social:
     social-6357: Social
-  custom:
-    custom-8642: 'Custom HTML'
-  content:
-    system-content-1587: 'Page Content'
   copyright:
     copyright-9847: Copyright
   horizontalmenu:
@@ -42,13 +42,13 @@ particles:
 inherit:
   default:
     navigation: navigation
+    footer: footer
+    offcanvas: offcanvas
     logo-4683: logo-9608
     menu-4016: menu-6409
     social-6357: social-3171
-    footer: footer
     logo-2829: logo-9571
     copyright-9847: copyright-1736
     horizontalmenu-5451: horizontalmenu-9034
     totop-3073: totop-8670
-    offcanvas: offcanvas
     mobile-menu-2850: mobile-menu-5697
