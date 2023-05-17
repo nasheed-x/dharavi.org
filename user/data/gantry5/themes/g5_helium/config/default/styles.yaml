@@ -1,32 +1,32 @@
 preset: preset4
 base:
   background: '#ffffff'
-  text-color: '#2a363b'
+  text-color: '#000000'
 accent:
   color-1: '#e84a5f'
-  color-2: '#2a363b'
+  color-2: '#000000'
 font:
   family-default: 'Raleway, Helvetica, Tahoma, Geneva, Arial, sans-serif'
   family-title: 'Lato, Helvetica, Tahoma, Geneva, Arial, sans-serif'
 link:
   regular: '#e84a5f'
-  hover: '#2a363b'
+  hover: '#000000'
 navigation:
-  background: '#2a363b'
+  background: '#000000'
   text-color: '#ffffff'
 header:
-  background: '#2a363b'
+  background: '#000000'
   background-image: 'gantry-media://header/img01.jpg'
   background-overlay: enabled
   text-color: '#eceeef'
 intro:
   background: '#f4f5f7'
-  text-color: '#2a363b'
+  text-color: '#000000'
 features:
   background: '#ffffff'
-  text-color: '#2a363b'
+  text-color: '#000000'
 utility:
-  background: '#2a363b'
+  background: '#000000'
   text-color: '#ffffff'
 above:
   background: '#f4f5f7'
@@ -38,12 +38,12 @@ testimonials:
   text-color: '#eceeef'
 expanded:
   background: '#ffffff'
-  text-color: '#2a363b'
+  text-color: '#000000'
 footer:
   background: '#000000'
   text-color: '#ffffff'
 offcanvas:
-  background: '#2a363b'
+  background: '#000000'
   text-color: '#eceeef'
   toggle-color: '#e84a5f'
   toggle-visibility: '1'

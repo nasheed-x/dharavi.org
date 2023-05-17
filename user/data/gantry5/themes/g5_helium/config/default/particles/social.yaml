@@ -3,6 +3,7 @@ css:
   class: ''
 title: ''
 target: _blank
+display: both
 items:
   -
     icon: 'fa fa-twitter fa-fw'
