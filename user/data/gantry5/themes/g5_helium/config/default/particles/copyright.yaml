@@ -1,11 +1,11 @@
 enabled: '1'
 date:
-  start: '2016'
+  start: '2023'
   end: now
-owner: 'Gantry Framework'
+owner: dharavi.org
 link: ''
 target: _blank
 additional:
-  text: 'Developed by RocketTheme exclusively<br />for Gantry 5.'
+  text: 'A project curated by the students of <a href="https://nyuad.io/">EfSI 2023</a> . Maintained by <a href="https://urbz.net/">urbz</a>.'
 css:
   class: ''

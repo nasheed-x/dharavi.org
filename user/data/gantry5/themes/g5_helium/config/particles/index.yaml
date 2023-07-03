@@ -1,5 +1,5 @@
 name: particles
-timestamp: 1683895006
+timestamp: 1688374106
 version: 7
 preset:
   image: 'gantry-admin://images/layouts/default.png'
@@ -24,6 +24,7 @@ sections:
 particles:
   content:
     system-content-5435: 'Page Content'
+    system-content-8150: 'Page Content'
   position:
     position-position-5639: Mainbar
     position-position-1026: Sidebar
@@ -60,6 +61,7 @@ inherit:
     logo-9430: logo-9608
     menu-1561: menu-6409
     social-6869: social-3171
+    system-content-8150: system-content-2492
     position-position-1026: position-position-3949
     logo-5620: logo-9571
     copyright-9056: copyright-1736

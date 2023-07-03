@@ -6,17 +6,14 @@ target: _blank
 display: both
 items:
   -
-    icon: 'fa fa-twitter fa-fw'
+    icon: 'fa fa-caret-square-o-down'
     text: ''
-    link: 'http://www.twitter.com/rockettheme'
-    name: Twitter
+    title: urbz
+    link: 'https://urbz.net/'
+    name: urbz
   -
     icon: 'fa fa-facebook fa-fw'
     text: ''
-    link: 'http://www.facebook.com/RocketTheme'
-    name: Facebook
-  -
-    icon: 'fa fa-google-plus fa-fw'
-    text: ''
-    link: 'https://rockettheme.com'
-    name: Google+
+    title: 'Engineering Design Studio'
+    link: 'https://nyuad.io/en'
+    name: 'Engineering Design Studio'

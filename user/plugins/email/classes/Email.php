@@ -138,8 +138,9 @@ class Email
         $email = $message->getEmail();
 
         // Extend parameters with defaults.
-        $params += [
+        $defaults = [
             'bcc' => $config->get('plugins.email.bcc', []),
+            'bcc_name' => $config->get('plugins.email.bcc_name'),
             'body' => $config->get('plugins.email.body', '{% include "forms/data.html.twig" %}'),
             'cc' => $config->get('plugins.email.cc', []),
             'cc_name' => $config->get('plugins.email.cc_name'),
@@ -156,6 +157,12 @@ class Email
             'template' => false,
             'message' => $message
         ];
+
+        foreach ($defaults as $key => $value) {
+            if (!key_exists($key, $params)) {
+                $params[$key] = $value;
+            }
+        }
 
         if (!$params['to']) {
             throw new \RuntimeException($language->translate('PLUGIN_EMAIL.PLEASE_CONFIGURE_A_TO_ADDRESS'));
@@ -183,6 +190,9 @@ class Email
                             $params_part = $params;
                             if (isset($body_part['content_type'])) {
                                 $params_part['content_type'] = $body_part['content_type'];
+                            }
+                            if (isset($body_part['template'])) {
+                                $params_part['template'] = $body_part['template'];
                             }
                             if (isset($body_part['body'])) {
                                 $this->processBody($message, $params_part, $vars, $twig, $body_part['body']);
@@ -234,37 +244,38 @@ class Email
      */
     protected function processRecipients(string $type, array $params): array
     {
+        if (array_key_exists($type, $params) && $params[$type] === null) {
+            return [];
+        }
+
         $recipients = $params[$type] ?? Grav::instance()['config']->get('plugins.email.'.$type) ?? [];
 
         $list = [];
 
         if (!empty($recipients)) {
-            if (is_array($recipients) && Utils::isAssoc($recipients)) {
-                $list[] = $this->createAddress($recipients);
+            if (is_array($recipients)) {
+                if (Utils::isAssoc($recipients) || (count($recipients) ===2 && $this->isValidEmail($recipients[0]) && !$this->isValidEmail($recipients[1]))) {
+                    $list[] = $this->createAddress($recipients);
+                } else {
+                    foreach ($recipients as $recipient) {
+                        $list[] = $this->createAddress($recipient);
+                    }
+                }
             } else {
-                if (is_array($recipients)) {
-                    if (count($recipients) ===2 && $this->isValidEmail($recipients[0]) && is_string($recipients[1])) {
-                        $list[] = $this->createAddress($recipients);
-                    } else {
-                        foreach ($recipients as $recipient) {
-                            $list[] = $this->createAddress($recipient);
-                        }
+                if (is_string($recipients) && Utils::contains($recipients, ',')) {
+                    $recipients = array_map('trim', explode(',', $recipients));
+                    foreach ($recipients as $recipient) {
+                        $list[] = $this->createAddress($recipient);
                     }
                 } else {
-                    if (is_string($recipients) && Utils::contains($recipients, ',')) {
-                        $recipients = array_map('trim', explode(',', $recipients));
-                        foreach ($recipients as $recipient) {
-                            $list[] = $this->createAddress($recipient);
-                        }
-                    } else {
-                        if (!Utils::contains($recipients, ['<','>']) && ($params[$type."_name"])) {
-                            $recipients = [$recipients, $params[$type."_name"]];
-                        }
-                        $list[] = $this->createAddress($recipients);
+                    if (!Utils::contains($recipients, ['<','>']) && (isset($params[$type."_name"]))) {
+                        $recipients = [$recipients, $params[$type."_name"]];
                     }
+                    $list[] = $this->createAddress($recipients);
                 }
             }
         }
+
 
         return $list;
     }

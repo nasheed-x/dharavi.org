@@ -1,10 +1,10 @@
 name: default
-timestamp: 1683895006
+timestamp: 1688374106
 version: 7
 preset:
   image: 'gantry-admin://images/layouts/default.png'
   name: default
-  timestamp: 1475608600
+  timestamp: 1683816014
 positions:
   sidebar: Sidebar
 sections:
@@ -16,8 +16,9 @@ sections:
   testimonials: Testimonials
   expanded: Expanded
   header: Header
-  mainbar: Mainbar
+  aside: Aside
   sidebar: Sidebar
+  mainbar: Mainbar
   footer: Footer
   offcanvas: Offcanvas
 particles:
@@ -29,6 +30,7 @@ particles:
   social:
     social-3171: Social
   content:
+    system-content-2492: 'Page Content'
     system-content-1587: 'Page Content'
   position:
     position-position-3949: Sidebar

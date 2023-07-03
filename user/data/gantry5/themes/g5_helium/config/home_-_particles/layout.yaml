@@ -96,6 +96,7 @@ content:
   owlcarousel-2455:
     title: 'Owl Carousel'
     attributes:
+      nav: enable
       items:
         -
           image: 'gantry-media://header/img01.jpg'
