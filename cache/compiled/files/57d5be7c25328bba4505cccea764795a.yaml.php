@@ -2,13 +2,13 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/plugins/form/blueprints.yaml',
-    'modified' => 1683494624,
-    'size' => 10222,
+    'modified' => 1687849100,
+    'size' => 10463,
     'data' => [
         'name' => 'Form',
         'slug' => 'form',
         'type' => 'plugin',
-        'version' => '7.1.2',
+        'version' => '7.2.1',
         'description' => 'Enables forms handling and processing',
         'icon' => 'check-square',
         'author' => [
@@ -23,7 +23,7 @@ return [
         'dependencies' => [
             0 => [
                 'name' => 'grav',
-                'version' => '>=1.7.24'
+                'version' => '>=1.7.41'
             ]
         ],
         'form' => [
@@ -46,6 +46,19 @@ return [
                     'type' => 'section',
                     'title' => 'PLUGIN_FORM.GENERAL',
                     'fields' => [
+                        'debug' => [
+                            'type' => 'toggle',
+                            'label' => 'Debug',
+                            'highlight' => 1,
+                            'default' => 0,
+                            'options' => [
+                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                0 => 'PLUGIN_ADMIN.DISABLED'
+                            ],
+                            'validate' => [
+                                'type' => 'bool'
+                            ]
+                        ],
                         'built_in_css' => [
                             'type' => 'toggle',
                             'label' => 'PLUGIN_FORM.USE_BUILT_IN_CSS',

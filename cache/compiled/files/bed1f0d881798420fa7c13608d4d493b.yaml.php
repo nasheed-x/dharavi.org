@@ -2,13 +2,13 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/plugins/login/blueprints.yaml',
-    'modified' => 1683494624,
-    'size' => 14757,
+    'modified' => 1688027588,
+    'size' => 14783,
     'data' => [
         'name' => 'Login',
         'slug' => 'login',
         'type' => 'plugin',
-        'version' => '3.7.3',
+        'version' => '3.7.6',
         'testing' => false,
         'description' => 'Enables user authentication and login screen.',
         'icon' => 'sign-in',
@@ -24,7 +24,7 @@ return [
         'dependencies' => [
             0 => [
                 'name' => 'grav',
-                'version' => '>=1.7.38'
+                'version' => '>=1.7.41'
             ],
             1 => [
                 'name' => 'form',
@@ -346,7 +346,7 @@ return [
                                             'multiple' => true,
                                             'size' => 'large',
                                             'label' => 'PLUGIN_ADMIN.GROUPS',
-                                            'data-options@' => '\\Grav\\Common\\User\\Group::groupNames',
+                                            'data-options@' => 'Grav\\Common\\Flex\\Types\\UserGroups\\UserGroupObject::groupNames',
                                             'classes' => 'fancy',
                                             'help' => 'PLUGIN_LOGIN.GROUPS_HELP',
                                             'validate' => [

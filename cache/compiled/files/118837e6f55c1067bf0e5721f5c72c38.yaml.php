@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/config/site.yaml',
-    'modified' => 1683494623,
+    'modified' => 1683816011,
     'size' => 160,
     'data' => [
         'title' => 'Grav',

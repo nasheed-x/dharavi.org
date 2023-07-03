@@ -2,9 +2,9 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/config/security.yaml',
-    'modified' => 1683494750,
+    'modified' => 1683816011,
     'size' => 21,
     'data' => [
-        'salt' => 'aKJs1O0riW48HL'
+        'salt' => '5jDqatpQAUIhs3'
     ]
 ];

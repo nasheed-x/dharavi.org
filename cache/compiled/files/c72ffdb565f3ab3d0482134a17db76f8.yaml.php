@@ -2,8 +2,8 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/system/config/system.yaml',
-    'modified' => 1683494623,
-    'size' => 18092,
+    'modified' => 1688053010,
+    'size' => 18168,
     'data' => [
         'absolute_urls' => false,
         'timezone' => '',
@@ -38,7 +38,8 @@ return [
             'content_fallback' => [
                 
             ],
-            'pages_fallback_only' => false
+            'pages_fallback_only' => false,
+            'debug' => false
         ],
         'home' => [
             'alias' => '/home',

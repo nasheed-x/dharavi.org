@@ -2,13 +2,13 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/plugins/admin/blueprints.yaml',
-    'modified' => 1679466510,
+    'modified' => 1686734270,
     'size' => 25885,
     'data' => [
         'name' => 'Admin Panel',
         'slug' => 'admin',
         'type' => 'plugin',
-        'version' => '1.10.40',
+        'version' => '1.10.42',
         'description' => 'Adds an advanced administration panel to manage your site',
         'icon' => 'empire',
         'author' => [
@@ -24,7 +24,7 @@ return [
         'dependencies' => [
             0 => [
                 'name' => 'grav',
-                'version' => '>=1.7.32'
+                'version' => '>=1.7.42'
             ],
             1 => [
                 'name' => 'form',

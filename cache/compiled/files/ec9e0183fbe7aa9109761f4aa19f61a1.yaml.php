@@ -2,8 +2,8 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/system/blueprints/config/system.yaml',
-    'modified' => 1683494623,
-    'size' => 57430,
+    'modified' => 1688053010,
+    'size' => 57761,
     'data' => [
         'title' => 'PLUGIN_ADMIN.SYSTEM',
         'form' => [
@@ -516,6 +516,19 @@ return [
                                     'type' => 'toggle',
                                     'label' => 'PLUGIN_ADMIN.OVERRIDE_LOCALE',
                                     'help' => 'PLUGIN_ADMIN.OVERRIDE_LOCALE_HELP',
+                                    'highlight' => 0,
+                                    'options' => [
+                                        1 => 'PLUGIN_ADMIN.YES',
+                                        0 => 'PLUGIN_ADMIN.NO'
+                                    ],
+                                    'validate' => [
+                                        'type' => 'bool'
+                                    ]
+                                ],
+                                'languages.debug' => [
+                                    'type' => 'toggle',
+                                    'label' => 'PLUGIN_ADMIN.LANGUAGE_DEBUG',
+                                    'help' => 'PLUGIN_ADMIN.LANGUAGE_DEBUG_HELP',
                                     'highlight' => 0,
                                     'options' => [
                                         1 => 'PLUGIN_ADMIN.YES',

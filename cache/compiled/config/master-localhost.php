@@ -1,114 +1,122 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1683522774,
-    'checksum' => '88da398868d211b66f3e1eaef7644830',
+    'timestamp' => 1688167948,
+    'checksum' => '3d6325494f3a7177bcb06b88d65a7f2d',
     'files' => [
         'user/config' => [
+            'media' => [
+                'file' => 'user/config/media.yaml',
+                'modified' => 1683816051
+            ],
+            'plugins/email' => [
+                'file' => 'user/config/plugins/email.yaml',
+                'modified' => 1683816011
+            ],
             'security' => [
                 'file' => 'user/config/security.yaml',
-                'modified' => 1683494750
+                'modified' => 1683816011
             ],
             'site' => [
                 'file' => 'user/config/site.yaml',
-                'modified' => 1683494623
+                'modified' => 1683816011
             ],
             'system' => [
                 'file' => 'user/config/system.yaml',
-                'modified' => 1683494623
+                'modified' => 1688167947
             ],
             'versions' => [
                 'file' => 'user/config/versions.yaml',
-                'modified' => 1683494750
+                'modified' => 1688167898
             ]
         ],
         'system/config' => [
             'backups' => [
                 'file' => 'system/config/backups.yaml',
-                'modified' => 1683494623
+                'modified' => 1688053010
             ],
             'media' => [
                 'file' => 'system/config/media.yaml',
-                'modified' => 1683494623
+                'modified' => 1688053010
             ],
             'mime' => [
                 'file' => 'system/config/mime.yaml',
-                'modified' => 1683494623
+                'modified' => 1688053010
             ],
             'permissions' => [
                 'file' => 'system/config/permissions.yaml',
-                'modified' => 1683494623
+                'modified' => 1688053010
             ],
             'security' => [
                 'file' => 'system/config/security.yaml',
-                'modified' => 1683494623
+                'modified' => 1688053010
             ],
             'site' => [
                 'file' => 'system/config/site.yaml',
-                'modified' => 1683494623
+                'modified' => 1688053010
             ],
             'system' => [
                 'file' => 'system/config/system.yaml',
-                'modified' => 1683494623
+                'modified' => 1688053010
             ]
         ],
         'user/plugins' => [
             'plugins/markdown-notices' => [
                 'file' => 'user/plugins/markdown-notices/markdown-notices.yaml',
-                'modified' => 1683494625
+                'modified' => 1683816014
+            ],
+            'plugins/pagination' => [
+                'file' => 'user/plugins/pagination/pagination.yaml',
+                'modified' => 1683689472
             ],
             'plugins/form' => [
                 'file' => 'user/plugins/form/form.yaml',
-                'modified' => 1683494624
+                'modified' => 1687849100
             ],
             'plugins/flex-objects' => [
                 'file' => 'user/plugins/flex-objects/flex-objects.yaml',
-                'modified' => 1683494624
+                'modified' => 1683617772
+            ],
+            'plugins/gantry5' => [
+                'file' => 'user/plugins/gantry5/gantry5.yaml',
+                'modified' => 1683816013
+            ],
+            'plugins/simplesearch' => [
+                'file' => 'user/plugins/simplesearch/simplesearch.yaml',
+                'modified' => 1683816014
             ],
             'plugins/admin' => [
                 'file' => 'user/plugins/admin/admin.yaml',
-                'modified' => 1679466510
+                'modified' => 1686734270
             ],
             'plugins/problems' => [
                 'file' => 'user/plugins/problems/problems.yaml',
-                'modified' => 1683494625
+                'modified' => 1683816014
             ],
             'plugins/error' => [
                 'file' => 'user/plugins/error/error.yaml',
-                'modified' => 1683494624
+                'modified' => 1683816012
             ],
             'plugins/login' => [
                 'file' => 'user/plugins/login/login.yaml',
-                'modified' => 1683494624
+                'modified' => 1688027588
             ],
             'plugins/email' => [
                 'file' => 'user/plugins/email/email.yaml',
-                'modified' => 1683494624
+                'modified' => 1688027694
             ]
         ],
         'user/themes' => [
-            'themes/quark' => [
-                'file' => 'user/themes/quark/quark.yaml',
-                'modified' => 1683494625
+            'themes/g5_helium' => [
+                'file' => 'user/themes/g5_helium/g5_helium.yaml',
+                'modified' => 1683816014
             ]
         ]
     ],
     'data' => [
         'themes' => [
-            'quark' => [
-                'enabled' => true,
-                'production-mode' => true,
-                'grid-size' => 'grid-lg',
-                'header-fixed' => true,
-                'header-animated' => true,
-                'header-dark' => false,
-                'header-transparent' => false,
-                'sticky-footer' => true,
-                'blog-page' => '/blog',
-                'spectre' => [
-                    'exp' => false,
-                    'icons' => false
-                ]
+            'g5_helium' => [
+                'enabled' => true
             ]
         ],
         'plugins' => [
@@ -123,12 +131,18 @@ return [
                     3 => 'green'
                 ]
             ],
+            'pagination' => [
+                'enabled' => true,
+                'built_in_css' => true,
+                'delta' => 0
+            ],
             'form' => [
                 'enabled' => true,
                 'built_in_css' => true,
                 'inline_css' => true,
                 'refresh_prevention' => false,
                 'client_side_validation' => true,
+                'debug' => false,
                 'inline_errors' => false,
                 'files' => [
                     'multiple' => false,
@@ -191,6 +205,51 @@ return [
                     0 => 'blueprints://flex-objects/pages.yaml',
                     1 => 'blueprints://flex-objects/user-accounts.yaml',
                     2 => 'blueprints://flex-objects/user-groups.yaml'
+                ]
+            ],
+            'gantry5' => [
+                'enabled' => true,
+                'production' => false,
+                'use_media_folder' => false,
+                'offline' => false,
+                'offline_message' => 'Site is currently in offline mode. Please try again later.',
+                'asset_timestamps' => true,
+                'asset_timestamps_period' => 7,
+                'debug' => false,
+                'compile_yaml' => true,
+                'compile_twig' => true
+            ],
+            'simplesearch' => [
+                'enabled' => true,
+                'built_in_css' => true,
+                'built_in_js' => true,
+                'display_button' => false,
+                'min_query_length' => 3,
+                'route' => '/search',
+                'search_content' => 'rendered',
+                'template' => 'simplesearch_results',
+                'filters' => [
+                    'category' => NULL
+                ],
+                'filter_combinator' => 'and',
+                'ignore_accented_characters' => false,
+                'order' => [
+                    'by' => 'date',
+                    'dir' => 'desc'
+                ],
+                'searchable_types' => [
+                    'title' => true,
+                    'content' => true,
+                    'taxonomy' => true,
+                    'header' => false
+                ],
+                'header_keys_ignored' => [
+                    0 => 'title',
+                    1 => 'taxonomy',
+                    2 => 'content',
+                    3 => 'form',
+                    4 => 'forms',
+                    5 => 'media_order'
                 ]
             ],
             'admin' => [
@@ -368,28 +427,19 @@ return [
             ],
             'email' => [
                 'enabled' => true,
-                'from' => NULL,
-                'from_name' => NULL,
-                'to' => NULL,
-                'to_name' => NULL,
-                'queue' => [
-                    'enabled' => false,
-                    'flush_frequency' => '* * * * *',
-                    'flush_msg_limit' => 10,
-                    'flush_time_limit' => 100
-                ],
+                'from' => 'mail@example.com',
+                'to' => 'mail@example.com',
                 'mailer' => [
-                    'engine' => 'sendmail',
+                    'engine' => 'none',
                     'smtp' => [
                         'server' => 'localhost',
                         'port' => 25,
                         'encryption' => 'none',
-                        'user' => '',
-                        'password' => '',
-                        'auth_mode' => ''
+                        'user' => NULL,
+                        'password' => NULL
                     ],
                     'sendmail' => [
-                        'bin' => '/usr/sbin/sendmail -bs'
+                        'bin' => '/usr/sbin/sendmail'
                     ]
                 ],
                 'content_type' => 'text/html',
@@ -3792,7 +3842,7 @@ node_modules'
                 4 => 'exe'
             ],
             'sanitize_svg' => true,
-            'salt' => 'aKJs1O0riW48HL'
+            'salt' => '5jDqatpQAUIhs3'
         ],
         'site' => [
             'title' => 'Grav',
@@ -3854,7 +3904,8 @@ node_modules'
                 'content_fallback' => [
                     
                 ],
-                'pages_fallback_only' => false
+                'pages_fallback_only' => false,
+                'debug' => false
             ],
             'home' => [
                 'alias' => '/home',
@@ -3865,7 +3916,7 @@ node_modules'
                 'dirs' => [
                     0 => 'page://'
                 ],
-                'theme' => 'quark',
+                'theme' => 'g5_helium',
                 'order' => [
                     'by' => 'default',
                     'dir' => 'asc'
@@ -3999,7 +4050,7 @@ node_modules'
                 ]
             ],
             'errors' => [
-                'display' => true,
+                'display' => 0,
                 'log' => true
             ],
             'log' => [
@@ -4015,8 +4066,7 @@ node_modules'
                 'censored' => false,
                 'shutdown' => [
                     'close_connection' => true
-                ],
-                'twig' => true
+                ]
             ],
             'images' => [
                 'default_image_quality' => 85,
@@ -4067,8 +4117,7 @@ node_modules'
             ],
             'gpm' => [
                 'releases' => 'stable',
-                'official_gpm_only' => true,
-                'verify_peer' => true
+                'official_gpm_only' => true
             ],
             'http' => [
                 'method' => 'auto',
@@ -4109,8 +4158,18 @@ node_modules'
         'versions' => [
             'core' => [
                 'grav' => [
-                    'version' => '1.7.40',
-                    'schema' => '1.7.0_2020-11-20_1'
+                    'version' => '1.7.42.1',
+                    'schema' => '1.7.0_2020-11-20_1',
+                    'history' => [
+                        0 => [
+                            'version' => '1.7.41.1',
+                            'date' => '2023-05-11 14:41:46'
+                        ],
+                        1 => [
+                            'version' => '1.7.42.1',
+                            'date' => '2023-06-30 23:31:38'
+                        ]
+                    ]
                 ]
             ]
         ]

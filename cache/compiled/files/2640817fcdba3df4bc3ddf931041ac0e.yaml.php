@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/system/blueprints/config/security.yaml',
-    'modified' => 1683494623,
+    'modified' => 1688053010,
     'size' => 3236,
     'data' => [
         'title' => 'PLUGIN_ADMIN.SECURITY',

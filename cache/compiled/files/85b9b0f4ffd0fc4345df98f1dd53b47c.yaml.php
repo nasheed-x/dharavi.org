@@ -2,13 +2,13 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/user/plugins/email/blueprints.yaml',
-    'modified' => 1683494624,
-    'size' => 5734,
+    'modified' => 1688027694,
+    'size' => 3899,
     'data' => [
         'name' => 'Email',
         'slug' => 'email',
         'type' => 'plugin',
-        'version' => '3.2.0',
+        'version' => '4.0.3',
         'testing' => false,
         'description' => 'Enables the emailing system for Grav',
         'icon' => 'envelope',
@@ -24,11 +24,11 @@ return [
         'dependencies' => [
             0 => [
                 'name' => 'grav',
-                'version' => '>=1.7.32'
+                'version' => '>=1.7.41'
             ],
             1 => [
                 'name' => 'form',
-                'version' => '>=6.0.0'
+                'version' => '>=7.0.0'
             ]
         ],
         'form' => [
@@ -51,113 +51,8 @@ return [
                     'type' => 'select',
                     'label' => 'PLUGIN_EMAIL.MAIL_ENGINE',
                     'size' => 'medium',
-                    'options' => [
-                        'none' => 'PLUGIN_ADMIN.DISABLED',
-                        'smtp' => 'SMTP',
-                        'sendmail' => 'Sendmail'
-                    ]
-                ],
-                'content_type' => [
-                    'type' => 'select',
-                    'label' => 'PLUGIN_EMAIL.CONTENT_TYPE',
-                    'size' => 'medium',
-                    'default' => 'text/html',
-                    'options' => [
-                        'text/plain' => 'PLUGIN_EMAIL.CONTENT_TYPE_PLAIN_TEXT',
-                        'text/html' => 'HTML'
-                    ]
-                ],
-                'charset' => [
-                    'type' => 'text',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.CHARSET',
-                    'placeholder' => 'PLUGIN_EMAIL.CHARSET_PLACEHOLDER'
-                ],
-                'email_Defaults' => [
-                    'type' => 'section',
-                    'title' => 'PLUGIN_EMAIL.EMAIL_DEFAULTS',
-                    'underline' => true
-                ],
-                'from' => [
-                    'type' => 'email',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_FORM',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_FORM_PLACEHOLDER',
-                    'validate' => [
-                        'required' => true,
-                        'type' => 'email'
-                    ]
-                ],
-                'from_name' => [
-                    'type' => 'text',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_FROM_NAME',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_FROM_NAME_PLACEHOLDER'
-                ],
-                'to' => [
-                    'type' => 'email',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_TO',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_TO_PLACEHOLDER',
-                    'multiple' => true,
-                    'validate' => [
-                        'required' => true,
-                        'type' => 'email'
-                    ]
-                ],
-                'to_name' => [
-                    'type' => 'text',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_TO_NAME',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_TO_NAME_PLACEHOLDER'
-                ],
-                'cc' => [
-                    'type' => 'email',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_CC',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_CC_PLACEHOLDER',
-                    'multiple' => true,
-                    'validate' => [
-                        'type' => 'email'
-                    ]
-                ],
-                'cc_name' => [
-                    'type' => 'text',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_CC_NAME',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_CC_NAME_PLACEHOLDER'
-                ],
-                'bcc' => [
-                    'type' => 'email',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_BCC',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_BCC_PLACEHOLDER',
-                    'multiple' => true,
-                    'validate' => [
-                        'type' => 'email'
-                    ]
-                ],
-                'reply_to' => [
-                    'type' => 'email',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_REPLY_TO',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_REPLY_TO_PLACEHOLDER',
-                    'multiple' => true,
-                    'validate' => [
-                        'type' => 'email'
-                    ]
-                ],
-                'reply_to_name' => [
-                    'type' => 'text',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_REPLY_TO_NAME',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_REPLY_TO_NAME_PLACEHOLDER'
-                ],
-                'body' => [
-                    'type' => 'textarea',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.EMAIL_BODY',
-                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_BODY_PLACEHOLDER'
+                    'description' => 'PLUGIN_EMAIL.MAIL_ENGINE_DESC',
+                    'data-options@' => '\\Grav\\Plugin\\EmailPlugin::getEngines'
                 ],
                 'smtp_config' => [
                     'type' => 'section',
@@ -203,11 +98,6 @@ return [
                     'autocomplete' => 'new-password',
                     'label' => 'PLUGIN_EMAIL.SMTP_PASSWORD'
                 ],
-                'mailer.smtp.auth_mode' => [
-                    'type' => 'text',
-                    'size' => 'medium',
-                    'label' => 'PLUGIN_EMAIL.SMTP_AUTH_MODE'
-                ],
                 'sendmail_config' => [
                     'type' => 'section',
                     'title' => 'PLUGIN_EMAIL.SENDMAIL_CONFIGURATION',
@@ -219,45 +109,68 @@ return [
                     'label' => 'PLUGIN_EMAIL.PATH_TO_SENDMAIL',
                     'placeholder' => '/usr/sbin/sendmail'
                 ],
-                'queue_section' => [
+                'email_Defaults' => [
                     'type' => 'section',
-                    'title' => 'PLUGIN_EMAIL.QUEUE_TITLE',
-                    'text' => 'PLUGIN_EMAIL.QUEUE_DESC',
-                    'markdown' => true,
+                    'title' => 'PLUGIN_EMAIL.EMAIL_DEFAULTS',
                     'underline' => true
                 ],
-                'queue.enabled' => [
-                    'type' => 'toggle',
-                    'label' => 'PLUGIN_EMAIL.QUEUE_ENABLED',
-                    'highlight' => 0,
-                    'default' => 0,
+                'content_type' => [
+                    'type' => 'select',
+                    'label' => 'PLUGIN_EMAIL.CONTENT_TYPE',
+                    'size' => 'medium',
+                    'default' => 'text/html',
                     'options' => [
-                        1 => 'PLUGIN_ADMIN.ENABLED',
-                        0 => 'PLUGIN_ADMIN.DISABLED'
-                    ],
-                    'validate' => [
-                        'type' => 'bool'
+                        'text/plain' => 'PLUGIN_EMAIL.CONTENT_TYPE_PLAIN_TEXT',
+                        'text/html' => 'HTML'
                     ]
                 ],
-                'queue.flush_frequency' => [
-                    'type' => 'cron',
-                    'label' => 'PLUGIN_EMAIL.QUEUE_FLUSH_FREQUENCY',
-                    'size' => 'medium',
-                    'help' => 'PLUGIN_EMAIL.QUEUE_FLUSH_FREQUENCY_HELP',
-                    'default' => '* * * * *',
-                    'placeholder' => '* * * * *'
+                'from' => [
+                    'type' => 'text',
+                    'size' => 'large',
+                    'label' => 'PLUGIN_EMAIL.EMAIL_FORM',
+                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_FORM_PLACEHOLDER',
+                    'help' => 'PLUGIN_EMAIL.EMAIL_FORMAT',
+                    'validate' => [
+                        'required' => true
+                    ]
                 ],
-                'queue.flush_msg_limit' => [
-                    'type' => 'number',
-                    'label' => 'PLUGIN_EMAIL.QUEUE_FLUSH_MSG_LIMIT',
-                    'size' => 'x-small',
-                    'append' => 'PLUGIN_EMAIL.QUEUE_FLUSH_MSG_LIMIT_APPEND'
+                'to' => [
+                    'type' => 'text',
+                    'size' => 'large',
+                    'label' => 'PLUGIN_EMAIL.EMAIL_TO',
+                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_TO_PLACEHOLDER',
+                    'help' => 'PLUGIN_EMAIL.EMAIL_FORMAT',
+                    'validate' => [
+                        'required' => true
+                    ]
                 ],
-                'queue.flush_time_limit' => [
-                    'type' => 'number',
-                    'label' => 'PLUGIN_EMAIL.QUEUE_FLUSH_TIME_LIMIT',
-                    'size' => 'x-small',
-                    'append' => 'PLUGIN_EMAIL.QUEUE_FLUSH_TIME_LIMIT_APPEND'
+                'cc' => [
+                    'type' => 'text',
+                    'size' => 'large',
+                    'label' => 'PLUGIN_EMAIL.EMAIL_CC',
+                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_CC_PLACEHOLDER',
+                    'help' => 'PLUGIN_EMAIL.EMAIL_FORMAT'
+                ],
+                'bcc' => [
+                    'type' => 'text',
+                    'size' => 'large',
+                    'label' => 'PLUGIN_EMAIL.EMAIL_BCC',
+                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_BCC_PLACEHOLDER',
+                    'help' => 'PLUGIN_EMAIL.EMAIL_FORMAT'
+                ],
+                'reply_to' => [
+                    'type' => 'text',
+                    'size' => 'large',
+                    'label' => 'PLUGIN_EMAIL.EMAIL_REPLY_TO',
+                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_REPLY_TO_PLACEHOLDER',
+                    'help' => 'PLUGIN_EMAIL.EMAIL_FORMAT'
+                ],
+                'body' => [
+                    'type' => 'textarea',
+                    'size' => 'large',
+                    'rows' => 10,
+                    'label' => 'PLUGIN_EMAIL.EMAIL_BODY',
+                    'placeholder' => 'PLUGIN_EMAIL.EMAIL_BODY_PLACEHOLDER'
                 ],
                 'advanced_section' => [
                     'type' => 'section',

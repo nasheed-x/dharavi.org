@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/Users/nasheed-x/Documents/GitHub/dharavi.org/system/config/mime.yaml',
-    'modified' => 1683494623,
+    'modified' => 1688053010,
     'size' => 35811,
     'data' => [
         'types' => [
