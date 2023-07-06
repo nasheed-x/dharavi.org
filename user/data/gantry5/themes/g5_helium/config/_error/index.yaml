@@ -1,11 +1,12 @@
 name: _error
-timestamp: 1683816011
+timestamp: 1688557728
 version: 7
 preset:
   image: 'gantry-admin://images/layouts/default.png'
-  name: _error
-  timestamp: 1475608598
-positions: {  }
+  name: default
+  timestamp: 1683816014
+positions:
+  sidebar: Sidebar
 sections:
   navigation: Navigation
   intro: Intro
@@ -15,28 +16,52 @@ sections:
   testimonials: Testimonials
   expanded: Expanded
   header: Header
-  mainbar: Mainbar
+  aside: Aside
   sidebar: Sidebar
+  mainbar: Mainbar
   footer: Footer
   offcanvas: Offcanvas
 particles:
   logo:
-    logo-9608: 'Logo / Image'
-    logo-9571: 'Logo / Image'
+    logo-4175: 'Logo / Image'
+    logo-5873: 'Logo / Image'
   menu:
-    menu-6409: Menu
+    menu-4381: Menu
   social:
-    social-3171: Social
-  custom:
-    custom-8642: 'Custom HTML'
+    social-5171: Social
   content:
-    system-content-1587: 'Page Content'
+    system-content-1377: 'Page Content'
+  position:
+    position-position-8054: Sidebar
   copyright:
-    copyright-1736: Copyright
+    copyright-2158: Copyright
   horizontalmenu:
-    horizontalmenu-9034: 'Horizontal Menu'
+    horizontalmenu-1516: 'Horizontal Menu'
   totop:
-    totop-8670: 'To Top'
+    totop-8948: 'To Top'
   mobile-menu:
-    mobile-menu-5697: Mobile-menu
-inherit: {  }
+    mobile-menu-1365: Mobile-menu
+inherit:
+  default:
+    navigation: navigation
+    logo-4175: logo-9608
+    menu-4381: menu-6409
+    social-5171: social-3171
+    intro: intro
+    features: features
+    utility: utility
+    above: above
+    testimonials: testimonials
+    expanded: expanded
+    aside: aside
+    mainbar: mainbar
+    system-content-1377: system-content-1587
+    sidebar: sidebar
+    position-position-8054: position-position-3949
+    footer: footer
+    logo-5873: logo-9571
+    copyright-2158: copyright-1736
+    horizontalmenu-1516: horizontalmenu-9034
+    totop-8948: totop-8670
+    offcanvas: offcanvas
+    mobile-menu-1365: mobile-menu-5697

@@ -96,29 +96,31 @@ content:
   owlcarousel-2455:
     title: 'Owl Carousel'
     attributes:
-      nav: enable
       items:
         -
-          image: 'gantry-media://header/img01.jpg'
-          title: 'Helium is here!'
-          desc: 'Begin your journey with a brand new &raquo;free&laquo; Gantry 5 template from RocketTheme.'
-          link: 'http://gantry.org/downloads'
-          linktext: 'Download Now'
-          buttonicon: 'fa fa-rocket'
-          buttonclass: button-outline
+          class: ''
+          image: 'gantry-media://header/img04.jpg'
+          title: 'Homegrown Narratives.'
+          desc: ''
+          link: ''
+          linktext: ''
+          buttonclass: ''
+          disable: '0'
           name: 'Item 1'
         -
-          image: 'gantry-media://header/img02.jpg'
-          title: 'Helium is Gantry powered!'
-          desc: 'Helium is based on the powerful Gantry framework.'
-          link: 'http://gantry.org/downloads'
-          linktext: 'Download Now'
-          buttonclass: button-outline
+          class: ''
+          image: 'gantry-media://header/img03.jpg'
+          title: 'Dharavi, Reimagined.'
+          desc: ''
+          link: ''
+          linktext: ''
+          buttonclass: ''
+          disable: '0'
           name: 'Item 2'
   custom-5807:
     title: Intro
     attributes:
-      html: "<div class=\"fp-intro\">\n    <h2 class=\"g-title\">Build your beautiful theme, the way you want it, with Helium</h2>\n    <p>Craft memorable, emotive experiences with our Gantry 5 framework.</p>\n    <div class=\"ipad-mockup\">\n        <img src=\"gantry-media://intro/mockup.png\" alt=\"\" />\n    </div>\n</div>"
+      html: "<div class=\"fp-intro\">\n    <h2 class=\"g-title\">A Platform to Host Unconventional Lines of Thought.</h2>\n    <p>Reimagining alternatives one street at a time.</p>\n    <div class=\"house-mockup\">\n        <img src=\"gantry-media://intro/dharavi-org_mockup.png\" alt=\"\" />\n    </div>\n</div>"
     block:
       variations: center
   custom-3119:

@@ -5,5 +5,5 @@ nav: disable
 dots: enable
 autoplay: disable
 autoplaySpeed: ''
-imageOverlay: enable
+imageOverlay: disable
 items: {  }
