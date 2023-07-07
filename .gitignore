@@ -1,0 +1,11 @@
+cache/*
+!cache/.gitkeep 
+
+tmp/*
+!tmp/.gitkeep 
+
+backup/*
+!backup/.gitkeep 
+
+images/*
+!images/.gitkeep 
