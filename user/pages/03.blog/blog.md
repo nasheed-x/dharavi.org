@@ -23,14 +23,14 @@ header_bar:
     background: transparent
     text: light
 hero:
-    image: reuben-teo-fUZWpaUknyI-unsplash.jpg
+    image: urbz_HomeGrown-Street.jpg
     overlay_direction: bottom
     overlay_gradient:
         - '0.8'
         - '0.1'
     subtitle: 'The ramblings of a rambler'
     title:
-        text: 'A Gravtastic Blog'
-    content: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua ad ad non deserunt sunt.'
+        text: 'Airoots Archive'
+    content: 'This project digitized articles by [Rahul Srivastava](https://www.urbz.net/rahul) and [Matias Echanove](https://www.urbz.net/matias) for airoots / ɛəruːts /, a blog covering diverse topics like adventitious roots, urban forests, villages, natural cities, lost tribes, new nomads, and everything in between.'
 ---
 

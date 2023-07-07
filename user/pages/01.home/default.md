@@ -1,6 +1,19 @@
 ---
 title: Home
-body_classes: title-center title-h1h2
+body_classes: 'title-center title-h1h2'
+header_bar:
+    background: transparent
+    height: h-16
+hero:
+    image: EfSI2023_Curious-Fieldwork.jpg
+    overlay_direction: bottom
+    overlay_gradient:
+        - '0.8'
+        - '0.1'
+    subtitle: 'TEXTUAL NARRATIVES TO RECONCEPTUALIZE AN URBAN COLLECTIVE'
+    title:
+        text: 'Dharavi Reimagined'
+    content: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua ad ad non deserunt sunt.'
 ---
 
 # Say Hello to Grav!
