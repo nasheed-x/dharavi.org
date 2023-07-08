@@ -5,5 +5,6 @@ header_bar:
     text: light
 content:
     items: self@.modular
+menu: 'Modular Example'
 ---
 
