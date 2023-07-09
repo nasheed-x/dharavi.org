@@ -21,7 +21,6 @@ feed:
     description: 'Sample Blog Description'
 header_bar:
     background: auto
-    text: light
 hero:
     image: EfSI2023_Saideep-Panorama.jpg
     overlay_direction: bottom
@@ -31,6 +30,6 @@ hero:
     subtitle: 'Critical perspectives on the future of Dharavi'
     title:
         text: 'A Journal Against The Current'
-    content: "et magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas dui id ornare arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit\n\n"
+    content: 'et magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas dui id ornare arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit'
 ---
 
