@@ -1,8 +1,8 @@
 ---
-title: 'Koliwada Pipeline'
+title: 'Koliwada PIPES'
 ---
 
-# Science & Research
+# Koliwada Project for Improving Piping & Enhancing Supply of Water (PIPES)
 
 ## Space Probe
 

@@ -1,7 +1,7 @@
 ---
 menu: 'Easy Content'
 title: 'Your Content Unchained!'
-subtitle: Flexibility via markdown
+subtitle: 'Flexibility via markdown'
 image: ashim-d-silva-pGcqw1ARGyg-unsplash.jpg
 image_align: right
 ---
