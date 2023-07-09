@@ -23,14 +23,14 @@ header_bar:
     background: auto
     text: light
 hero:
-    image: urbz_HomeGrown-Street.jpg
+    image: EfSI2023_Saideep-Panorama.jpg
     overlay_direction: bottom
     overlay_gradient:
         - '0.8'
         - '0.1'
-    subtitle: 'The ramblings of a rambler'
+    subtitle: 'Critical perspectives on the future of Dharavi'
     title:
-        text: 'Airoots Archive'
-    content: 'This project digitized articles by [Rahul Srivastava](https://www.urbz.net/rahul) and [Matias Echanove](https://www.urbz.net/matias) for airoots / ɛəruːts /, a blog covering diverse topics like adventitious roots, urban forests, villages, natural cities, lost tribes, new nomads, and everything in between.'
+        text: 'A Journal Against The Current'
+    content: "et magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas dui id ornare arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit\n\n"
 ---
 

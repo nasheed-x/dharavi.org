@@ -1,6 +1,6 @@
 ---
 title: 'Submission Guidelines'
-subtitle: 'build sites better'
+subtitle: 'Move for More'
 menu: Highlights
 variation: horizontal
 features:
