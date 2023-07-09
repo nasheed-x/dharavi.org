@@ -2,7 +2,7 @@
 title: 'Contact Us'
 subtitle: 'Find out more information'
 section_classes: 'bg-primary-darker text-primary-lighter py-8 md:py-24'
-title_text: light
+title_text: auto
 form:
     name: contact
     action: '#contact-us'

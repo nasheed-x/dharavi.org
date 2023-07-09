@@ -21,7 +21,6 @@ feed:
     description: 'Sample Blog Description'
 header_bar:
     background: auto
-    text: light
 hero:
     image: urbz_HomeGrown-Street.jpg
     overlay_direction: bottom
