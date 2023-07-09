@@ -7,7 +7,7 @@ custom_logo:
     name: dharavi-org_logo.svg
     full_path: dharavi-org_logo.svg
     type: image/svg+xml
-    size: 6967
+    size: 6520
     path: user/assets/typhoon/dharavi-org_logo.svg
 custom_logo_strip_svg_style: true
 custom_favicon:
@@ -23,7 +23,7 @@ colors:
   brightness_darker: 20
   primary: '#3893F8'
 appearance:
-  theme: system
+  theme: dark
   selector: true
   storage: true
   cookie: true
