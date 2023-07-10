@@ -5,6 +5,7 @@ menu: 'Uses Example'
 hero:
     content: 'Rockets have a variety of uses'
     image: types-of-rockets.jpg
+published: false
 ---
 
 Rockets or other similar reaction devices carrying their own propellant must be used when there is no other substance (land, water, or air) or force (gravity, magnetism, light) that a vehicle may usefully employ for propulsion, such as in space. In these circumstances, it is necessary to carry all the propellant to be used.

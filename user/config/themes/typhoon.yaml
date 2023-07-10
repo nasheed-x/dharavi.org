@@ -23,7 +23,7 @@ colors:
   brightness_darker: 20
   primary: '#3893F8'
 appearance:
-  theme: dark
+  theme: system
   selector: true
   storage: true
   cookie: true
@@ -41,7 +41,7 @@ menu:
     logged_in_display: username
     logout_icon: tabler/logout.svg
   langswitcher:
-    enabled: true
+    enabled: false
     icon: tabler/world.svg
 header_bar:
   background: auto
