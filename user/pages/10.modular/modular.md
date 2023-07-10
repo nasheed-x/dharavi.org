@@ -6,5 +6,6 @@ header_bar:
 content:
     items: self@.modular
 menu: 'Modular Example'
+published: false
 ---
 

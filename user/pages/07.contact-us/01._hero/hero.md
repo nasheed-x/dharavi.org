@@ -16,11 +16,6 @@ hero:
     title2:
         color: text-primary
     content: 'We''re an interdisciplinary journal. We welcome scholarly articles relating to an alternate vision for Dharavi from all fields and any specialization. For submissions please see below.'
-    buttons:
-        -
-            text: 'Email Us'
-            link: 'mailto:nasheed@nyu.edu'
-            classes: 'bg-primary hover:bg-gray-800 text-white'
 media_order: 'philipp-kammerer-6Mxb_mZ_Q8E-unsplash.jpg,urbz-dharavi_aerial.jpg'
 ---
 
