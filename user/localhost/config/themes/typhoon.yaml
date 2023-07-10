@@ -54,7 +54,7 @@ hero:
   overlay: dark
   overlay_direction: right
   alignment: left
-  image: 'theme://images/headers/sea-and-sky.jpg'
+  image: 'theme://images/headers/Matias_With_Elephant--Flickr.jpg'
   custom: '#3C4043'
   padding: 'pt-32 md:pt-40 lg:pt-48 xl:pt-56 pb-16 md:pb-20 lg:pb-24 xl:pb-32'
   image_alignment: object-center
