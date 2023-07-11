@@ -1,5 +1,5 @@
 ---
-title: 'Koliwada PIPES'
+title: 'KOLIWADA PIPES'
 ---
 
 # Koliwada Project for Improving Piping & Enhancing Supply of Water (PIPES)

@@ -11,12 +11,12 @@ hero:
     alignment: left
     text: auto
     title:
-        text: 'Say Hello to Grav!'
+        text: 'Dharavi Captured!'
         color: auto
     title2:
-        text: 'Fast, Simple, Powerful...'
+        text: 'Resilient, Industrious, Diverse...'
         color: text-primary
-    content: 'Grav is a modern flat-file CMS system that focuses on making web development fun again.'
+    content: 'Because every picture has a story to tell.'
 ---
 
 # Say Hello to Grav

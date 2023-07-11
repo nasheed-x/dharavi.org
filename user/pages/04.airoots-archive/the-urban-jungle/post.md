@@ -1,13 +1,16 @@
 ---
-title: The Urban Jungle
-date: 17:34 09/27/2020
-
+title: 'The Urban Jungle'
+date: '17:34 09/27/2020'
 hero:
     image: unsplash-sidney-perry.jpg
-
 taxonomy:
-    category: blog
-    tag: [travel, photography, city]
+    category:
+        - blog
+    tag:
+        - photography
+        - city
+        - travel
+published: false
 ---
 
 Lorem markdownum credas animos nec Phoeboque; de iuris *creverat* et finis ad
