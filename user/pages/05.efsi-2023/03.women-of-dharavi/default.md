@@ -1,5 +1,5 @@
 ---
-title: 'Empowering The Women of Dharavi'
+title: 'THE WOMEN OF DHARAVI'
 ---
 
 # Empowering The Women of Dharavi

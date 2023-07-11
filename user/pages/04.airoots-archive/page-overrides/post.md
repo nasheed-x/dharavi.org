@@ -11,6 +11,7 @@ taxonomy:
     tag:
         - photography
         - journal
+published: false
 ---
 
 The [Typhoon theme](https://getgrav.org/premium/typhoon) has powerful **page-level overrides** that let you customize the look of each page.  Child pages will then use any parent's settings as overrides before falling back to the **theme-level defaults**. This allows you to easily give your blog post some **bling**.

@@ -1,6 +1,6 @@
 ---
 title: 'Classic Modern Architecture'
-date: 17:34 09/18/2020
+date: '17:34 09/18/2020'
 taxonomy:
     category:
         - blog
@@ -15,6 +15,7 @@ subtitle: 'finding beauty in structure'
 header_bar:
     background: light
     text: dark
+published: false
 ---
 
 Lorem markdownum timore _in_, dant litora texit late **fecisse**. Sinistra ad

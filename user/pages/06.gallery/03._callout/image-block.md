@@ -1,13 +1,13 @@
 ---
 menu: 'Easy Content'
-title: 'Your Content Unchained!'
-subtitle: 'Flexibility via markdown'
+title: 'Lens on Dharavi?'
+subtitle: 'Open Call for Photography Submissions'
 image: Intelligancia_Collectiva--Flickr.jpg
 image_align: right
 ---
 
-Grav is a **Fast**, **Simple**, and **Flexible** file-based Web-platform. There is **Zero** installation required.  Just extract the ZIP archive, and you are already up and running.  Although Grav follows principles similar to other flat-file CMS platforms, it has a different design philosophy than most.
+By capturing the inherent beauty of Dharavi, we have the power to reshape prevailing perceptions and stereotypes often associated with poverty and deprivation. Join us as we challenge these notions, celebrating the **vibrancy** and **richness** of Dharavi's **rich cultural tapestry** through our lens.
 
-The name **Grav** is just a shortened version of the word **Gravity**. The shared namespace of our platform and a movie starring Sandra Bullock is pure coincidence! More importantly, gravity is also a fundamental physical principle that describes the forces of attraction between objects. Frankly, the name was chosen as a temporary "codename" for the project, and it just stuck.
+If you're a photographer who has captured intriguing and captivating shots of Dharavi, join us in revealing the untold stories through your lens. We want to showcase the **unique** perspectives and **hidden beauty** of this **remarkable** community. Submit your photographs and be part of our upcoming gallery, celebrating the essence of Dharavi. 
 
-[Find out more...](https://getgrav.org?classes=btn,mt-4,w-content,block)
+[Reach Out](/contact-us?classes=btn,mt-4,w-content,block)

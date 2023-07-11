@@ -1,15 +1,18 @@
 ---
-title: Focus and Blur
-date: 13:34 08/23/2020 
+title: 'Focus and Blur'
+date: '13:34 08/23/2020'
 header_bar:
     background: dark
     text: light
 hero:
     image: unsplash-focus.jpg
-
 taxonomy:
-    category: blog
-    tag: [mushroom, photography]
+    category:
+        - blog
+    tag:
+        - photography
+        - mushroom
+published: false
 ---
 
 Lorem markdownum incessere **hostem coronae** properant. Perque matrem sic

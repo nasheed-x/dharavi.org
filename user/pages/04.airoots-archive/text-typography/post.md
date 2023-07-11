@@ -1,14 +1,15 @@
 ---
-title: Text & Typography
-date: 16:34 10/09/2020 
-
+title: 'Text & Typography'
+date: '16:34 10/09/2020'
 hero:
     image: unsplash-text.jpg
 show_sidebar: true
-
 taxonomy:
-    category: blog
-    tag: [journal]
+    category:
+        - blog
+    tag:
+        - journal
+published: false
 ---
 
 The [Typhoon theme](https://getgrav.org/premium/typhoon) is powered by the [Tailwind CSS framework](https://tailwindcss.com) which is a modern utility-based CSS framework.  It provides utility classes for almost every possible CSS style element, but it also provides some basic built-in styling for for common HTML tags such as those that are output by **Markdown** content from Grav.  

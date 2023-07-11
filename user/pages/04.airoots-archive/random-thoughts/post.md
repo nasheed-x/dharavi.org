@@ -1,9 +1,12 @@
 ---
-title: Random Thoughts
-date: 13:34 08/22/2020
+title: 'Random Thoughts'
+date: '13:34 08/22/2020'
 taxonomy:
-    category: blog
-    tag: [journal]
+    category:
+        - blog
+    tag:
+        - journal
+published: false
 ---
 
 Lorem markdownum mirum. Solus restare dabat, gladio vipereis caerula?

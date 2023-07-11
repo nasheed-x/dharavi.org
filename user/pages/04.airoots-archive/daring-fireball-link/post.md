@@ -9,6 +9,7 @@ taxonomy:
     tag:
         - journal
         - link
+published: false
 ---
 
 The Typhoon blog skeleton also supports **Daring Fireball** style link posts.  Simply add a link setting in your page header:

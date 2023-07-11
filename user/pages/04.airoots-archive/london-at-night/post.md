@@ -1,13 +1,16 @@
 ---
-title: London at Night
-date: 13:34 07/09/2020
-
+title: 'London at Night'
+date: '13:34 07/09/2020'
 hero:
     image: unsplash-xbrunel-johnson.jpg
-
 taxonomy:
-    category: blog
-    tag: [city, night, photography]
+    category:
+        - blog
+    tag:
+        - photography
+        - city
+        - night
+published: false
 ---
 
 Lorem markdownum freta ducentem ut flagrat undas fratrem celeres colloque; in
