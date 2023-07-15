@@ -3,15 +3,19 @@ title: Initiatives
 show_children_in_secondary_menu: true
 hero:
     image: Ideal_Home_Contractors--WikiMedia.jpeg
-    subtitle: 'Textual narratives for participatory urbanism.'
+    subtitle: 'Driving Change through Community Endeavors'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Discover a curated list of organizations, programs, and remarkable initiatives aligned with our vision, providing a captivating glimpse into an alternative future for Dharavi.
 
 ## [EfSI 2023](efsi-2023)
 
-The NYU Abu Dhabi Engineers for Social Impact program works develop a broad range of analytical and systematic thinking skills in students as they work with communities and consider the home-grown assets that can lead to innovation.
+The NYU Abu Dhabi Engineers for Social Impact program cultivates analytical and systematic thinking skills in students. They collaborate with communities, tapping into local assets for innovative solutions, fostering understanding, and driving positive social impact while empowering students for meaningful change.
 
 ## [Dharavi Diary](https://www.dharavidiary.org)
 
-Our mission is to empower the youth, especially girls and women living on the fringes of urban & rural lower income communities through STEAM learning, storytelling and skill building to become problem solvers, innovators and leaders. 
+Dharavi Diary empowers marginalized youth, specifically girls and women in urban and rural low-income areas. Through STEAM education, storytelling, and skill development, they foster problem-solving, innovation, and leadership. Their mission is to uplift individuals, equipping them with the tools and mindset for a brighter future.
+
+## [Dharavi Art Room](https://www.instagram.com/dharaviartroom/)
+
+Dharavi Art Room empowers children in Mumbai's Dharavi slum through art, providing them with a safe space to foster creativity, friendship, and self-expression. Going beyond visual arts, the initiative encompasses music, community engagement, and addressing gender inequality. By transforming lives, Dharavi Art Room offers hope and opportunities for a brighter future to the children of Dharavi.
