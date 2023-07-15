@@ -2,8 +2,11 @@
 title: 'Engineers for Social Impact 2023'
 show_children_in_secondary_menu: true
 hero:
-    content: 'Amplifying Community Potential through Engineering Alchemy'
     image: EfSI2023_Group-Photo.jpg
+    subtitle: 'Spring 2023'
+    title:
+        text: 'Engineers for Social Impact'
+    content: 'Amplifying Community Potential through Engineering Alchemy'
 menu: 'EfSI 2023'
 ---
 
@@ -17,8 +20,8 @@ Here's are the resulting three projects:
  
 ## [Koliwada PIPES](koliwada-pipeline)
 
-The Koli Jamat has proposed a new solution to tapping into the main pipe on Dharavi main road. Instead of residents having to pay for individual unauthorized connections to the main pipe, the project proposes multiple 6 inch pipes called “distribution mains” to run through various lanes in Dharavi Koliwada. These distribution mains will allow for residents current 1 "consumer connections" to connect directly into it. This will limit many different issues that residents are currently facing such as water contamination, cost of maintenance, and more. Please read more to find out about the project. 
+Dharavi, located in Mumbai, India, is a densely populated area facing numerous challenges, including limited access to clean water and inadequate sanitation. The Koli Jamat has proposed a solution to these problems by introducing a network of "distribution mains." These 6-inch pipes would replace individual unauthorized connections, allowing residents to connect their existing consumer connections directly. This project aims to address water contamination, maintenance costs, and other issues. Read more to learn about this transformative initiative.
 
 ## [Empowering The Women of Dharavi](women-of-dharavi)
 
-Larger rockets are normally launched from a launch pad that provides stable support until a few seconds after ignition. Due to their high exhaust velocity—2,500 to 4,500 m/s (9,000 to 16,200 km/h; 5,600 to 10,100 mph)—rockets are particularly useful when very high speeds are required, such as orbital speed at approximately 7,800 m/s (28,000 km/h; 17,000 mph). Spacecraft delivered into orbital trajectories become artificial satellites, which are used for many commercial purposes. Indeed, rockets remain the only way to launch spacecraft into orbit and beyond.[30] They are also used to rapidly accelerate spacecraft when they change orbits or de-orbit for landing. Also, a rocket may be used to soften a hard parachute landing immediately before touchdown (see retrorocket).
+This project in Dharavi, Mumbai focuses on providing affordable childcare options and coding education to address challenges faced by women and children. By collaborating with local organizations and community leaders, the project aims to create sustainable solutions and break the cycle of poverty. It aims to empower residents by offering reliable childcare and opportunities to develop valuable digital skills.
