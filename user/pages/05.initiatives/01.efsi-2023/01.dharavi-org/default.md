@@ -2,11 +2,12 @@
 title: dharavi.org
 ---
 
-# dharavi.org
+## Revisiting dharavi.org
+**Group Members:** Nasheed Ur Rehman, Josh Ko, Shreya Manjrekar, Wen Rahme, Curtis Lin, Sherifa Yakubu
 
-## Our Mission
+### Our Mission
 
-The future of Dharavi is at a crucial crossroads, and we believe that it's time for bold action and visionary thinking to shape the path ahead. That's why we at Dharavi.org are launching a platform for comprehensive discussion and exchange, aimed at developing a radical new approach to urban development that challenges traditional notions and fosters lasting change.
+The future of Dharavi is at a crucial crossroads, and we believe that it's time for bold action and visionary thinking to shape the path ahead. That's why we at dharavi.org are launching a platform for comprehensive discussion and exchange, aimed at developing a radical new approach to urban development that challenges traditional notions and fosters lasting change.
 
 Our goal is to promote a journal that serves as a forum for fresh and dynamic ideas from both the Global South and North, providing a space for discourse around innovative and transformative concepts. By introducing home-grown ideas that break from convention, we aim to create a comprehensive strategy and theory that lays the foundation for a better future for Dharavi.
 
