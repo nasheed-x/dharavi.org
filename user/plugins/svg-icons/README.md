@@ -4,7 +4,7 @@ The **SVG Icons** Plugin is an extension for [Grav CMS](http://github.com/getgra
 
 This package currently contains 6 primary SVG icon sets:
 
-* [Tabler Icons (4140)](https://tabler-icons.io/) → [DEFAULT] Developed by [Csaba Kissi](https://twitter.com/csaba_kiss) (v2.17.0)
+* [Tabler Icons (4333)](https://tabler-icons.io/) → [DEFAULT] Developed by [Csaba Kissi](https://twitter.com/csaba_kiss) (v2.26.0)
 * [Hero Icons (292)](https://heroicons.dev/) → Developed by [Steve Schoger](https://twitter.com/steveschoger) with both `outline` and `solid` variants (v2.0.13)
 * [Simple Icon Brands (2419)](https://simpleicons.org/) → Over 2100 popular brand icons (v8.20)
 * [Social Icons (6)](#) → A few basic consistent social networking icons (v1.0)
