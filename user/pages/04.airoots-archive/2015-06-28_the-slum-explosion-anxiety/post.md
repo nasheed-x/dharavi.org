@@ -1,15 +1,15 @@
 ---
 title: 'The Slum Explosion Anxiety'
-date: '00:00 28-06-2015'
+date: '13:34 06/28/2015'
 hero:
     image: Blog_Placeholder.jpg
 taxonomy:
     category:
         - blog
     tag:
-        - 'Population Growth'
-        - 'Housing Crisis'
-        - 'Urban Planning'
+        - 'population growth'
+        - 'housing crisis'
+        - 'urban planning'
 author: 'Airoots Archive'
 ---
 
@@ -25,6 +25,8 @@ recent. We seem to now firmly believe that population growth will overtake the c
 governments to house people at decent standards. Subsequently, the world will get slummed up
 beyond redemption. There is a prophet of doom – à la Mike Davis – for every urban crisis that
 we face in different parts of the world.
+
+[plugin:youtube](https://www.youtube.com/watch?v=BK8guP9ov2U)
 
 However the apocalyptic vision itself has a narrative thrust. In it, greed and fear dominate over
 humanity and creativity. It calls for drastic and swift responses. Our fear is that, unfortunately,

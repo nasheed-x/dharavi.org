@@ -1,14 +1,15 @@
 ---
-title: 'Weaving an Urban Fabric'
-date: '00:00 28-03-2014'
+title: Weaving an Urban Fabric
+date: 13:34 03/23/2014 
+header_bar:
+    background: dark
+    text: light
 hero:
     image: Blog_Placeholder.jpg
+
 taxonomy:
-    category:
-        - blog
-    tag:
-        - 'Architecture'
-        - 'Artisanal Traditions'
+    category: blog
+    tag: [architecture, artisanal traditions]
 author: 'Airoots Archive'
 ---
 
