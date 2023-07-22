@@ -3,7 +3,6 @@ title: 'Contact Us'
 subtitle: 'Find out more information'
 section_classes: 'bg-primary-darker text-primary-lighter py-8 md:py-24'
 title_text: light
-
 form:
     name: contact
     action: '#contact-us'
@@ -40,7 +39,7 @@ form:
     buttons:
         submit:
             type: submit
-            classes: no-default-style text-white bg-gray-700 hover:bg-primary 
+            classes: 'no-default-style text-white bg-gray-700 hover:bg-primary'
             value: 'Submit Form'
     process:
         message: '<b>Thanks!</b> We''ve received your enquiry and will get back to you very soon...'
