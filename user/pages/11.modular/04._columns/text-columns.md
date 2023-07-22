@@ -1,7 +1,7 @@
 ---
 title: 'Grav''s Place in the Universe'
-subtitle: Why it came to be...
-section_classes: bg-gray-100 dark:bg-gray-800 py-8 md:py-24
+subtitle: 'Why it came to be...'
+section_classes: 'bg-gray-100 dark:bg-gray-800 py-8 md:py-24'
 columns: 4
 ---
 

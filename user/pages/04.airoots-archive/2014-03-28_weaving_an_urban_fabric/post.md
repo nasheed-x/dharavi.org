@@ -8,8 +8,12 @@ hero:
     image: Blog_Placeholder.jpg
 
 taxonomy:
-    category: blog
-    tag: [architecture, artisanal traditions]
+    category: 
+      - blog
+    tag: 
+      - architecture
+      - 'artisanal traditions'
+
 author: 'Airoots Archive'
 ---
 
