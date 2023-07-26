@@ -29,7 +29,7 @@
 
         {% if config.plugins.pagination.enabled %}
           <div class="flex justify-center w-full p-6 mx-auto">
-            {% include 'partials/pagination.html.twig' with {base_url: blog.url, pagination: collection.params.pagination} %}
+            {% include 'modular/partials/pagination.html.twig' with {base_url: blog.url, pagination: collection.params.pagination} %}
           </div>
         {% endif %}
 

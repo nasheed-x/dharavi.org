@@ -1,0 +1,119 @@
+.grav-lightslider ul {
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  margin: 0;
+}
+.grav-lightslider li img {
+  display: block;
+  width: 100%;
+}
+.grav-lightslider .panel-bg {
+  background-size: cover;
+  background-position: center;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.6;
+  }
+
+  .panel-padding {
+    position: relative;
+
+    @include breakpoint(mobile-only) {
+      padding-top: 40vh !important;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6, p, a {
+    padding: 1rem 0;
+    margin: 0;
+    text-align: center;
+    color: #fff;
+  }
+
+  
+
+  h2 {
+    font-size: 3.5rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+  }
+
+  h4 {
+    font-size: 2.5rem;
+  }
+
+  h5 {
+    font-size: 2rem;
+  }
+
+  h6 {
+    font-size: 1.5rem;
+  }
+
+  @include breakpoint(mobile-only) {
+    h1 {
+      padding: 0;
+      font-size: 3rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    h3 {
+      font-size: 2rem;
+    }
+
+    h4 {
+      font-size: 1.5rem;
+    }
+
+    h5 {
+      font-size: 1rem;
+    }
+
+    h6 {
+      font-size: 0.5rem;
+    }
+  }
+
+  a:hover {
+    color: #ddd;
+  }
+}
+
+.grav-lightslider h1,
+.grav-lightslider h2,
+.grav-lightslider h3,
+.grav-lightslider h4 {
+    font-family: inherit;
+    padding: 1rem 0;
+    margin: 0;
+    text-align: center;
+    color: #fff;
+}
+
+.grav-lightslider h1 {
+    font-size: 2.5rem;
+}
+
+.lSSlideOuter .lSPager.lSpg > li a {
+  height: 12px !important;
+  width: 12px !important;
+  border-radius: 100% !important;
+}
+
+.lightSlider {
+  padding-bottom: 0 !important;
+  background-color: #fff;
+}

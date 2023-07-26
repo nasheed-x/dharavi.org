@@ -1,0 +1,22 @@
+{
+  "name": "grav-plugin-timeline",
+  "version": "1.0.0",
+  "description": "Timeline-plugin for Grav",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OleVik/grav-plugin-timeline.git"
+  },
+  "author": "Ole Vik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OleVik/grav-plugin-timeline/issues"
+  },
+  "homepage": "https://github.com/OleVik/grav-plugin-timeline#readme",
+  "dependencies": {
+    "bootstrap": "^4.1.2"
+  },
+  "devDependencies": {
+    "include-media": "^1.4.9",
+    "modularscale-sass": "^3.0.5"
+  }
+}
