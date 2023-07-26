@@ -1,13 +1,10 @@
 ---
 title: 'Airoots Archive'
 subtitle: 'Flexibility via markdown'
-image: ashim-d-silva-pGcqw1ARGyg-unsplash.jpg
-image_align: left
-
 content:
     items:
         '@page.descendants': /airoots-archive
-    limit: 4
+    limit: 6
     order:
         by: date
         dir: desc
@@ -18,4 +15,3 @@ feed:
     description: 'Sample Blog Description'
 ---
 
-HAHAHAH

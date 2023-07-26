@@ -1,0 +1,105 @@
+name: Timeline
+version: 2.1.2
+description: Create and manage timelines in an ordered, hierarchical manner.
+icon: align-center
+author:
+  name: Ole Vik
+  email: git@olevik.net
+homepage: https://github.com/OleVik/grav-plugin-timeline
+keywords: timeline, timelines
+bugs: https://github.com/OleVik/grav-plugin-timeline/issues
+docs: https://github.com/OleVik/grav-plugin-timeline/blob/master/README.md
+license: MIT
+dependencies:
+  - { name: grav, version: ">=1.7" }
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
+      highlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    locale:
+      type: select
+      label: PLUGIN_TIMELINE.ADMIN.LOCALE
+      description: PLUGIN_TIMELINE.ADMIN.DESCRIPTION.LOCALE
+      data-default@: '\Grav\Plugin\TimelinePlugin::getActiveLanguage'
+      data-options@: '\Grav\Plugin\TimelinePlugin::getLanguageCodes'
+    order.by:
+      type: select
+      ordering@: header.subtitle
+      default: date
+      label: PLUGIN_ADMIN.DEFAULT_ORDERING
+      description: PLUGIN_ADMIN.DEFAULT_ORDERING_HELP
+      options:
+        date: PLUGIN_ADMIN.DEFAULT_ORDERING_DATE
+        title: PLUGIN_ADMIN.DEFAULT_ORDERING_TITLE
+        folder: PLUGIN_ADMIN.DEFAULT_ORDERING_FOLDER
+    order.dir:
+      type: select
+      ordering@: header.order.by
+      default: asc
+      label: PLUGIN_ADMIN.DEFAULT_ORDER_DIRECTION
+      description: PLUGIN_ADMIN.DEFAULT_ORDER_DIRECTION_HELP
+      options:
+        asc: PLUGIN_ADMIN.ASCENDING
+        desc: PLUGIN_ADMIN.DESCENDING
+    cache:
+      type: toggle
+      label: PLUGIN_TIMELINE.ADMIN.CACHE
+      help: PLUGIN_TIMELINE.ADMIN.HELP.CACHE
+      description: PLUGIN_TIMELINE.ADMIN.DESCRIPTION.CACHE
+      highlight: native
+      default: native
+      options:
+        native: PLUGIN_TIMELINE.ADMIN.CACHE_OPTIONS.NATIVE
+        persist: PLUGIN_TIMELINE.ADMIN.CACHE_OPTIONS.PERSIST
+        transient: PLUGIN_TIMELINE.ADMIN.CACHE_OPTIONS.TRANSIENT
+        disabled: PLUGIN_TIMELINE.ADMIN.CACHE_OPTIONS.DISABLED
+    truncate:
+      type: number
+      label: PLUGIN_TIMELINE.ADMIN.TRUNCATE
+      description: PLUGIN_TIMELINE.ADMIN.DESCRIPTION.TRUNCATE
+      default: 100
+      validate:
+        min: 0
+        max: 1000
+        step: 50
+    truncate_image:
+      type: toggle
+      label: PLUGIN_TIMELINE.ADMIN.TRUNCATE_IMAGE
+      description: PLUGIN_TIMELINE.ADMIN.DESCRIPTION.TRUNCATE_IMAGE
+      highlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    linked_data:
+      type: toggle
+      label: PLUGIN_TIMELINE.ADMIN.LINKED_DATA
+      description: PLUGIN_TIMELINE.ADMIN.DESCRIPTION.LINKED_DATA
+      highlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    limit:
+      type: number
+      label: PLUGIN_TIMELINE.ADMIN.LIMIT
+      description: PLUGIN_TIMELINE.ADMIN.DESCRIPTION.LIMIT
+      default: 8
+      validate:
+        min: 1
+        max: 256
+        step: 1
