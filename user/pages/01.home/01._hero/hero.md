@@ -1,5 +1,4 @@
 ---
-title: 'Homepage Hero'
 menu: Top
 hero:
     overlay: dark
@@ -7,13 +6,13 @@ hero:
         - '0.9'
         - '0.4'
     overlay_direction: bottom
-    alignment: center
+    alignment: left
     image: EfSI2023_Curious-Fieldwork.jpg
     text: auto
-    subtitle: 'TEXTUAL NARRATIVES TO RECONCEPTUALIZE AN URBAN COLLECTIVE'
     title:
-        text: 'Dharavi Reimagined'
-    content: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua ad ad non deserunt sunt.'
+        text: 'Redefining Tomorrow'
+    content: 'dharavi.org is a journal of critical theory and strategy, offering exceptional perspectives on the future of Dharavi''s redevelopment.'
+title: Hero
 ---
 
 # Say Hello to Grav
