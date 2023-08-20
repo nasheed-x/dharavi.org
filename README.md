@@ -199,7 +199,7 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-Nginx operates within the directory, so if you can't cd to that directory from the nginx user then it will fail (as does the stat command in your log). Make sure the www-user can cd all the way to the grav/www/html. You can confirm that the stat will fail or succeed by running
+Nginx operates within the directory, so if you can't cd to that directory from the nginx user then it will fail. Make sure the www-user can cd all the way to the grav/www/html. You can confirm that the stat will fail or succeed by running
 
 ```
 sudo -u www-data stat /home/grav/www/html
@@ -222,6 +222,13 @@ Now all we have to do is restart Nginx and the php8-fpm process and test to ensu
 ```
 Now point your browser at your server and you should see the text: **Working!**
 You can also test to ensure that PHP is installed and working correctly by pointing your browser to: `/info.php`.  You should see a standard PHP info page with APCu, Opcache, etc listed.
+
+Incase you are still facing issues, running this command should take you Nginx's logs, which may provide a clearer picture:
+
+```
+nano /var/log/nginx/error.log
+```
+
 ### Installing The Site
 
 This is the "easy" part!  First we need to jump back over to the Grav user, so either SSH as `grav@server-domain` or `su - grav` from the root login. then follow these steps:
@@ -235,9 +242,28 @@ $ mv dharavi.org html
 
 Now That's done you can confirm Grav is installed by pointing your browser to the server's domain and you should be greeted with the `dharavi.org` landing page. You should also be able to access the Grav Admin Page to further configure the site.
 
-### Updating The Site
-### Adding Content
+## Adding Content To The Journal/Blog 
+### Option A - Using Markdown
 
+1. First, create a folder inside `user/pages/journal` or `user/pages/airoots-archive`, depending on what section you want to update, with the following format: `YYYY-MM-DD_content-title` (e.g. 2014-03-28_weaving_an_urban_fabric).
+   
+2. Then, inside the new folder create a markdown file named `post.md`. We will configure the content of this file to create a post element that display any text, images we would like to show on the website.
+
+    a. The beginning of each markdown file contains customizable metadata about the page called the front matter. Typically these parameters are nested between a pair of dashes, like this:
+    ```
+    ---
+    * front matter parameters *
+    ---
+    ```
+    b. The frontmatter can be configured with several parameters and sub-parameters to modify a page. Here's a quick list of some that are relevant to journal posts: 
+
+To check that the basic installation is working run `php -S localhost:4000 system/router.php` from within `dharavi.org`. The site should be live on `localhost:4000`.
+
+Clear grav cache by running `bin/grav clear-cache` from within `dharavi.org`.
+
+### Option B - Using Grav Admin Portal
+
+## Updating The Site
 
 
 
