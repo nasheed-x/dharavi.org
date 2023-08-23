@@ -1,3 +1,8 @@
+# Grav Specific
+
+.sass-cache
+composer.lock
+
 cache/*
 !cache/.gitkeep 
 
@@ -33,3 +38,12 @@ user/accounts/*
 !user/accounts/.gitkeep
 
 user/config/security.yaml
+
+# OS Generated
+
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+*.swp
+.vscode/*
