@@ -1,9 +1,0 @@
-version: '1.2'
-timestamp: 1689777388
-count: 1
-index:
-  admin:
-    storage_key: admin
-    storage_timestamp: 1689771991
-    key: admin
-    email: nasheed@nyu.edu
