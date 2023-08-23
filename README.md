@@ -199,13 +199,13 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-Nginx operates within the directory, so if you can't cd to that directory from the nginx user then it will fail. Make sure the www-user can cd all the way to the grav/www/html. You can confirm that the stat will fail or succeed by running
+Nginx operates within the directory, so if you can't cd to that directory from the nginx user then it will fail. Make sure the www-user can cd all the way to the grav/www/html. You can confirm that the stat will fail or succeed by running:
 
 ```
 sudo -u www-data stat /home/grav/www/html
 ```
 
-To given Nginx access to the webroot directory:
+To give Nginx access to the webroot directory:
 
 ```
 chmod +x /home/
@@ -255,13 +255,57 @@ Now That's done you can confirm Grav is installed by pointing your browser to th
     * front matter parameters *
     ---
     ```
-    b. The frontmatter can be configured with several parameters and sub-parameters to modify a page. Here's a quick list of some that are relevant to journal posts: 
+    b. The frontmatter can be configured with several parameters and sub-parameters to modify a page. Here's a quick list of some that are relevant to journal/blog posts:
 
-To check that the basic installation is working run `php -S localhost:4000 system/router.php` from within `dharavi.org`. The site should be live on `localhost:4000`.
+    * `title:` this is the title of the page and is rendered at the top (e.g. `title: Weaving an Urban Fabric`)
+    * `date:` this is the date you would like to associate with the post, it's in the `HH:MM MM/DD/YYYY` format (e.g. `date: 13:34 03/23/2014 `)
+    *  `header_bar:` this configures the header bar rendered with all the menu options at the top of the page. It can be configured with two sub paramters:
+       *  `background:` this determines the theme of the header bar and can be set to `dark`, `light`, or `auto` if left blank. Usually this option be tweaked to enchance the contrast between the header bar and hero image.
+       *  `text:` this determines the theme of the text in the header bar can be set to `dark`, `light`, or `auto` if left blank. Usually this option be tweaked to enchance the contrast between the header bar, hero image, and encapsulated text.
+    *  `hero:` this tag affects the page hero. It can mainly be configured with three sub paramters:
+       * `image:` this is the path to the hero image displayed at the top of the post (e.g. `image: Blog_Placeholder.jpg`).
+    *  `taxonomy:` this tag is used to assign metadata useful for grouping and tagging posts. Posts have three sub parameters:
+       * `category:` this is usually set to `blog` for posts but can be configured to incorporate custom filtering.
+       * `tag:` this contains tags that relate to the content of the post and can be configured to group posts based on a theme.
+       * `author:` this contains the name of post's author (e.g. `author: 'Airoots Archive'`).
 
-Clear grav cache by running `bin/grav clear-cache` from within `dharavi.org`.
+    Here's an example of of what the frontmatter looks like for a typical post:
 
-### Option B - Using Grav Admin Portal
+    ```
+    ---
+    title: 'People are Places - Mobile Mumbai and the Konkan Coast'
+    date: '13:34 06/24/2015'
+    header_bar:
+        background: dark
+        text: light
+    hero:
+        image: Blog_Placeholder.jpg
+    taxonomy:
+        category:
+            - blog
+        tag:
+            - 'urban mobility'
+            - 'indian railways'
+            - 'circulating urbanism'
+    author: 'Airoots Archive'
+    ---
+    ```
+
+3. A short description of the post formatted in markdown can be inserted after the frontmatter and concluded with `===`. Anything written after this will be included into the post's content.
+
+    The example below illustrates how the markdown file is formatted to seperate the frontmatter, post description, and content.
+    ```
+    ---
+    * front matter parameters *
+    ---
+
+    The article discusses "Tracking the Indian Rail Trail," a project by Urbanology...
+
+    ===
+
+    For the last four years, Urbanology, through its research institute based in Goa and Mumbai...
+    ```
+### Option B - Using Grav Admin Portal (Preferred)
 
 ## Updating The Site
 
