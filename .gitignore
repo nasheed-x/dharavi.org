@@ -26,6 +26,8 @@ logs/popularity/*
 !logs/.gitkeep 
 
 themes/*
+themes/quark/*
+themes/typhoon/*
 !themes/.gitkeep 
 
 user/data/*
