@@ -8,33 +8,24 @@ backup/*
 !backup/.gitkeep 
 
 images/*
-!images/.gitkeep 
+!images/.gitkeep
 
-# Sass
-# .sass-cache
+data/*
+!data/.gitkeep 
 
-# # Grav Specific
-# data/*
-# !data/.*
-# plugins/*
-# !plugins/.*
-# themes/*
-# !themes/.*
-# accounts/*
-# !accounts/.*
-# config/security.yaml
+plugins/*
+!plugins/.gitkeep 
 
-# # OS Generated
-# .DS_Store*
-# ehthumbs.db
-# Icon?
-# Thumbs.db
-# *.swp
+logs/*
+!logs/.gitkeep 
 
-# # phpstorm
-# .idea/*
-# /config/backups.yaml
-# /config/media.yaml
-# /config/scheduler.yaml
-# /config/streams.yaml
-# /config/versions.yaml
+themes/*
+!themes/.gitkeep 
+
+user/data/*
+!user/data/.gitkeep
+
+user/accounts/*
+!user/accounts/.gitkeep
+
+user/config/security.yaml

@@ -307,6 +307,40 @@ Now That's done you can confirm Grav is installed by pointing your browser to th
     ```
 ### Option B - Using Grav Admin Portal (Preferred)
 
+Adding a post through the Admin Portal is a lot easier because you can configure everything through a graphical interface.
+
+1. First to create a new post, head to [pages](https://dharavi.nyuad.io/admin/pages) tab located on the left sidebar. Click on add and fill out the fields with an approriate page title, folder name, and parent directory. Set the page template to `Post`. Click continue when ready!
+
+Here's an example of what the initial entries would look like:
+
+<p align="center">
+    <img src="readme_img/add_post.png" alt="Completed Entries" width="500"/>
+</p>
+
+Clicking continue takes you a new page where you have the option of configuring your post with a wide range of flexibility. In the `Content` tab you have the option to insert the post's short description followed by the main content. You can also drag and drop any media you would like to include in the post as part of the content or hero image.
+
+<p align="center">
+    <img src="readme_img/configure-post_1.png" alt="Configure Post Content" width="600"/>
+</p>
+
+Similarly, switching to the hero ta, you have the option of editing the page hero and overriding any default options enabled by Grav.
+
+<p align="center">
+    <img src="readme_img/configure-post_2.png" alt="Configure Post Hero" width="600"/>
+</p>
+
+Tag and other details about the post may be configured in the `Options` tab.
+
+<p align="center">
+    <img src="readme_img/configure-post_3.png" alt="Configure Post Hero" width="600"/>
+</p>
+
+Once you're ready, just hit save and you post should be published under the parent directory initially selected by you. Among the other published posts, it will show up like this:
+
+<p align="center">
+    <img src="readme_img/post.png" alt="Configure Post Hero" width="300"/>
+</p>
+
 ## Updating The Site
 
 
@@ -444,7 +478,7 @@ Support Grav with a monthly donation to help us continue development. [[Become a
 # Sponsors
 Support Grav with a yearly donation to help us continue development. [[Become a sponsor](https://opencollective.com/grav/contribute)]
 
-<img src="https://opencollective.com/grav/tiers/sponsors.svg?avatarHeight=36&width=600" />
+<img src="https://opencollective.com/grav/tiers/sponsors.svg?avatarHeight=36&width=700" />
 
 # License
 

@@ -5,7 +5,7 @@ content:
         '@page.descendants': /airoots-archive
     limit: 6
     order:
-        by: date
+        by: random
         dir: desc
     pagination: true
     url_taxonomy_filters: true
