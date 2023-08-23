@@ -10,8 +10,8 @@ backup/*
 images/*
 !images/.gitkeep
 
-data/*
-!data/.gitkeep 
+user/data/*
+!user/data/.gitkeep 
 
 plugins/*
 !plugins/.gitkeep 
