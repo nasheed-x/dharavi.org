@@ -17,12 +17,16 @@ plugins/*
 !plugins/.gitkeep 
 
 logs/*
+logs/popularity/*
 !logs/.gitkeep 
 
 themes/*
 !themes/.gitkeep 
 
 user/data/*
+user/data/feed/*
+user/data/flex/indexes/*
+user/notifications/*
 !user/data/.gitkeep
 
 user/accounts/*
