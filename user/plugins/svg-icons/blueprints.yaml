@@ -1,9 +1,9 @@
 name: SVG Icons
 type: plugin
 slug: svg-icons
-version: 2.3.0
+version: 2.4.0
 premium: true
-description: Various SVG icons and utilties to use them.
+description: Various SVG icons and utilities to use them.
 icon: diamond
 author:
   name: Trilby Media, LLC
@@ -31,3 +31,10 @@ form:
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
+    custom_icon_path:
+      type: text
+      label: Custom Icon Path
+      default: theme://images/icons
+      validate:
+          type: text
+          required: true

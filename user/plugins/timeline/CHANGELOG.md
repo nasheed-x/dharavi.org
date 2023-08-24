@@ -1,3 +1,20 @@
+# v2.2.0
+## 29-07-2023
+
+1. [](#new)
+    * Publish 2.2.0
+2. [](#bugfix)
+    * Demo-link
+
+# v2.2.0-rc.1
+## 12-02-2023
+
+1. [](#new)
+    * Filter timeline by date range
+2. [](#improved)
+    * Processing overhead
+    * Qode-quality
+
 # v2.1.2
 ## 10-06-2021
 

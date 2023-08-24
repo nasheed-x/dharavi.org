@@ -7,6 +7,7 @@ use Grav\Common\Grav;
 use Grav\Common\Plugin;
 use Grav\Common\Twig\TwigExtension;
 use Grav\Common\Utils;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use Twig\TwigFunction;
 
 /**
@@ -63,6 +64,18 @@ class SVGIconsPlugin extends Plugin
         $this->enable([
             // Put your main events here
         ]);
+
+        /** @var UniformResourceLocator $locator */
+        $locator = $this->grav['locator'];
+        $icon_paths = [];
+
+        $custom_icon_path = $this->config->get('plugins.svg-icons.custom_icon_path');
+        if ($custom_icon_path) {
+            $icon_paths[] = $custom_icon_path;
+        }
+
+        $icon_paths[] = 'plugins://svg-icons/icons/';
+        $locator->addPath('svgicons', '', $icon_paths);
     }
 
     // Access plugin events in this class
@@ -94,7 +107,7 @@ class SVGIconsPlugin extends Plugin
 
     public static function svgIconFunction($path, $classes = null)
     {
-        $path = Grav::instance()['locator']->findResource('plugins://svg-icons/icons/' . $path, true, true);
+        $path = Grav::instance()['locator']->findResource('svgicons://' . $path, true);
         return TwigExtension::svgImageFunction($path, $classes);
     }
 

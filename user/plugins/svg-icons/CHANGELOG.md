@@ -1,3 +1,10 @@
+# v2.4.0
+## 08/10/2023
+
+1. [](#new)
+   * Support for custom icon location [getgrav/grav-premium-issues#374](https://github.com/getgrav/grav-premium-issues/issues/374)
+   * Upgraded Tabler to `2.30.0` (4601 icons)
+
 # v2.3.0
 ## 07/18/2023
 

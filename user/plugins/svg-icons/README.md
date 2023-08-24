@@ -4,7 +4,7 @@ The **SVG Icons** Plugin is an extension for [Grav CMS](http://github.com/getgra
 
 This package currently contains 6 primary SVG icon sets:
 
-* [Tabler Icons (4333)](https://tabler-icons.io/) → [DEFAULT] Developed by [Csaba Kissi](https://twitter.com/csaba_kiss) (v2.26.0)
+* [Tabler Icons (4601)](https://tabler-icons.io/) → [DEFAULT] Developed by [Csaba Kissi](https://twitter.com/csaba_kiss) (v2.30.0)
 * [Hero Icons (292)](https://heroicons.dev/) → Developed by [Steve Schoger](https://twitter.com/steveschoger) with both `outline` and `solid` variants (v2.0.13)
 * [Simple Icon Brands (2419)](https://simpleicons.org/) → Over 2100 popular brand icons (v8.20)
 * [Social Icons (6)](#) → A few basic consistent social networking icons (v1.0)
@@ -104,7 +104,7 @@ This is using the `tabler/plus.svg` icon with various TailwindCS classes for wid
 
 Here we are using the `star.svg` from HeroIcons in Outline style.  The classes use the current color.
 
-#### Custom Icons
+### Custom Icons
 
 If you want to add your own icons, you should clean them up to ensure any hardcoded colors are removed and `currentColor` is used instead.  For example, search and replace:
 
@@ -115,6 +115,27 @@ stroke="currentColor"
 fill=\"#(?:[0-9a-fA-F]{3}){1,2}\"
 fill="currentColor"
 ```
+
+The default location for the custom icons is in your theme under an `images/icons/` path.  This is represented by the file stream: `theme://images/icons` in the configuration. If required you can change this location.
+
+You should **always** create a folder inside this location to indicate the **set** of the images.  For example if you downloaded some **duotone** icons, you might want to call put those in the folder `<your-theme>/images/icons/duotone/`.  
+
+To reference these, you would just treat the `duotone` like any of the other icon sets.  For example, accessing an icon (`<your-theme>/images/icons/duotone/custom-icon.svg`):
+
+In markdown syntax:
+
+```markdown
+[svg-icon icon="custom-icon" set="duotone" class="w-12 h-12 text-primary" /]
+```
+
+And in Twig syntax:
+
+```twig
+{{ svg_icon('duotone/custom-icon.svg', 'w-12 h-12 text-primary')|raw }}
+```
+
+
+
 
 
 
