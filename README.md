@@ -343,6 +343,49 @@ Once you're ready, just hit save and you post should be published under the pare
 
 ## Updating The Site
 
+The main caveat when updating the site using either method, A or B, is the need to maintain a central codebase. When changes are made directly to the site through the Grav Admin Portal, they are immediately visible on the live website. However, to ensure these changes are also reflected in the 'central codebase' or 'git repo,' a shell command must be executed to propagate the changes. 
+
+Given this scenario, the smoother approach typically involves initially modifying the 'central codebase' or 'git repo,' followed by prompting the server to fetch the latest version. To simplify this process, an automated workflow can be established, where the site is regularly synchronized with the most up-to-date version of the repo.
+
+**It's important to note that both approaches are accommodated in our system. Nevertheless, prioritizing the modification of the 'central codebase' or 'git repo', Option B, is recommended.**
+
+### Option A - Updating Online
+
+1. Login to the Grav Admin Portal with an authorized account and modify the site with the changes you would like to see. 
+2. Once you have verified the site's functionality, SSH to the server hosting the site and cd to the webroot directory.
+
+    ```
+    # su - grav
+    $ cd www/html/
+    ```
+3. Within the root directory, run the following script:
+   
+    ```
+    $ ./push_content.sh
+    ```
+4. You will be promted to enter a 'Commit Message' and the name of the branch you would like to add changes to, leave this blank if you would like to commit to `main`.
+### Option B - Updating Offline (Preferred)
+
+1. Edit a local copy of the repo and modify the site with the changes you would like to see.
+   
+2. Once you have verified the site's functionality, commit the changed you've made to the central repo.
+
+3. SSH to the server hosting the site and cd to the webroot directory.
+
+    ```
+    # su - grav
+    $ cd www/html/
+    ```
+4. Within the root directory, run the following script:
+   
+    ```
+    $ ./pull_content.sh
+    ```
+5. You will be promted to enter an error message incase anything fails, else the site should be updated. If necessary, you can also clear the site's cache through the `Grav Admin Portal` or by running `bin/grav cache`.
+
+## Future Additions
+* Automatically pull changes from a central repo. 
+
 
 
 # ![](https://avatars1.githubusercontent.com/u/8237355?v=2&s=50) Grav
